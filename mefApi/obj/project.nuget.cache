@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "aw7p3OBu3ipKhk+d4BikUZmnkpEZpbDYejubaiGxUcCjvrlduCAw6AFLNc51lYCnN28D0x3n3lg5gSen3OaABA==",
+  "dgSpecHash": "7SwvURlAh+sSYq/SUiyai2YJQ/AsnuALiUGjMy73iJkqJhR2qilTQEHXUodfdiFnwQ/ne52ehI+C4bmlK9yUIg==",
   "success": true,
-  "projectFilePath": "D:\\Mes Projets\\mutuelle\\mefApi\\mefapi.csproj",
+  "projectFilePath": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\mefapi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Maurand\\.nuget\\packages\\automapper\\11.0.0\\automapper.11.0.0.nupkg.sha512",
     "C:\\Users\\Maurand\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\11.0.0\\automapper.extensions.microsoft.dependencyinjection.11.0.0.nupkg.sha512",

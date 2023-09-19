@@ -1,0 +1,66 @@
+<!-- Begin Page Content -->
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">
+      <i class="fa fa-list"></i> Liste des avances
+    </h1>
+    <span>
+      <app-bouton-action
+        (newEvent)="newEvent()"
+        [afficheNew]="true"
+      ></app-bouton-action>
+    </span>
+  </div>
+
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <div class="row">
+        <div class="col-lg-4 col-md-6 col-sm-12">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <label for="search" class="btn btn-primary shadow-sm">
+                <i class="fa fa-search"></i>
+              </label>
+            </div>
+            <input
+              type="search"
+              class="form-control shadow-sm"
+              name="search"
+              id="search"
+              [formControl]="searchCtrl"
+              placeholder="Rechercher..."
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body liste">
+      <div class="list-group" *ngIf="avances$ | async as avances">
+        <a
+          href="javascript:void(0);"
+          class="list-group-item list-group-item-action border-left-primary text-primary mb-2"
+          aria-current="true"
+          *ngFor="
+            let avance of avances
+              | sort : ['dateDemande', 'desc']
+              | sort : ['id', 'desc']
+          "
+        >
+          <div
+            class="row"
+            (click)="
+              navigate(avance.id, avance.membreId, avance.deboursementId)
+            "
+          >
+            <div class="col-12">
+              <app-detail-avance [avance]="avance"></app-detail-avance>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /.container-fluid -->

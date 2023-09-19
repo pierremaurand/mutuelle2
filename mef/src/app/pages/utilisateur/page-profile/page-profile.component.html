@@ -1,0 +1,70 @@
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <div class="row mb-3">
+    <div class="col-md-8">
+      <h1 class="mb-2 text-gray-800">
+        <i class="fa fa-info-circle text-primary"></i>
+        &nbsp;Informations de l'utilisateur
+      </h1>
+    </div>
+  </div>
+
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">
+        Information de l'utilisateur
+      </h6>
+    </div>
+    <div class="card-body">
+      <div>
+        <div class="row">
+          <div class="col-3">
+            <app-infos-membre></app-infos-membre>
+          </div>
+          <div class="col-9">
+            <div class="col-md-12">
+              <div class="col">
+                <div class="row mb-2 d-flex justify-content-between">
+                  <div class="col"></div>
+                  <div class="col text-right">
+                    <button class="btn btn-success" (click)="changePassword()">
+                      <i class="fa fa-save"></i> Changer le mot de passe
+                    </button>
+                  </div>
+                </div>
+                <hr />
+                <div class="p-3">
+                  <div class="row">
+                    <div class="form-group col-6">
+                      <label for="password" class="form-label"
+                        >Mot de passe</label
+                      >
+                      <input
+                        type="password"
+                        id="password"
+                        class="form-control"
+                        name="password"
+                      />
+                    </div>
+                    <div class="form-group col-6">
+                      <label for="confirmPassword" class="form-label"
+                        >Confirmer le mot de passe</label
+                      >
+                      <input
+                        type="password"
+                        id="confirmPassword"
+                        class="form-control"
+                        name="confirmPassword"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

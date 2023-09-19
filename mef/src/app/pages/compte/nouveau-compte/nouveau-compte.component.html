@@ -1,0 +1,77 @@
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">
+      <i class="fa fa-info-circle text-primary"></i>
+      &nbsp;Informations du membre
+    </h1>
+    <h1 class="h3 mb-0 text-gray-800">{{ solde | number }} FCFA</h1>
+  </div>
+
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-3">
+          <app-infos-membre
+            *ngIf="membre$ | async as membre"
+            [membre]="membre"
+          ></app-infos-membre>
+        </div>
+        <div class="col-9">
+          <div class="row mb-2 d-flex justify-content-between">
+            <div class="col">
+              <a
+                href="javascript:void(0);"
+                (click)="onGoBack()"
+                class="btn btn-primary shadow-sm rounded-circle"
+                ><i class="fa fa-arrow-left"></i
+              ></a>
+            </div>
+            <div class="col text-right">
+              <button
+                class="d-none d-sm-inline-block btn btn-warning shadow-sm mr-2"
+              >
+                <i class="fa fa-print"></i> Imprimer
+              </button>
+              <button
+                class="d-none d-sm-inline-block btn btn-primary shadow-sm"
+                (click)="addMouvement()"
+              >
+                <i class="fa fa-plus"></i> Ajouter un mouvement
+              </button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="row text-center entete">
+                <div class="col-sm-1">N°</div>
+                <div class="col-sm-2">Date</div>
+                <div class="col-sm-2">Type</div>
+                <div class="col-sm-5">Libellé</div>
+                <div class="col-sm-2">Montant</div>
+              </div>
+              <div class="row">
+                <div
+                  class="col-sm-12 liste"
+                  *ngIf="mouvements$ | async as mouvements"
+                >
+                  <app-mouvement
+                    *ngFor="
+                      let mouvement of mouvements
+                        | sort : ['id', 'desc']
+                        | sort : ['dateMvt', 'desc'];
+                      let i = index
+                    "
+                    [index]="i"
+                    [mouvement]="mouvement"
+                  ></app-mouvement>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

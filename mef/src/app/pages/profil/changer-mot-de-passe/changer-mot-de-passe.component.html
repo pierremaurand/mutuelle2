@@ -1,0 +1,54 @@
+<div class="row p-4">
+  <div class="card col-md-4 text-center me-2">
+    <div class="col mt-3">
+      <div class="mb-3">
+        <img
+          src="{{ photo }}"
+          alt="Photo User"
+          class="rounded-circle img-thumbnail"
+          width="200px"
+          height="200px"
+        />
+      </div>
+      <div class="mb-3">
+        <h2>Nom et prénom</h2>
+        <small class="form-text text-muted"> Contact </small>
+      </div>
+    </div>
+  </div>
+  <div class="card col-md-7">
+    <form class="mt-3">
+      <div class="mb-3">
+        <input
+          type="password"
+          class="form-control"
+          placeholder="Ancien mot de passe"
+        />
+      </div>
+      <div class="mb-3">
+        <input
+          type="password"
+          class="form-control"
+          placeholder="Nouveau mot de passe"
+        />
+      </div>
+      <div class="mb-3">
+        <input
+          type="password"
+          class="form-control"
+          placeholder="Confirmer mot de passe"
+        />
+      </div>
+    </form>
+    <div class="row">
+      <div class="col-md-12 text-end">
+        <button type="button" class="btn btn-danger me-2" (click)="cancel()">
+          <i class="fa fa-ban"></i>&nbsp; Annuler
+        </button>
+        <button type="button" class="btn btn-success">
+          <i class="fa fa-save"></i>&nbsp; Enregistrer
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

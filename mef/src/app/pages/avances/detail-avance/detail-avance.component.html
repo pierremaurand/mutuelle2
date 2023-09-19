@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="col-md-6 col-sm-12">
+    <div class="row" *ngIf="membre$ | async as membre">
+      <div class="col-12">
+        <app-details-membre [membre]="membre"></app-details-membre>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-sm-12">
+    <div class="row d-flex align-items-center justify-content-end">
+      <div class="col-md-4 col-sm-12">
+        <h6 class="text-right text-warning">
+          <i class="fa fa-calendar"></i>
+          {{ avance.dateDemande | date : "dd/MM/yyyy" }} |
+          {{ avance.nombreEcheancesSollicite }}
+        </h6>
+        <h5 class="text-right">
+          <span class="mis-en-avant">{{
+            avance.montantSollicite | number
+          }}</span>
+          <small> FCFA</small>
+        </h5>
+      </div>
+      <div
+        class="col-md-4 col-sm-12"
+        *ngIf="deboursement$ | async as deboursement"
+      >
+        <h6 class="text-right text-success">
+          <i class="fa fa-calendar"></i>
+          {{ deboursement.dateDecaissement | date : "dd/MM/yyyy" }} |
+          {{ deboursement.dureeAccordee }}
+        </h6>
+        <h5 class="text-right">
+          <span class="mis-en-avant">{{
+            deboursement.montantAccorde | number
+          }}</span>
+          <small> FCFA</small>
+        </h5>
+      </div>
+      <div class="col-md-4 col-sm-12" *ngIf="false">Echeancier</div>
+    </div>
+  </div>
+</div>

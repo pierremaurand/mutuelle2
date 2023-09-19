@@ -1,0 +1,185 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\Mes Projets\\mutuelle\\mefapi\\wwwroot\\3rdpartylicenses.txt",
+      "PackagePath": "staticwebassets\\3rdpartylicenses.txt"
+    },
+    {
+      "Id": "D:\\Mes Projets\\mutuelle\\mefapi\\wwwroot\\assets\\data\\properties.json",
+      "PackagePath": "staticwebassets\\assets\\data\\properties.json"
+    },
+    {
+      "Id": "D:\\Mes Projets\\mutuelle\\mefapi\\wwwroot\\assets\\forms.css",
+      "PackagePath": "staticwebassets\\assets\\forms.css"
+    },
+    {
+      "Id": "D:\\Mes Projets\\mutuelle\\mefapi\\wwwroot\\assets\\images\\building - Copie.png",
+      "PackagePath": "staticwebassets\\assets\\images\\building - Copie.png"
+    },
+    {
+      "Id": "D:\\Mes Projets\\mutuelle\\mefapi\\wwwroot\\assets\\images\\building.png",
+      "PackagePath": "staticwebassets\\assets\\images\\building.png"
+    },
+    {
+      "Id": "D:\\Mes Projets\\mutuelle\\mefapi\\wwwroot\\assets\\images\\compte_comptable_image - Copie.png",
+      "PackagePath": "staticwebassets\\assets\\images\\compte_comptable_image - Copie.png"
+    },
+    {
+      "Id": "D:\\Mes Projets\\mutuelle\\mefapi\\wwwroot\\assets\\images\\compte_comptable_image.png",
+      "PackagePath": "staticwebassets\\assets\\images\\compte_comptable_image.png"
+    },
+    {
+      "Id": "D:\\Mes Projets\\mutuelle\\mefapi\\wwwroot\\assets\\images\\default_man - Copie.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\default_man - Copie.jpg"
+    },
+    {
+      "Id": "D:\\Mes Projets\\mutuelle\\mefapi\\wwwroot\\assets\\images\\default_man.jpg",
+      "PackagePath": "staticwebassets\\assets\\images\\default_man.jpg"
+    },
+    {
+      "Id": "D:\\Mes Projets\\mutuelle\\mefapi\\wwwroot\\assets\\images\\gabarit_image - Copie.png",
+      "PackagePath": "staticwebassets\\assets\\images\\gabarit_image - Copie.png"
+    },
+    {
+      "Id": "D:\\Mes Projets\\mutuelle\\mefapi\\wwwroot\\assets\\images\\gabarit_image.png",
+      "PackagePath": "staticwebassets\\assets\\images\\gabarit_image.png"
+    },
+    {
+      "Id": "D:\\Mes Projets\\mutuelle\\mefapi\\wwwroot\\assets\\images\\gender_image - Copie.png",
+      "PackagePath": "staticwebassets\\assets\\images\\gender_image - Copie.png"
+    },
+    {
+      "Id": "D:\\Mes Projets\\mutuelle\\mefapi\\wwwroot\\assets\\images\\gender_image.png",
+      "PackagePath": "staticwebassets\\assets\\images\\gender_image.png"
+    },
+    {
+      "Id": "D:\\Mes Projets\\mutuelle\\mefapi\\wwwroot\\assets\\images\\membre_1.png",
+      "PackagePath": "staticwebassets\\assets\\images\\membre_1.png"
+    },
+    {
+      "Id": "D:\\Mes Projets\\mutuelle\\mefapi\\wwwroot\\assets\\images\\membre_1010.png",
+      "PackagePath": "staticwebassets\\assets\\images\\membre_1010.png"
+    },
+    {
+      "Id": "D:\\Mes Projets\\mutuelle\\mefapi\\wwwroot\\assets\\images\\membre_1011.png",
+      "PackagePath": "staticwebassets\\assets\\images\\membre_1011.png"
+    },
+    {
+      "Id": "D:\\Mes Projets\\mutuelle\\mefapi\\wwwroot\\assets\\images\\membre_1339.png",
+      "PackagePath": "staticwebassets\\assets\\images\\membre_1339.png"
+    },
+    {
+      "Id": "D:\\Mes Projets\\mutuelle\\mefapi\\wwwroot\\assets\\images\\membre_2.png",
+      "PackagePath": "staticwebassets\\assets\\images\\membre_2.png"
+    },
+    {
+      "Id": "D:\\Mes Projets\\mutuelle\\mefapi\\wwwroot\\assets\\images\\membre_227.png",
+      "PackagePath": "staticwebassets\\assets\\images\\membre_227.png"
+    },
+    {
+      "Id": "D:\\Mes Projets\\mutuelle\\mefapi\\wwwroot\\assets\\images\\membre_229.png",
+      "PackagePath": "staticwebassets\\assets\\images\\membre_229.png"
+    },
+    {
+      "Id": "D:\\Mes Projets\\mutuelle\\mefapi\\wwwroot\\assets\\images\\membre_247.png",
+      "PackagePath": "staticwebassets\\assets\\images\\membre_247.png"
+    },
+    {
+      "Id": "D:\\Mes Projets\\mutuelle\\mefapi\\wwwroot\\assets\\images\\membre_268.png",
+      "PackagePath": "staticwebassets\\assets\\images\\membre_268.png"
+    },
+    {
+      "Id": "D:\\Mes Projets\\mutuelle\\mefapi\\wwwroot\\assets\\images\\poste_image - Copie.png",
+      "PackagePath": "staticwebassets\\assets\\images\\poste_image - Copie.png"
+    },
+    {
+      "Id": "D:\\Mes Projets\\mutuelle\\mefapi\\wwwroot\\assets\\images\\poste_image.png",
+      "PackagePath": "staticwebassets\\assets\\images\\poste_image.png"
+    },
+    {
+      "Id": "D:\\Mes Projets\\mutuelle\\mefapi\\wwwroot\\assets\\js\\easy-number-separator.js",
+      "PackagePath": "staticwebassets\\assets\\js\\easy-number-separator.js"
+    },
+    {
+      "Id": "D:\\Mes Projets\\mutuelle\\mefapi\\wwwroot\\assets\\tabs.css",
+      "PackagePath": "staticwebassets\\assets\\tabs.css"
+    },
+    {
+      "Id": "D:\\Mes Projets\\mutuelle\\mefapi\\wwwroot\\fa-brands-400.7fa789ab57acb632.ttf",
+      "PackagePath": "staticwebassets\\fa-brands-400.7fa789ab57acb632.ttf"
+    },
+    {
+      "Id": "D:\\Mes Projets\\mutuelle\\mefapi\\wwwroot\\fa-brands-400.859fc3887485de84.woff2",
+      "PackagePath": "staticwebassets\\fa-brands-400.859fc3887485de84.woff2"
+    },
+    {
+      "Id": "D:\\Mes Projets\\mutuelle\\mefapi\\wwwroot\\fa-regular-400.2ffd018f0eda6f7b.woff2",
+      "PackagePath": "staticwebassets\\fa-regular-400.2ffd018f0eda6f7b.woff2"
+    },
+    {
+      "Id": "D:\\Mes Projets\\mutuelle\\mefapi\\wwwroot\\fa-regular-400.da02cb7e372f16a2.ttf",
+      "PackagePath": "staticwebassets\\fa-regular-400.da02cb7e372f16a2.ttf"
+    },
+    {
+      "Id": "D:\\Mes Projets\\mutuelle\\mefapi\\wwwroot\\fa-solid-900.3a463ec33b4fe9f7.ttf",
+      "PackagePath": "staticwebassets\\fa-solid-900.3a463ec33b4fe9f7.ttf"
+    },
+    {
+      "Id": "D:\\Mes Projets\\mutuelle\\mefapi\\wwwroot\\fa-solid-900.40ddefd79fe7af45.woff2",
+      "PackagePath": "staticwebassets\\fa-solid-900.40ddefd79fe7af45.woff2"
+    },
+    {
+      "Id": "D:\\Mes Projets\\mutuelle\\mefapi\\wwwroot\\fa-v4compatibility.924588dc97e66b08.ttf",
+      "PackagePath": "staticwebassets\\fa-v4compatibility.924588dc97e66b08.ttf"
+    },
+    {
+      "Id": "D:\\Mes Projets\\mutuelle\\mefapi\\wwwroot\\fa-v4compatibility.ee06c6f803f379bb.woff2",
+      "PackagePath": "staticwebassets\\fa-v4compatibility.ee06c6f803f379bb.woff2"
+    },
+    {
+      "Id": "D:\\Mes Projets\\mutuelle\\mefapi\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "D:\\Mes Projets\\mutuelle\\mefapi\\wwwroot\\index.html",
+      "PackagePath": "staticwebassets\\index.html"
+    },
+    {
+      "Id": "D:\\Mes Projets\\mutuelle\\mefapi\\wwwroot\\main.0fcf52faf25cd376.js",
+      "PackagePath": "staticwebassets\\main.0fcf52faf25cd376.js"
+    },
+    {
+      "Id": "D:\\Mes Projets\\mutuelle\\mefapi\\wwwroot\\polyfills.e60740ad809da6cf.js",
+      "PackagePath": "staticwebassets\\polyfills.e60740ad809da6cf.js"
+    },
+    {
+      "Id": "D:\\Mes Projets\\mutuelle\\mefapi\\wwwroot\\runtime.e568dcdd41730442.js",
+      "PackagePath": "staticwebassets\\runtime.e568dcdd41730442.js"
+    },
+    {
+      "Id": "D:\\Mes Projets\\mutuelle\\mefapi\\wwwroot\\scripts.19b90c90e083f446.js",
+      "PackagePath": "staticwebassets\\scripts.19b90c90e083f446.js"
+    },
+    {
+      "Id": "D:\\Mes Projets\\mutuelle\\mefapi\\wwwroot\\styles.bca68cb60714a846.css",
+      "PackagePath": "staticwebassets\\styles.bca68cb60714a846.css"
+    },
+    {
+      "Id": "obj\\Release\\net6.0\\staticwebassets\\msbuild.build.hspaApi2.props",
+      "PackagePath": "build\\hspaApi2.props"
+    },
+    {
+      "Id": "obj\\Release\\net6.0\\staticwebassets\\msbuild.buildMultiTargeting.hspaApi2.props",
+      "PackagePath": "buildMultiTargeting\\hspaApi2.props"
+    },
+    {
+      "Id": "obj\\Release\\net6.0\\staticwebassets\\msbuild.buildTransitive.hspaApi2.props",
+      "PackagePath": "buildTransitive\\hspaApi2.props"
+    },
+    {
+      "Id": "obj\\Release\\net6.0\\staticwebassets\\msbuild.hspaApi2.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

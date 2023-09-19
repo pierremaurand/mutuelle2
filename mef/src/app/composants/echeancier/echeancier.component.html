@@ -1,0 +1,37 @@
+<div class="row" *ngIf="echeancier.length != 0">
+  <div class="col-sm-12">
+    <div class="row entente">
+      <div class="col-sm-1">N°</div>
+      <div class="col-sm-2">Date échéance</div>
+      <div class="col-sm-3">Capital (Fcfa)</div>
+      <div class="col-sm-3">Interêts (Fcfa)</div>
+      <div class="col-sm-3">Montant échéance (Fcfa)</div>
+    </div>
+    <div class="row liste">
+      <div class="col-sm-12 table table-striped">
+        <div
+          class="row ligne"
+          *ngFor="let echeance of echeancier; let i = index"
+        >
+          <div class="col-sm-1 text-center">{{ 1 + i }}</div>
+          <div class="col-sm-2 text-center">
+            {{ echeance.dateEcheance | date : "dd/MM/yyyy" }}
+          </div>
+          <div class="col-sm-3 text-right">
+            <span *ngIf="echeance.capital">{{
+              echeance.capital | number
+            }}</span>
+          </div>
+          <div class="col-sm-3 text-right">
+            <span *ngIf="echeance.interet">{{
+              echeance.interet | number
+            }}</span>
+          </div>
+          <div class="col-sm-3 text-right">
+            {{ echeance.montantEcheance | number }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

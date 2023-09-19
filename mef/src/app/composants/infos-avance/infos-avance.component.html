@@ -1,0 +1,19 @@
+<div class="row d-flex flex-row align-items-center">
+  <div class="col-md-2">Avance N° {{ avance.id }}</div>
+  <div class="col-md-2">{{ solde | number }} FCFA</div>
+  <div class="col-md-2">
+    <span
+      class="badge"
+      [ngClass]="{
+        'badge-success': status == 3,
+        'badge-warning': status == 2,
+        'badge-danger': status == 1,
+        'badge-primary': status == 0
+      }"
+      >{{ getStatusString() }}</span
+    >
+  </div>
+  <div class="col-md-6" *ngIf="membre$ | async as membre">
+    <app-infos-membre-echeance [membre]="membre"></app-infos-membre-echeance>
+  </div>
+</div>

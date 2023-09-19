@@ -1,0 +1,35 @@
+<div class="accordion mt-3" id="menu">
+  <div class="accordion-item ms-3 me-3" *ngFor="let menu of menuProperties">
+    <h2 class="accordion-header" id="{{ menu.id }}">
+      <button
+        class="accordion-button"
+        type="button"
+        data-bs-toggle="collapse"
+        [attr.data-bs-target]="'#collapse' + menu.id"
+        aria-expanded="true"
+        [attr.aria-controls]="'collapse' + menu.id"
+      >
+        <i class="{{ menu.icon }}"></i>&nbsp;
+        {{ menu.titre }}
+      </button>
+    </h2>
+    <div
+      id="collapse{{ menu.id }}"
+      class="accordion-collapse collapse"
+      [attr.aria-labelledby]="'heading' + menu.id"
+      data-bs-parent="#menu"
+    >
+      <ul class="list-group list-group-flush">
+        <li
+          class="list-group-item"
+          *ngFor="let sousMenu of menu.sousMenu"
+          [ngClass]="{ 'menu-actif': sousMenu.active }"
+          (click)="navigate(sousMenu)"
+        >
+          <i class="{{ sousMenu.icon }}"></i>&nbsp;
+          {{ sousMenu.titre }}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

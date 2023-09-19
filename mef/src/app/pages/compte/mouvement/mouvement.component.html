@@ -1,0 +1,30 @@
+<div
+  class="row ligne d-sm-flex align-items-center"
+  [ngClass]="{ pair: index % 2 }"
+>
+  <div class="col-lg-1 text-center">{{ index + 1 }}</div>
+  <div class="col-lg-2 text-center">
+    {{ mouvement.dateMvt | date : "dd/MM/yyyy" }}
+  </div>
+  <div
+    class="col-lg-2 text-center"
+    [ngClass]="{
+      'text-danger': estDebit(),
+      'text-success': !estDebit()
+    }"
+  >
+    <i
+      class="fa"
+      [ngClass]="{
+        'fa-arrow-up': estDebit(),
+        'fa-arrow-down': !estDebit()
+      }"
+    ></i>
+    <span *ngIf="estDebit()"> Débit</span>
+    <span *ngIf="!estDebit()"> Crédit</span>
+  </div>
+  <div class="col-lg-5 text-truncate">
+    {{ mouvement.libelle }}
+  </div>
+  <div class="col text-right">{{ mouvement.montant | number }} FCFA</div>
+</div>

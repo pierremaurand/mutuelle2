@@ -1,0 +1,26 @@
+<div
+  class="row d-flex flex-row align-items-center"
+  (click)="sendEcheance()"
+  [ngClass]="{ 'text-primary': selected }"
+>
+  <div class="col-md-3">
+    <div class="row d-flex flex-row align-items-center">
+      <div class="col-md-2 text-center">
+        {{ index + 1 }}
+      </div>
+      <div class="col-md-10">
+        <div class="row d-flex flex-row align-items-center">
+          <div class="col">
+            {{ echeance.dateEcheance | date : "dd/MM/yyyy" }}
+          </div>
+          <div class="col text-right">
+            {{ montantEcheance() | number }} FCFA
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-9" *ngIf="credit$ | async as credit">
+    <app-infos-credit [credit]="credit"></app-infos-credit>
+  </div>
+</div>

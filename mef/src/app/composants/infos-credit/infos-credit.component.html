@@ -1,0 +1,22 @@
+<div class="row d-flex flex-row align-items-center">
+  <div class="col-md-2">Crédi N° {{ credit.id }}</div>
+  <!-- <div class="col-md-2">{{ credit.solde | number }} FCFA</div> -->
+  <div class="col-md-2">
+    <!-- <span
+      class="badge"
+      [ngClass]="{
+        'badge-success': credit.status === 3,
+        'badge-warning': credit.status === 2,
+        'badge-danger': credit.status === 1,
+        'badge-primary': credit.status === 0
+      }"
+      >{{ getStatusString() }}</span
+    > -->
+  </div>
+  <div *ngIf="loading$ | async" class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+  <div class="col-md-6" *ngIf="membre$ | async as membre">
+    <app-infos-membre-echeance [membre]="membre"></app-infos-membre-echeance>
+  </div>
+</div>

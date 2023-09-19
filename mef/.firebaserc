@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "hspa-5cd1e",
+    "testing": "hspa-angulartest",
+    "staging": "hspa-5cd1e"
+  },
+  "targets": {}
+}

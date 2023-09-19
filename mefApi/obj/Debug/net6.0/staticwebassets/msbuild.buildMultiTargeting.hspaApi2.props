@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\hspaApi2.props" />
+</Project>

@@ -1,0 +1,70 @@
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <div class="row mb-3">
+    <div class="col-md-8">
+      <h1 class="mb-2 text-gray-800">
+        <i class="fa fa-info-circle text-primary"></i>
+        &nbsp;Informations du compte comptable
+      </h1>
+    </div>
+  </div>
+
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">
+        Formulaire d'ajout d'un compte comptable
+      </h6>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-2 border-end text-primary">
+          <img src="{{ photo }}" alt="photo gabarit" />
+        </div>
+        <div class="col-md-10">
+          <form #membreForm="ngForm">
+            <div class="row">
+              <div class="col-md-12 d-flex justify-content-between">
+                <a href="javascript:void(0);" (click)="cancel()"
+                  ><i class="fa fa-arrow-left"></i> Retour à la liste</a
+                >
+                <button
+                  type="button"
+                  class="btn btn-success"
+                  (click)="enregistrerCompte()"
+                >
+                  <i class="fa fa-save"></i>&nbsp; Enregistrer
+                </button>
+              </div>
+            </div>
+            <hr />
+            <div class="row">
+              <div class="form-group col-6">
+                <label for="compte">Numéro</label>
+                <input
+                  type="text"
+                  id="compte"
+                  class="form-control"
+                  name="compte"
+                  [(ngModel)]="compte.compte"
+                  placeholder="Le numéro de compte"
+                />
+              </div>
+              <div class="form-group col-6">
+                <label for="libelle">Libellé</label>
+                <input
+                  type="text"
+                  id="libelle"
+                  class="form-control"
+                  name="libelle"
+                  [(ngModel)]="compte.libelle"
+                  placeholder="Le libellé du compte"
+                />
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

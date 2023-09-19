@@ -1,0 +1,246 @@
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">
+      <i class="fa fa-info-circle text-primary"></i>
+      &nbsp;Informations sur l'avance
+    </h1>
+    <h2
+      class="h3 mb-2 text-gray-800 mis-en-avant"
+      *ngIf="mouvements.length != 0"
+    >
+      {{ solde | number }} FCFA
+    </h2>
+  </div>
+
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <div>
+        <div class="row m-3">
+          <div class="col-md-3">
+            <app-infos-membre [membre]="membre"></app-infos-membre>
+          </div>
+          <div
+            [ngClass]="{
+              'col-md-6': !avanceFormDisabled,
+              'col-md-9': avanceFormDisabled
+            }"
+          >
+            <div class="col-md-12">
+              <div class="row mb-2">
+                <div class="col-md-12 d-flex justify-content-between">
+                  <a
+                    href="javascript:void(0);"
+                    (click)="onGoBack()"
+                    class="btn btn-primary rounded-circle shadow-sm"
+                    ><i class="fa fa-arrow-left"></i
+                  ></a>
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <button
+                      type="button"
+                      class="d-none d-sm-inline-block btn btn-success shadow-sm"
+                      (click)="enregistrerAvance()"
+                      *ngIf="!avanceFormDisabled && avanceForm.valid"
+                    >
+                      <i class="fa fa-save"></i>&nbsp; Enregistrer
+                    </button>
+                    <button
+                      type="button"
+                      class="d-none d-sm-inline-block btn btn-success shadow-sm"
+                      (click)="enregistrerDecision()"
+                      *ngIf="
+                        avanceFormDisabled &&
+                        !deboursementFormDisabled &&
+                        debourForm.valid
+                      "
+                    >
+                      <i class="fa fa-save"></i>&nbsp; Enregistrer
+                    </button>
+                    <button
+                      type="button"
+                      class="d-none d-sm-inline-block btn btn-success shadow-sm"
+                      (click)="enregistrerEcheancier()"
+                      *ngIf="!echeancierDisabled && echeancier.length != 0"
+                    >
+                      <i class="fa fa-save"></i>&nbsp; Enregistrer
+                    </button>
+                    <button
+                      type="button"
+                      class="d-none d-sm-inline-block btn btn-success shadow-sm"
+                      (click)="debourser()"
+                      *ngIf="echeancierDisabled && mouvements.length == 0"
+                    >
+                      <i class="fa fa-save"></i>&nbsp; Débourser
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <nav class="nav nav-tabs">
+                <a
+                  class="nav-item nav-link active"
+                  href="#infosDemande"
+                  data-toggle="tab"
+                  >Infos demande</a
+                >
+                <a
+                  class="nav-item nav-link"
+                  href="#decisionComite"
+                  data-toggle="tab"
+                  *ngIf="avanceFormDisabled"
+                  >Décision du comité</a
+                >
+                <a
+                  class="nav-item nav-link"
+                  href="#echeancier"
+                  data-toggle="tab"
+                  *ngIf="deboursementFormDisabled"
+                  >Echéancier</a
+                >
+              </nav>
+              <div class="tab-content">
+                <div class="tab-pane active" id="infosDemande">
+                  <div class="p-3" [formGroup]="avanceForm">
+                    <input type="hidden" name="idAvance" formControlName="id" />
+                    <input
+                      type="hidden"
+                      name="membreId"
+                      formControlName="membreId"
+                    />
+                    <div class="row">
+                      <div class="form-group col-6">
+                        <label for="montantSollicite" class="form-label"
+                          >Montant sollicité:
+                          <span class="mis-en-avant text-primary">{{
+                            montantSolliciteCtrl.value | number
+                          }}</span
+                          ><span> FCFA</span></label
+                        >
+                        <input
+                          type="number"
+                          id="montantSollicite"
+                          class="form-control shadow-sm"
+                          name="montantSollicite"
+                          placeholder="Montant sollicité"
+                          formControlName="montantSollicite"
+                          [attr.disabled]="avanceFormDisabled ? '' : null"
+                        />
+                      </div>
+                      <div class="form-group col-6">
+                        <label for="nombreEcheancesSollicite" class="form-label"
+                          >Nombre d'échéances sollicité</label
+                        >
+                        <input
+                          type="number"
+                          id="nombreEcheancesSollicite"
+                          class="form-control shadow-sm"
+                          name="nombreEcheancesSollicite"
+                          placeholder="Nombre d'échéances"
+                          formControlName="nombreEcheancesSollicite"
+                          [attr.disabled]="avanceFormDisabled ? '' : null"
+                        />
+                      </div>
+                      <div class="form-group col-6">
+                        <label for="dateDemande" class="form-label"
+                          >Date de la demande</label
+                        >
+                        <input
+                          type="date"
+                          id="dateDemande"
+                          class="form-control shadow-sm"
+                          name="dateDemande"
+                          placeholder="Date de la demande"
+                          formControlName="dateDemande"
+                          [attr.disabled]="avanceFormDisabled ? '' : null"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane" id="decisionComite">
+                  <div class="p-3" [formGroup]="debourForm">
+                    <div class="row">
+                      <div class="form-group col-6">
+                        <label for="montantAccorde" class="form-label"
+                          >Montant Accordé:
+                          <span class="mis-en-avant text-primary">{{
+                            montantAccordeCtrl.value | number
+                          }}</span
+                          ><span> FCFA</span></label
+                        >
+                        <input
+                          type="number"
+                          id="montantApprouve"
+                          class="form-control shadow-sm"
+                          name="montantAccorde"
+                          formControlName="montantAccorde"
+                          placeholder="Montant accordé"
+                          [attr.disabled]="deboursementFormDisabled ? '' : null"
+                        />
+                      </div>
+                      <div class="form-group col-6">
+                        <label for="dureeAccordee" class="form-label"
+                          >Nombre d'échéances sollicité</label
+                        >
+                        <input
+                          type="number"
+                          id="dureeAccordee"
+                          class="form-control shadow-sm"
+                          name="dureeAccordee"
+                          formControlName="dureeAccordee"
+                          placeholder="Durée Accordée"
+                          [attr.disabled]="deboursementFormDisabled ? '' : null"
+                        />
+                      </div>
+                      <div class="form-group col-6">
+                        <label for="dateDecaissement" class="form-label"
+                          >Date du décaissement</label
+                        >
+                        <input
+                          type="date"
+                          id="dateDecaissement"
+                          class="form-control shadow-sm"
+                          name="dateDecaissement"
+                          formControlName="dateDecaissement"
+                          placeholder="Date du décaissement"
+                          [attr.disabled]="deboursementFormDisabled ? '' : null"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane" id="echeancier">
+                  <div class="p-3">
+                    <button
+                      class="btn btn-primary btn-sm"
+                      *ngIf="echeancier.length == 0"
+                      (click)="genererEcheancier()"
+                    >
+                      Générer l'échéancier
+                    </button>
+                    <app-echeancier
+                      [echeancier]="echeancier"
+                      [nbrEcheances]="nbrEcheances"
+                    ></app-echeancier>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col" *ngIf="!avanceFormDisabled">
+            <div class="row mt-2">
+              <div class="col">
+                <app-liste-choix-membre
+                  (membreChoisie)="membreChoisie($event)"
+                ></app-liste-choix-membre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

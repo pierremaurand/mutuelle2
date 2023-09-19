@@ -1,0 +1,103 @@
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">
+      <i class="fa fa-info-circle text-primary"></i>
+      &nbsp;Ajout d'une cotisation
+    </h1>
+    <h1 class="h3 mb-0 text-gray-800">{{ solde | number }} FCFA</h1>
+  </div>
+
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-3 col-sm-12">
+          <div *ngIf="membre$ | async as membre">
+            <app-infos-membre [membre]="membre"></app-infos-membre>
+          </div>
+        </div>
+        <div class="col-md-9 col-sm-12">
+          <div class="row mb-2 d-flex justify-content-between">
+            <div class="col">
+              <a
+                href="javascript:void(0);"
+                (click)="onGoBack()"
+                class="btn btn-primary rounded-circle shadow-sm"
+                ><i class="fa fa-arrow-left"></i
+              ></a>
+            </div>
+            <div class="col text-right">
+              <button
+                class="d-none d-sm-inline-block btn btn-primary shadow-sm mr-2"
+                (click)="resetForm()"
+              >
+                <i class="fa fa-refresh"></i> Recommencer
+              </button>
+              <button
+                class="d-none d-sm-inline-block btn btn-success shadow-sm"
+                (click)="enregistrer()"
+                [disabled]="mainForm.invalid"
+              >
+                <i class="fa fa-save"></i> Enregistrer
+              </button>
+            </div>
+          </div>
+          <hr />
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="row" [formGroup]="mainForm">
+                <input type="hidden" name="id" formControlName="id" />
+                <div
+                  class="form-group col-md-6 col-sm-12"
+                  *ngIf="mois$ | async as mois"
+                >
+                  <label for="mois" class="form-label">Mois</label>
+                  <select
+                    id="moisId"
+                    name="moisId"
+                    class="form-control shadow-sm"
+                    formControlName="moisId"
+                  >
+                    <option *ngFor="let m of mois" value="{{ m.id }}">
+                      {{ m.libelle }}
+                    </option>
+                  </select>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                  <label for="annee" class="form-label">Année</label>
+                  <select
+                    type="number"
+                    id="annee"
+                    name="annee"
+                    class="form-control shadow-sm"
+                    formControlName="annee"
+                  >
+                    <option
+                      *ngFor="let annee of anneeOptions"
+                      value="{{ annee }}"
+                    >
+                      {{ annee }}
+                    </option>
+                  </select>
+                </div>
+
+                <div class="form-group col-md-6">
+                  <label for="montant" class="form-label">Montant</label>
+                  <input
+                    type="number"
+                    id="montant"
+                    name="montant"
+                    class="form-control shadow-sm"
+                    formControlName="montant"
+                    placeholder="Montant"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

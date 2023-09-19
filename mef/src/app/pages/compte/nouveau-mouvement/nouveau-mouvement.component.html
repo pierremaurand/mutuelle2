@@ -1,0 +1,130 @@
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">
+      <i class="fa fa-info-circle text-primary"></i>
+      &nbsp;Ajout d'un mouvement
+    </h1>
+    <h1 class="h3 mb-0 text-gray-800">{{ solde | number }} FCFA</h1>
+  </div>
+
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-3">
+          <app-infos-membre
+            *ngIf="membre$ | async as membre"
+            [membre]="membre"
+          ></app-infos-membre>
+        </div>
+        <div class="col-9">
+          <div class="row mb-2 d-flex justify-content-between">
+            <div class="col">
+              <a
+                href="javascript:void(0);"
+                (click)="onGoBack()"
+                class="btn btn-primary shadow-sm rounded-circle"
+                ><i class="fa fa-arrow-left"></i
+              ></a>
+            </div>
+            <div class="col text-right">
+              <button
+                class="d-none d-sm-inline-block btn btn-primary shadow-sm mr-2"
+                (click)="resetForm()"
+              >
+                <i class="fa fa-save"></i> Recommencer
+              </button>
+              <button
+                class="d-none d-sm-inline-block btn btn-success shadow-sm"
+                [disabled]="mainForm.invalid"
+                (click)="enregistrer()"
+              >
+                <i class="fa fa-save"></i> Enregistrer
+              </button>
+            </div>
+          </div>
+          <hr />
+          <div class="row">
+            <div class="col-sm-12">
+              <div [formGroup]="mainForm">
+                <input type="hidden" name="id" formControlName="id" />
+                <input
+                  type="hidden"
+                  name="membreId"
+                  formControlName="membreId"
+                />
+                <div class="row">
+                  <div class="form-group col-6">
+                    <label for="dateMvt" class="form-label">Date</label>
+                    <input
+                      type="date"
+                      id="dateMvt"
+                      name="dateMvt"
+                      class="form-control shadow-sm"
+                      formControlName="dateMvt"
+                    />
+                  </div>
+                  <div class="form-group col-6">
+                    <label for="typeOperation" class="form-label">Type</label>
+                    <select
+                      id="typeOperation"
+                      name="typeOperation"
+                      class="form-control shadow-sm"
+                      formControlName="typeOperation"
+                    >
+                      <option value="0">Débit</option>
+                      <option value="1">Crédit</option>
+                    </select>
+                  </div>
+
+                  <!-- <div class="form-group col-12">
+                    <label for="gabaritId" class="form-label">Gabarit</label>
+                    <select
+                      id="gabaritId"
+                      name="gabaritId"
+                      class="form-control"
+                      formControlName="gabaritId"
+                    >
+                      <ng-container *ngIf="gabarits$ | async as gabarits">
+                        <option
+                          *ngFor="let gabarit of gabarits"
+                          value="{{ gabarit.id }}"
+                        >
+                          {{ gabarit.libelle }}
+                        </option>
+                      </ng-container>
+                    </select>
+                  </div> -->
+
+                  <div class="form-group col-12">
+                    <label for="libelle" class="form-label">Libellé</label>
+                    <textarea
+                      id="libelle"
+                      name="libelle"
+                      cols="10"
+                      rows="5"
+                      class="form-control shadow-sm"
+                      formControlName="libelle"
+                    ></textarea>
+                  </div>
+
+                  <div class="form-group col-6">
+                    <label for="montant" class="form-label">Montant</label>
+                    <input
+                      type="number"
+                      id="montant"
+                      name="montant"
+                      class="form-control shadow-sm"
+                      formControlName="montant"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

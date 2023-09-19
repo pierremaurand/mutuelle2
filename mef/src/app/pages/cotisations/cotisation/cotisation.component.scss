@@ -1,0 +1,16 @@
+.ligne {
+  padding-top: 2px;
+  padding-bottom: 2px;
+  text-shadow: 1px 1px 1px black;
+  color: white;
+  border-bottom: 1px solid black;
+}
+
+.ligne:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+  color: blue;
+}
+
+.pair {
+  background: rgba(0, 0, 255, 0.3);
+}

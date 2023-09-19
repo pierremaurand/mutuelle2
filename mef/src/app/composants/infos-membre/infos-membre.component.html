@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="row">
+      <div class="col-sm-12 text-center">
+        <img
+          [src]="imagesUrl + '/assets/images/' + membre.photo"
+          alt=""
+          class="rounded-circle img-thumbnail"
+        />
+      </div>
+    </div>
+    <div class="row m-3">
+      <div class="col-md-12">
+        <div class="card text-primary text-center p-2 shadow-sm">
+          <h5>{{ membre.nom | uppercase }}</h5>
+          <div class="row">
+            <div class="col text-truncate infos">
+              <i class="fa fa-phone"></i>
+              {{ membre.contact }}
+            </div>
+          </div>
+          <div class="row" *ngIf="membre.email">
+            <div class="col text-truncate infos">
+              <i class="fa fa-envelope"></i>
+              {{ membre.email }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

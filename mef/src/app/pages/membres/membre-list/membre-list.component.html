@@ -1,0 +1,63 @@
+<!-- Begin Page Content -->
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">
+      <i class="fa fa-list"></i> Les membres
+    </h1>
+    <span>
+      <app-bouton-action
+        (newEvent)="newEvent()"
+        [afficheNew]="true"
+        (importEvent)="importEvent()"
+        [afficheImport]="true"
+      ></app-bouton-action>
+    </span>
+  </div>
+
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <div class="row">
+        <div class="col-4">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <label for="search" class="btn btn-primary shadow-sm">
+                <i class="fa fa-search"></i>
+              </label>
+            </div>
+            <input
+              type="search"
+              class="form-control"
+              id="search"
+              name="search"
+              [formControl]="searchCtrl"
+              placeholder="Rechercher..."
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body liste">
+      <div class="list-group" *ngIf="membres$ | async as membres">
+        <a
+          href="javascript:void(0);"
+          class="list-group-item list-group-item-action mb-1"
+          aria-current="true"
+          *ngFor="let membre of membres | sort : ['nom', 'asc']"
+          [ngClass]="{
+            'border-left-success text-success': membre.estActif,
+            'border-left-danger text-danger': !membre.estActif
+          }"
+        >
+          <div class="row" (click)="navigate(membre.id)">
+            <div class="col-12">
+              <app-detail-membre [membre]="membre"></app-detail-membre>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /.container-fluid -->

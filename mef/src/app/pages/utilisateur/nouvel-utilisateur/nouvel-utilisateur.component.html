@@ -1,0 +1,97 @@
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <div class="row mb-3">
+    <div class="col-md-12 d-flex justify-content-between">
+      <h1 class="mb-2 text-gray-800">
+        <i class="fa fa-info-circle text-primary"></i>
+        &nbsp;Informations de l'utilisateur
+      </h1>
+    </div>
+  </div>
+
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">
+        Informations de l'utilisateur
+      </h6>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-3">
+          <app-infos-membre></app-infos-membre>
+        </div>
+        <div class="col">
+          <div class="row mb-2 d-flex justify-content-between">
+            <div class="col">
+              <a href="javascript:void(0);" (click)="cancel()"
+                ><i class="fa fa-arrow-left"></i> Retour à la liste</a
+              >
+            </div>
+            <div class="col text-right">
+              <button
+                class="btn btn-warning mr-1"
+                (click)="initPassword()"
+                *ngIf="utilisateur.id != 0"
+              >
+                <i class="fa fa-refrech"></i> Reinitialiser le mot de passe
+              </button>
+              <button class="btn btn-success" (click)="enregistrerInfos()">
+                <i class="fa fa-save"></i> Enregistrer
+              </button>
+            </div>
+          </div>
+          <hr />
+          <div class="p-3">
+            <div class="row">
+              <div class="form-group col-6" *ngIf="utilisateur.id == 0">
+                <label for="membreId" class="form-label">Membre</label>
+                <select
+                  id="membreId"
+                  name="membreId"
+                  [(ngModel)]="utilisateur.membreId"
+                  class="form-control"
+                  [disabled]="utilisateur.id != 0"
+                  (change)="changeMembre()"
+                >
+                  <!-- <option
+                    *ngFor="let membre of membres"
+                    value="{{ membre.id }}"
+                  >
+                    {{ membre.nom | uppercase }}
+                  </option> -->
+                </select>
+              </div>
+              <div class="form-group col-6">
+                <label for="nomUtilisateur" class="form-label"
+                  >Nom d'utilisateur</label
+                >
+                <input
+                  type="text"
+                  id="nomUtilisateur"
+                  class="form-control"
+                  name="nomUtilisateur"
+                  [(ngModel)]="utilisateur.nomUtilisateur"
+                  [disabled]="utilisateur.id != 0"
+                />
+              </div>
+              <div class="form-group col-6">
+                <label for="type">Type d'utilisateur</label>
+                <select
+                  name="type"
+                  id="type"
+                  class="form-control"
+                  [(ngModel)]="utilisateur.type"
+                >
+                  <option value="1">Super Admin</option>
+                  <option value="2">Admin</option>
+                  <option value="3">Utilisateur</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

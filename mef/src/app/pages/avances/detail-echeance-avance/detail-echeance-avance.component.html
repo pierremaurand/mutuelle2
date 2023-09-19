@@ -1,0 +1,28 @@
+<div class="card mb-1 shadow-sm p-2">
+  <div
+    class="row d-flex flex-row align-items-center"
+    (click)="sendEcheance()"
+    [ngClass]="{ 'text-primary': selected }"
+  >
+    <div class="col-md-3 col-sm-12">
+      <div class="row d-flex flex-row align-items-center">
+        <div class="col-md-2 text-center">
+          {{ index + 1 }}
+        </div>
+        <div class="col-md-10 col-sm-12">
+          <div class="row d-flex flex-row align-items-center">
+            <div class="col">
+              {{ echeance.dateEcheance | date : "dd/MM/yyyy" }}
+            </div>
+            <div class="col text-right">
+              {{ montantEcheance() | number }} FCFA
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-9 col-sm-12" *ngIf="avance$ | async as avance">
+      <app-infos-avance [avance]="avance"></app-infos-avance>
+    </div>
+  </div>
+</div>

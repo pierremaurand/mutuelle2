@@ -1,0 +1,42 @@
+<!-- Begin Page Content -->
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <div class="row mb-3">
+    <div class="col-md-8">
+      <h1 class="mb-2 text-gray-800">
+        <i class="fa fa-list"></i> Liste des sexes
+      </h1>
+    </div>
+    <div class="col-md-4">
+      <app-bouton-action
+        (newEvent)="nouveauSexe()"
+        (exportEvent)="exportSexes()"
+        (importEvent)="importSexes()"
+      ></app-bouton-action>
+    </div>
+  </div>
+
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Liste des sexes</h6>
+    </div>
+    <div class="card-body">
+      <div class="list-group">
+        <a
+          href="javascript:void(0);"
+          class="list-group-item list-group-item-action border-left-primary"
+          aria-current="true"
+          *ngFor="let sexe of sexes | sort : ['nom', 'asc']"
+        >
+          <div class="row" (click)="navigate(sexe.id)">
+            <div class="col-12">
+              <app-detail-sexe [sexe]="sexe"></app-detail-sexe>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /.container-fluid -->

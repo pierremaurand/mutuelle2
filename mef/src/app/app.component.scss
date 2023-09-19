@@ -1,0 +1,11 @@
+html,
+.loader-container {
+  position: fixed;
+  width: 100%;
+  z-index: 99;
+}
+
+.page-liste {
+  height: 430px;
+  overflow-y: auto;
+}

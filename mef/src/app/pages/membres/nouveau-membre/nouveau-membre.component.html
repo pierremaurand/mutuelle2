@@ -1,0 +1,232 @@
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">
+      <i class="fa fa-info-circle text-primary"></i>
+      &nbsp;Informations du membre
+    </h1>
+  </div>
+
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <div class="row m-3">
+        <div class="col-md-2 mb-3 border-end text-primary">
+          <img
+            [src]="photo"
+            alt="photo du membre"
+            class="rounded-circle img-thumbnail"
+            width="200px"
+            height="200px"
+            data-toggle="modal"
+            data-target="#addPicture"
+          />
+          <div class="custom-control custom-switch">
+            <input
+              type="checkbox"
+              class="custom-control-input"
+              id="customSwitch1"
+              (click)="activer()"
+              [checked]="estActifCtrl.value"
+            />
+            <label class="custom-control-label" for="customSwitch1"
+              >Ce membre est actif</label
+            >
+          </div>
+        </div>
+        <div class="col-md-10">
+          <div class="col-md-12">
+            <div class="row mb-2">
+              <div class="col-md-12 d-flex justify-content-between">
+                <a
+                  href="javascript:void(0);"
+                  (click)="onGoBack()"
+                  class="btn btn-primary shadow-sm rounded-circle"
+                  ><i class="fa fa-arrow-left"></i
+                ></a>
+                <button
+                  type="button"
+                  class="d-none d-sm-inline-block btn btn-success shadow-sm"
+                  (click)="enregistrerMembre()"
+                  [disabled]="mainForm.invalid"
+                >
+                  <i class="fa fa-save"></i>&nbsp; Enregistrer
+                </button>
+              </div>
+            </div>
+            <nav class="nav nav-tabs">
+              <a
+                class="nav-item nav-link active"
+                href="#etatcivil"
+                data-toggle="tab"
+                >Infos personnelles</a
+              >
+              <a class="nav-item nav-link" href="#infosMembre" data-toggle="tab"
+                >Infos membre</a
+              >
+            </nav>
+            <div class="tab-content" [formGroup]="mainForm">
+              <div class="tab-pane active" id="etatcivil">
+                <div class="p-3">
+                  <div class="row">
+                    <input type="hidden" name="id" formControlName="id" />
+                    <input
+                      type="hidden"
+                      name="estActif"
+                      formControlName="estActif"
+                    />
+                    <input type="hidden" name="photo" formControlName="photo" />
+                    <div class="form-group col-8">
+                      <label for="nom" class="form-label">Nom</label>
+                      <input
+                        type="text"
+                        id="nom"
+                        class="form-control shadow-sm"
+                        name="nom"
+                        formControlName="nom"
+                      />
+                    </div>
+                    <div class="form-group col">
+                      <label for="sexeId" class="form-label">Sexe</label>
+                      <select
+                        id="sexeId"
+                        name="sexeId"
+                        class="form-control shadow-sm"
+                        formControlName="sexeId"
+                      >
+                        <ng-container *ngIf="sexes$ | async as sexes">
+                          <option
+                            *ngFor="let sexe of sexes"
+                            value="{{ sexe.id }}"
+                          >
+                            {{ sexe.nom | uppercase }}
+                          </option>
+                        </ng-container>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-group col">
+                      <label for="dateNaissance" class="form-label"
+                        >Date de naissance</label
+                      >
+                      <input
+                        type="date"
+                        id="dateNaissance"
+                        class="form-control shadow-sm"
+                        name="dateNaissance"
+                        formControlName="dateNaissance"
+                      />
+                    </div>
+                    <div class="form-group col">
+                      <label for="lieuNaissance" class="form-label"
+                        >Lieu de naissance</label
+                      >
+                      <input
+                        type="text"
+                        id="lieuNaissance"
+                        class="form-control shadow-sm"
+                        name="lieuNaissance"
+                        formControlName="lieuNaissance"
+                      />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-group col">
+                      <label for="contact" class="form-label">Téléphone</label>
+                      <input
+                        type="text"
+                        id="contact"
+                        class="form-control shadow-sm"
+                        name="contact"
+                        formControlName="contact"
+                      />
+                    </div>
+                    <div class="form-group col">
+                      <label for="email" class="form-label">Email</label>
+                      <input
+                        type="email"
+                        id="email"
+                        class="form-control shadow-sm"
+                        name="email"
+                        formControlName="email"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="infosMembre">
+                <div class="p-3">
+                  <div class="row">
+                    <div class="form-group col">
+                      <label for="posteId" class="form-label">Poste</label>
+                      <select
+                        id="posteId"
+                        name="posteId"
+                        class="form-control shadow-sm"
+                        formControlName="posteId"
+                      >
+                        <ng-container *ngIf="postes$ | async as postes">
+                          <option
+                            *ngFor="let poste of postes"
+                            value="{{ poste.id }}"
+                          >
+                            {{ poste.libelle | uppercase }}
+                          </option>
+                        </ng-container>
+                      </select>
+                    </div>
+                    <div class="form-group col">
+                      <label for="lieuAffectationId" class="form-label"
+                        >Affectation</label
+                      >
+                      <select
+                        id="lieuAffectationId"
+                        name="lieuAffectationId"
+                        class="form-control shadow-sm"
+                        formControlName="lieuAffectationId"
+                      >
+                        <ng-container *ngIf="lieux$ | async as lieux">
+                          <option
+                            *ngFor="let lieu of lieux"
+                            value="{{ lieu.id }}"
+                          >
+                            {{ lieu.lieu | uppercase }}
+                          </option>
+                        </ng-container>
+                      </select>
+                    </div>
+                    <div class="form-group col">
+                      <label for="dateAdhesion" class="form-label"
+                        >Date d'adhésion</label
+                      >
+                      <input
+                        type="date"
+                        id="dateAdhesion"
+                        class="form-control shadow-sm"
+                        name="dateAdhesion"
+                        formControlName="dateAdhesion"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        id="addPicture"
+        class="modal fade"
+        tabindex="-1"
+        aria-labelledby="addPicture"
+        aria-hidden="true"
+      >
+        <app-image-add
+          [photo]="photo"
+          (photoChange)="photoChange($event)"
+        ></app-image-add>
+      </div>
+    </div>
+  </div>
+</div>

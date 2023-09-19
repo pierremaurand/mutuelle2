@@ -1,0 +1,93 @@
+<!-- Begin Page Content -->
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">
+      <i class="fa fa-list"></i> Liste des crédits
+    </h1>
+    <span>
+      <app-bouton-action
+        (newEvent)="newEvent()"
+        [afficheNew]="true"
+      ></app-bouton-action>
+    </span>
+  </div>
+
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <div class="row">
+        <div class="col-4">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <label for="search" class="btn btn-primary shadow-sm">
+                <i class="fa fa-search"></i>
+              </label>
+            </div>
+            <input
+              type="search"
+              class="form-control shadow-sm"
+              name="search"
+              id="search"
+              [formControl]="searchCtrl"
+              placeholder="Rechercher..."
+            />
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <label for="status" class="btn btn-primary shadow-sm">
+                <i class="fa fa-filter"></i>
+              </label>
+            </div>
+            <select
+              name="status"
+              id="status"
+              class="form-control shadow-sm"
+              [formControl]="statusPretCtrl"
+            >
+              <option
+                *ngFor="let option of statusPretOptions"
+                [value]="option.value"
+              >
+                {{ option.label }}
+              </option>
+            </select>
+            <div class="input-group-append">
+              <label class="btn btn-primary shadow-sm" (click)="effacer()">
+                <i class="fa fa-eraser"></i>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body liste">
+      <div class="list-group" *ngIf="credits$ | async as credits">
+        <a
+          href="javascript:void(0);"
+          class="list-group-item list-group-item-action"
+          aria-current="true"
+          *ngFor="let credit of credits | sort : ['nom', 'asc']"
+          [ngClass]="{
+            'border-left-primary text-primary': credit.status == 0,
+            'border-left-danger text-danger': credit.status == 1,
+            'border-left-warning text-warning': credit.status == 2,
+            'border-left-success text-success': credit.status == 3
+          }"
+        >
+          <div class="row" (click)="navigate(credit.id)">
+            <div class="col-12">
+              <app-detail-credit
+                [creditId]="credit.id"
+                [membreId]="credit.membreId"
+              ></app-detail-credit>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /.container-fluid -->

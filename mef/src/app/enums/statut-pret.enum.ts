@@ -1,7 +1,8 @@
 export enum StatusPret {
   ENREGISTRE = 0,
-  DEBOURSE = 1,
-  ENCOURS = 2,
-  SOLDE = 3,
-  AUCUN = 4,
+  VALIDE = 1,
+  DEBOURSE = 2,
+  ENCOURS = 3,
+  SOLDE = 4,
+  AUCUN = 5,
 }

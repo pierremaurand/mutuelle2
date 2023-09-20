@@ -9,11 +9,7 @@ import {
 import { Observable } from 'rxjs';
 import { Avance } from 'src/app/models/avance';
 import { Membre } from 'src/app/models/membre.model';
-import { AvanceInfos } from 'src/app/models/avance-infos.model';
-import { EcheanceAvance } from 'src/app/models/echeanceAvance';
-import { MembreInfos } from 'src/app/models/membreInfos.model';
 import { AvanceService } from 'src/app/services/avance.service';
-import { MembreService } from 'src/app/services/membre.service';
 import { environment } from 'src/environments/environment';
 import { Echeance } from 'src/app/models/echeance.model';
 import { Mouvement } from 'src/app/models/mouvement';
@@ -53,14 +49,24 @@ export class DetailEcheanceAvanceComponent implements OnInit {
   }
 
   private initObservable(): void {
-    this.mouvements$ = this.compteService.mouvements$;
+    this.mouvements$ = this.compteService.getMouvementsEcheance(
+      this.echeance.id
+    );
     this.mouvements$.subscribe((mouvements) => {
-      this.mouvements = mouvements;
+      this.calculSolde(mouvements);
     });
 
     this.avance$ = this.avanceService.getAvanceById(
       this.echeance.avanceId ?? 0
     );
+  }
+
+  private calculSolde(mouvements: Mouvement[]): void {
+    mouvements.forEach((m) => {
+      if (m.typeOperation === TypeOperation.Credit) {
+        this.echeance.montantEcheance -= m.montant ?? 0;
+      }
+    });
   }
 
   sendEcheance(): void {

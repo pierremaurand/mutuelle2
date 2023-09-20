@@ -1,16 +1,13 @@
-import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
-import { Observable, combineLatest, map, startWith, tap } from 'rxjs';
+import { Observable, combineLatest, map, startWith } from 'rxjs';
 import { Echeance } from 'src/app/models/echeance.model';
-import { EcheanceAvance } from 'src/app/models/echeanceAvance';
 import { Mouvement } from 'src/app/models/mouvement';
 import { TypeOperation } from 'src/app/models/typeoperation';
 import { AvanceService } from 'src/app/services/avance.service';
 import { CompteService } from 'src/app/services/compte.service';
 import { EcheanceService } from 'src/app/services/echeance.service';
 import { MembreService } from 'src/app/services/membre.service';
-import { SignalrService } from 'src/app/services/signalr.service';
 
 @Component({
   selector: 'app-page-echeances-avances',
@@ -32,6 +29,7 @@ export class PageEcheancesAvancesComponent implements OnInit {
 
   constructor(
     public echeanceService: EcheanceService,
+    public avanceService: AvanceService,
     public membreService: MembreService,
     public compteService: CompteService,
     private fb: FormBuilder
@@ -65,16 +63,25 @@ export class PageEcheancesAvancesComponent implements OnInit {
       dateEcheance$,
       this.echeanceService.echeances$,
       this.membreService.membres$,
+      this.avanceService.avances$,
+      this.compteService.mouvements$,
     ]).pipe(
-      map(([search, dateEcheance, echeances, membres]) =>
-        echeances.filter((echeance) =>
-          membres.find(
-            (membre) =>
-              membre.id === echeance.membreId &&
-              membre.nom.toLowerCase().includes(search as string) &&
-              echeance.dateEcheance?.includes(dateEcheance) &&
-              this.getEtatPayement(echeance)
-          )
+      map(([search, dateEcheance, echeances, membres, avances, mouvements]) =>
+        echeances.filter(
+          (echeance) =>
+            membres.find(
+              (membre) =>
+                membre.id === echeance.membreId &&
+                membre.nom.toLowerCase().includes(search as string) &&
+                echeance.dateEcheance?.includes(dateEcheance)
+            ) &&
+            avances.find(
+              (a) => a.id == echeance.avanceId && a.deboursementId
+            ) &&
+            this.getEtatPayement(
+              echeance.montantEcheance,
+              mouvements.filter((m) => m.echeanceId == echeance.id)
+            )
         )
       )
     );
@@ -84,8 +91,9 @@ export class PageEcheancesAvancesComponent implements OnInit {
     });
   }
 
-  getEtatPayement(echeance: Echeance): boolean {
-    const solde = this.calculResteAPayer(echeance);
+  getEtatPayement(montantEcheance: number, mouvements: Mouvement[]): boolean {
+    const solde = this.calculResteAPayer(montantEcheance, mouvements);
+    console.log(solde);
     if (solde > 0) {
       return true;
     }
@@ -98,20 +106,17 @@ export class PageEcheancesAvancesComponent implements OnInit {
     this.dateEcheanceCtrl.setValue('');
   }
 
-  calculResteAPayer(echeance: Echeance): number {
-    let solde = +echeance.montantEcheance;
-    this.mouvements
-      .filter((m) => m.id == echeance.id)
-      .forEach((m) => {
-        if (m.typeOperation == TypeOperation.Credit) {
-          solde -= m.montant ?? 0;
-        }
-      });
+  private calculResteAPayer(montant: number, mouvements: Mouvement[]): number {
+    let solde = montant;
+    mouvements.forEach((m) => {
+      if (m.typeOperation === TypeOperation.Credit) {
+        solde -= m.montant ?? 0;
+      }
+    });
     return solde;
   }
 
   addEcheance(echeance: Echeance): void {
-    echeance.montantEcheance = this.calculResteAPayer(echeance);
     if (this.echeancier.find((e) => e.id == echeance.id)) {
       this.echeancier = this.echeancier.filter((e) => e.id != echeance.id);
     } else {
@@ -120,7 +125,7 @@ export class PageEcheancesAvancesComponent implements OnInit {
   }
 
   viderEcheancier(): void {
-    // this.echeancier.length = 0;
+    this.echeancier.length = 0;
   }
 
   payer(): void {

@@ -34,31 +34,46 @@
             />
           </div>
         </div>
+        <div class="col-lg-4 col-md-6 col-sm-12">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <label for="status" class="btn btn-primary shadow-sm">
+                <i class="fa fa-filter"></i>
+              </label>
+            </div>
+            <select
+              name="status"
+              id="status"
+              class="form-control shadow-sm"
+              [formControl]="statusPretCtrl"
+            >
+              <option
+                *ngFor="let option of statusPretOptions"
+                [value]="option.value"
+              >
+                {{ option.label }}
+              </option>
+            </select>
+            <div class="input-group-append">
+              <label class="btn btn-primary shadow-sm" (click)="effacer()">
+                <i class="fa fa-eraser"></i>
+              </label>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="card-body liste">
-      <div class="list-group" *ngIf="avances$ | async as avances">
-        <a
-          href="javascript:void(0);"
-          class="list-group-item list-group-item-action border-left-primary text-primary mb-2"
-          aria-current="true"
+      <div *ngIf="avances$ | async as avances">
+        <app-detail-avance
           *ngFor="
             let avance of avances
               | sort : ['dateDemande', 'desc']
               | sort : ['id', 'desc']
           "
-        >
-          <div
-            class="row"
-            (click)="
-              navigate(avance.id, avance.membreId, avance.deboursementId)
-            "
-          >
-            <div class="col-12">
-              <app-detail-avance [avance]="avance"></app-detail-avance>
-            </div>
-          </div>
-        </a>
+          (click)="navigate(avance.id, avance.membreId, avance.deboursementId)"
+          [avance]="avance"
+        ></app-detail-avance>
       </div>
     </div>
   </div>

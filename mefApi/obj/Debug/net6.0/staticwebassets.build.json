@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Nf137wGv3HQJF4z9D7FjrIv1VRTIP99XlUnRZueVZd0=",
+  "Hash": "Ig4x3D6gIT63LxIYRBegUGbVvve0nr38+kAGC7JXa3g=",
   "Source": "mefapi",
   "BasePath": "_content/mefapi",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "mefapi\\wwwroot",
       "Source": "mefapi",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\3rdpartylicenses.txt",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\3rdpartylicenses.txt",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "3rdpartylicenses.txt",
       "AssetKind": "All",
@@ -34,10 +34,10 @@
       "OriginalItemSpec": "wwwroot\\3rdpartylicenses.txt"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\assets\\data\\properties.json",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\assets\\data\\properties.json",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "assets/data/properties.json",
       "AssetKind": "All",
@@ -51,10 +51,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\data\\properties.json"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\assets\\forms.css",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\assets\\forms.css",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "assets/forms.css",
       "AssetKind": "All",
@@ -68,10 +68,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\forms.css"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\assets\\images\\building - Copie.png",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\assets\\images\\building - Copie.png",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "assets/images/building - Copie.png",
       "AssetKind": "All",
@@ -85,10 +85,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\building - Copie.png"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\assets\\images\\building.png",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\assets\\images\\building.png",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "assets/images/building.png",
       "AssetKind": "All",
@@ -102,10 +102,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\building.png"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\assets\\images\\compte_comptable_image - Copie.png",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\assets\\images\\compte_comptable_image - Copie.png",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "assets/images/compte_comptable_image - Copie.png",
       "AssetKind": "All",
@@ -119,10 +119,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\compte_comptable_image - Copie.png"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\assets\\images\\compte_comptable_image.png",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\assets\\images\\compte_comptable_image.png",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "assets/images/compte_comptable_image.png",
       "AssetKind": "All",
@@ -136,10 +136,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\compte_comptable_image.png"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\assets\\images\\default_man - Copie.jpg",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\assets\\images\\default_man - Copie.jpg",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "assets/images/default_man - Copie.jpg",
       "AssetKind": "All",
@@ -153,10 +153,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\default_man - Copie.jpg"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\assets\\images\\default_man.jpg",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\assets\\images\\default_man.jpg",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "assets/images/default_man.jpg",
       "AssetKind": "All",
@@ -170,10 +170,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\default_man.jpg"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\assets\\images\\default_woman.jpg",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\assets\\images\\default_woman.jpg",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "assets/images/default_woman.jpg",
       "AssetKind": "All",
@@ -187,10 +187,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\default_woman.jpg"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\assets\\images\\gabarit_image - Copie.png",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\assets\\images\\gabarit_image - Copie.png",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "assets/images/gabarit_image - Copie.png",
       "AssetKind": "All",
@@ -204,10 +204,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\gabarit_image - Copie.png"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\assets\\images\\gabarit_image.png",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\assets\\images\\gabarit_image.png",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "assets/images/gabarit_image.png",
       "AssetKind": "All",
@@ -221,10 +221,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\gabarit_image.png"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\assets\\images\\gender_image - Copie.png",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\assets\\images\\gender_image - Copie.png",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "assets/images/gender_image - Copie.png",
       "AssetKind": "All",
@@ -238,10 +238,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\gender_image - Copie.png"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\assets\\images\\gender_image.png",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\assets\\images\\gender_image.png",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "assets/images/gender_image.png",
       "AssetKind": "All",
@@ -255,10 +255,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\gender_image.png"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\assets\\images\\membre_1_0.png",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\assets\\images\\membre_1_0.png",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "assets/images/membre_1_0.png",
       "AssetKind": "All",
@@ -272,10 +272,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\membre_1_0.png"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\assets\\images\\membre_1.png",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\assets\\images\\membre_1.png",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "assets/images/membre_1.png",
       "AssetKind": "All",
@@ -289,10 +289,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\membre_1.png"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\assets\\images\\membre_1002_0.png",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\assets\\images\\membre_1002_0.png",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "assets/images/membre_1002_0.png",
       "AssetKind": "All",
@@ -306,10 +306,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\membre_1002_0.png"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\assets\\images\\membre_1002_1.png",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\assets\\images\\membre_1002_1.png",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "assets/images/membre_1002_1.png",
       "AssetKind": "All",
@@ -323,10 +323,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\membre_1002_1.png"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\assets\\images\\membre_1002.png",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\assets\\images\\membre_1002.png",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "assets/images/membre_1002.png",
       "AssetKind": "All",
@@ -340,10 +340,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\membre_1002.png"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\assets\\images\\membre_1010.png",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\assets\\images\\membre_1010.png",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "assets/images/membre_1010.png",
       "AssetKind": "All",
@@ -357,10 +357,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\membre_1010.png"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\assets\\images\\membre_1011.png",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\assets\\images\\membre_1011.png",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "assets/images/membre_1011.png",
       "AssetKind": "All",
@@ -374,10 +374,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\membre_1011.png"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\assets\\images\\membre_1339.png",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\assets\\images\\membre_1339.png",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "assets/images/membre_1339.png",
       "AssetKind": "All",
@@ -391,10 +391,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\membre_1339.png"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\assets\\images\\membre_1412_0.png",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\assets\\images\\membre_1412_0.png",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "assets/images/membre_1412_0.png",
       "AssetKind": "All",
@@ -408,10 +408,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\membre_1412_0.png"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\assets\\images\\membre_1412_1.png",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\assets\\images\\membre_1412_1.png",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "assets/images/membre_1412_1.png",
       "AssetKind": "All",
@@ -425,10 +425,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\membre_1412_1.png"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\assets\\images\\membre_1419_0.png",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\assets\\images\\membre_1419_0.png",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "assets/images/membre_1419_0.png",
       "AssetKind": "All",
@@ -442,10 +442,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\membre_1419_0.png"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\assets\\images\\membre_1420_0.png",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\assets\\images\\membre_1420_0.png",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "assets/images/membre_1420_0.png",
       "AssetKind": "All",
@@ -459,10 +459,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\membre_1420_0.png"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\assets\\images\\membre_1425_0.png",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\assets\\images\\membre_1425_0.png",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "assets/images/membre_1425_0.png",
       "AssetKind": "All",
@@ -476,10 +476,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\membre_1425_0.png"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\assets\\images\\membre_1425_1.png",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\assets\\images\\membre_1425_1.png",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "assets/images/membre_1425_1.png",
       "AssetKind": "All",
@@ -493,10 +493,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\membre_1425_1.png"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\assets\\images\\membre_1507_0.png",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\assets\\images\\membre_1507_0.png",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "assets/images/membre_1507_0.png",
       "AssetKind": "All",
@@ -510,10 +510,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\membre_1507_0.png"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\assets\\images\\membre_1508_0.png",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\assets\\images\\membre_1508_0.png",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "assets/images/membre_1508_0.png",
       "AssetKind": "All",
@@ -527,10 +527,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\membre_1508_0.png"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\assets\\images\\membre_2.png",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\assets\\images\\membre_2.png",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "assets/images/membre_2.png",
       "AssetKind": "All",
@@ -544,10 +544,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\membre_2.png"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\assets\\images\\membre_2002_0.png",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\assets\\images\\membre_2002_0.png",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "assets/images/membre_2002_0.png",
       "AssetKind": "All",
@@ -561,10 +561,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\membre_2002_0.png"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\assets\\images\\membre_2002_1.png",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\assets\\images\\membre_2002_1.png",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "assets/images/membre_2002_1.png",
       "AssetKind": "All",
@@ -578,10 +578,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\membre_2002_1.png"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\assets\\images\\membre_2002.png",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\assets\\images\\membre_2002.png",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "assets/images/membre_2002.png",
       "AssetKind": "All",
@@ -595,10 +595,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\membre_2002.png"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\assets\\images\\membre_227.png",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\assets\\images\\membre_227.png",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "assets/images/membre_227.png",
       "AssetKind": "All",
@@ -612,10 +612,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\membre_227.png"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\assets\\images\\membre_229.png",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\assets\\images\\membre_229.png",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "assets/images/membre_229.png",
       "AssetKind": "All",
@@ -629,10 +629,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\membre_229.png"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\assets\\images\\membre_247.png",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\assets\\images\\membre_247.png",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "assets/images/membre_247.png",
       "AssetKind": "All",
@@ -646,10 +646,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\membre_247.png"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\assets\\images\\membre_268.png",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\assets\\images\\membre_268.png",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "assets/images/membre_268.png",
       "AssetKind": "All",
@@ -663,10 +663,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\membre_268.png"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\assets\\images\\membre_6_0.png",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\assets\\images\\membre_6_0.png",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "assets/images/membre_6_0.png",
       "AssetKind": "All",
@@ -680,10 +680,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\membre_6_0.png"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\assets\\images\\membre_6.png",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\assets\\images\\membre_6.png",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "assets/images/membre_6.png",
       "AssetKind": "All",
@@ -697,10 +697,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\membre_6.png"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\assets\\images\\poste_image - Copie.png",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\assets\\images\\poste_image - Copie.png",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "assets/images/poste_image - Copie.png",
       "AssetKind": "All",
@@ -714,10 +714,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\poste_image - Copie.png"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\assets\\images\\poste_image.png",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\assets\\images\\poste_image.png",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "assets/images/poste_image.png",
       "AssetKind": "All",
@@ -731,10 +731,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\poste_image.png"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\assets\\js\\easy-number-separator.js",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\assets\\js\\easy-number-separator.js",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "assets/js/easy-number-separator.js",
       "AssetKind": "All",
@@ -748,10 +748,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\js\\easy-number-separator.js"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\assets\\tabs.css",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\assets\\tabs.css",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "assets/tabs.css",
       "AssetKind": "All",
@@ -765,10 +765,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\tabs.css"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\fa-brands-400.7fa789ab57acb632.ttf",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\fa-brands-400.7fa789ab57acb632.ttf",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "fa-brands-400.7fa789ab57acb632.ttf",
       "AssetKind": "All",
@@ -782,10 +782,10 @@
       "OriginalItemSpec": "wwwroot\\fa-brands-400.7fa789ab57acb632.ttf"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\fa-brands-400.859fc3887485de84.woff2",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\fa-brands-400.859fc3887485de84.woff2",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "fa-brands-400.859fc3887485de84.woff2",
       "AssetKind": "All",
@@ -799,10 +799,10 @@
       "OriginalItemSpec": "wwwroot\\fa-brands-400.859fc3887485de84.woff2"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\fa-regular-400.2ffd018f0eda6f7b.woff2",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\fa-regular-400.2ffd018f0eda6f7b.woff2",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "fa-regular-400.2ffd018f0eda6f7b.woff2",
       "AssetKind": "All",
@@ -816,10 +816,10 @@
       "OriginalItemSpec": "wwwroot\\fa-regular-400.2ffd018f0eda6f7b.woff2"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\fa-regular-400.da02cb7e372f16a2.ttf",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\fa-regular-400.da02cb7e372f16a2.ttf",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "fa-regular-400.da02cb7e372f16a2.ttf",
       "AssetKind": "All",
@@ -833,10 +833,10 @@
       "OriginalItemSpec": "wwwroot\\fa-regular-400.da02cb7e372f16a2.ttf"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\fa-solid-900.3a463ec33b4fe9f7.ttf",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\fa-solid-900.3a463ec33b4fe9f7.ttf",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "fa-solid-900.3a463ec33b4fe9f7.ttf",
       "AssetKind": "All",
@@ -850,10 +850,10 @@
       "OriginalItemSpec": "wwwroot\\fa-solid-900.3a463ec33b4fe9f7.ttf"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\fa-solid-900.40ddefd79fe7af45.woff2",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\fa-solid-900.40ddefd79fe7af45.woff2",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "fa-solid-900.40ddefd79fe7af45.woff2",
       "AssetKind": "All",
@@ -867,10 +867,10 @@
       "OriginalItemSpec": "wwwroot\\fa-solid-900.40ddefd79fe7af45.woff2"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\fa-v4compatibility.924588dc97e66b08.ttf",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\fa-v4compatibility.924588dc97e66b08.ttf",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "fa-v4compatibility.924588dc97e66b08.ttf",
       "AssetKind": "All",
@@ -884,10 +884,10 @@
       "OriginalItemSpec": "wwwroot\\fa-v4compatibility.924588dc97e66b08.ttf"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\fa-v4compatibility.ee06c6f803f379bb.woff2",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\fa-v4compatibility.ee06c6f803f379bb.woff2",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "fa-v4compatibility.ee06c6f803f379bb.woff2",
       "AssetKind": "All",
@@ -901,10 +901,10 @@
       "OriginalItemSpec": "wwwroot\\fa-v4compatibility.ee06c6f803f379bb.woff2"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\favicon.ico",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\favicon.ico",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "favicon.ico",
       "AssetKind": "All",
@@ -918,10 +918,10 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\index.html",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\index.html",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "index.html",
       "AssetKind": "All",
@@ -935,10 +935,10 @@
       "OriginalItemSpec": "wwwroot\\index.html"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\main.0fcf52faf25cd376.js",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\main.0fcf52faf25cd376.js",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "main.0fcf52faf25cd376.js",
       "AssetKind": "All",
@@ -952,10 +952,10 @@
       "OriginalItemSpec": "wwwroot\\main.0fcf52faf25cd376.js"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\polyfills.e60740ad809da6cf.js",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\polyfills.e60740ad809da6cf.js",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "polyfills.e60740ad809da6cf.js",
       "AssetKind": "All",
@@ -969,10 +969,10 @@
       "OriginalItemSpec": "wwwroot\\polyfills.e60740ad809da6cf.js"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\runtime.e568dcdd41730442.js",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\runtime.e568dcdd41730442.js",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "runtime.e568dcdd41730442.js",
       "AssetKind": "All",
@@ -986,10 +986,10 @@
       "OriginalItemSpec": "wwwroot\\runtime.e568dcdd41730442.js"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\scripts.19b90c90e083f446.js",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\scripts.19b90c90e083f446.js",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "scripts.19b90c90e083f446.js",
       "AssetKind": "All",
@@ -1003,10 +1003,10 @@
       "OriginalItemSpec": "wwwroot\\scripts.19b90c90e083f446.js"
     },
     {
-      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\styles.bca68cb60714a846.css",
+      "Identity": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\styles.bca68cb60714a846.css",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\wwwroot\\",
+      "ContentRoot": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefapi\\wwwroot\\",
       "BasePath": "_content/mefapi",
       "RelativePath": "styles.bca68cb60714a846.css",
       "AssetKind": "All",

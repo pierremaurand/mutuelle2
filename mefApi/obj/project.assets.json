@@ -2688,19 +2688,21 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\mefapi.csproj",
+      "projectUniqueName": "c:\\Users\\Maurand\\Documents\\projects\\mutuelle2\\mefApi\\mefapi.csproj",
       "projectName": "mefapi",
-      "projectPath": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\mefapi.csproj",
+      "projectPath": "c:\\Users\\Maurand\\Documents\\projects\\mutuelle2\\mefApi\\mefapi.csproj",
       "packagesPath": "C:\\Users\\Maurand\\.nuget\\packages\\",
-      "outputPath": "D:\\Mes Projets\\mutuelle\\mutuelle2\\mefApi\\obj\\",
+      "outputPath": "c:\\Users\\Maurand\\Documents\\projects\\mutuelle2\\mefApi\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Maurand\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Maurand\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -2779,7 +2781,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
       }
     }
   }

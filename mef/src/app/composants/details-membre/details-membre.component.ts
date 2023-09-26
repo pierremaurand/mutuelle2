@@ -40,6 +40,8 @@ export class DetailsMembreComponent implements OnInit {
   private initObervables(): void {
     this.sexe$ = this.sexeService.getSexeById(this.membre.sexeId);
     this.poste$ = this.posteService.getPosteById(this.membre.posteId);
-    this.lieu$ = this.lieuService.getLieuById(this.membre.lieuAffectationId);
+    this.lieu$ = this.lieuService.getLieuAffectationById(
+      this.membre.lieuAffectationId
+    );
   }
 }

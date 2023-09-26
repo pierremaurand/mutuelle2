@@ -4,21 +4,26 @@ using mefApi.Interfaces;
 using mefApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using mefApi.HubConfig;
+using Microsoft.AspNetCore.SignalR;
 
 namespace mefApi.Controllers
 {
     public class LieuAffectationController : BaseController
     {
-         private readonly IUnitOfWork uow;
+        private readonly IUnitOfWork uow;
         private readonly IMapper mapper;
+        private readonly IHubContext<SignalrServer> signalrHub; 
 
-        public LieuAffectationController(IMapper mapper, IUnitOfWork uow)
+        public LieuAffectationController(IMapper mapper, IUnitOfWork uow, IHubContext<SignalrServer> signalrHub)
         {
             this.mapper = mapper;
             this.uow = uow;
+            this.signalrHub = signalrHub;
         }
 
-        [HttpGet("lieuaffectations")]
+        [HttpGet("lieuxAffectations")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAll()
         {
             var lieuaffectations = await uow.LieuAffectationRepository.GetAllAsync();
@@ -41,39 +46,40 @@ namespace mefApi.Controllers
         }
 
         [HttpPost("add")]
-        public async Task<IActionResult> Add(LieuAffectationDto lieuaffectationDto)
+        [AllowAnonymous]
+        public async Task<IActionResult> Add(LieuAffectationDto lieuAffectationDto)
         {
-            var lieuaffectation = mapper.Map<LieuAffectation>(lieuaffectationDto);
-            if(await uow.LieuAffectationRepository.LieuExists(lieuaffectationDto)) {
-                lieuaffectation = await uow.LieuAffectationRepository.FindByLieuAsync(lieuaffectationDto.Lieu);
-                if(lieuaffectation is null) {
-                    return NotFound("Ce lieu n'existe pas dans la base");
-                }
-            } else {
-                lieuaffectation.ModifiePar = GetUserId();
-                lieuaffectation.ModifieLe = DateTime.Now;
-                uow.LieuAffectationRepository.Add(lieuaffectation);
-                await uow.SaveAsync();
+            var lieuAffectation = mapper.Map<LieuAffectation>(lieuAffectationDto);
+            var lieuAffectationExist = await uow.LieuAffectationRepository.LieuExists(lieuAffectationDto);
+
+            if(lieuAffectationExist){
+                return BadRequest("Ce lieu d'affectation existe déjà dans la base");
             }
             
-            return Ok(lieuaffectation.Id);
+            lieuAffectation.ModifiePar = GetUserId();
+            lieuAffectation.ModifieLe = DateTime.Now;
+            uow.LieuAffectationRepository.Add(lieuAffectation);
+            await uow.SaveAsync();
+            await signalrHub.Clients.All.SendAsync("LieuAffectationAdded");
+            return StatusCode(201);
         }
 
         [HttpPut("update/{id}")]
-        public async Task<IActionResult> Update(int id,LieuAffectationDto lieuaffectationDto)
+        public async Task<IActionResult> Update(int id,LieuAffectationDto lieuAffectationDto)
         {
-            if(id != lieuaffectationDto.Id) 
+            if(id != lieuAffectationDto.Id) 
                 return BadRequest("Update not allowed");
 
-            var lieuaffectationFromDb = await uow.LieuAffectationRepository.FindByIdAsync(id);
+            var lieuAffectationFromDb = await uow.LieuAffectationRepository.FindByIdAsync(id);
             
-            if(lieuaffectationFromDb == null) 
+            if(lieuAffectationFromDb == null) 
                 return BadRequest("Update not allowed");
 
-            lieuaffectationFromDb.ModifiePar = GetUserId();
-            lieuaffectationFromDb.ModifieLe = DateTime.Now;
-            mapper.Map(lieuaffectationDto, lieuaffectationFromDb);
+            lieuAffectationFromDb.ModifiePar = GetUserId();
+            lieuAffectationFromDb.ModifieLe = DateTime.Now;
+            mapper.Map(lieuAffectationDto, lieuAffectationFromDb);
             await uow.SaveAsync();
+            await signalrHub.Clients.All.SendAsync("LieuAffectationAdded");
             return StatusCode(200);
         }
 

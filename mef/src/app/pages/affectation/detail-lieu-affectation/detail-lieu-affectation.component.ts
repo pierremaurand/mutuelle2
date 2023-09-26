@@ -10,7 +10,7 @@ import { LieuAffectationService } from 'src/app/services/lieu-affectation.servic
 })
 export class DetailLieuAffectationComponent implements OnInit {
   @Input()
-  lieuaffectation: LieuAffectation = new LieuAffectation();
+  lieuAffectation!: LieuAffectation;
   photo: string = '';
 
   constructor(
@@ -23,6 +23,6 @@ export class DetailLieuAffectationComponent implements OnInit {
   }
 
   modifier(): void {
-    this.router.navigate(['/nouveaulieuaffectation', this.lieuaffectation?.id]);
+    this.router.navigate(['/nouveaulieuaffectation', this.lieuAffectation?.id]);
   }
 }

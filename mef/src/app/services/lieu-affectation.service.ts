@@ -13,56 +13,50 @@ export class LieuAffectationService {
 
   constructor(private http: HttpClient) {}
 
-  private _lieux$ = new BehaviorSubject<LieuAffectation[]>([]);
-  get lieux$(): Observable<LieuAffectation[]> {
-    return this._lieux$.asObservable();
+  private _lieuxAffectations$ = new BehaviorSubject<LieuAffectation[]>([]);
+  get lieuxAffectations$(): Observable<LieuAffectation[]> {
+    return this._lieuxAffectations$.asObservable();
   }
 
-  getLieuxFromServer() {
+  getLieuxAffectationsFromServer() {
     this.http
       .get<LieuAffectation[]>(
-        `${this.baseUrl}/lieuaffectation/lieuaffectations`
+        `${this.baseUrl}/lieuAffectation/lieuxAffectations`
       )
       .pipe(
-        tap((lieux) => {
-          this._lieux$.next(lieux);
+        tap((lieuxAffectations) => {
+          this._lieuxAffectations$.next(lieuxAffectations);
         })
       )
       .subscribe();
   }
 
-  getLieuById(id: number): Observable<LieuAffectation> {
-    return this.lieux$.pipe(
-      map((lieux) => lieux.filter((lieu) => lieu.id === id)[0])
+  getLieuAffectationById(id: number): Observable<LieuAffectation> {
+    return this.lieuxAffectations$.pipe(
+      map(
+        (lieuxAffectations) =>
+          lieuxAffectations.filter(
+            (lieuAffectation) => lieuAffectation.id === id
+          )[0]
+      )
     );
   }
 
   //-------------------------------------------------
 
-  getAll(): Observable<LieuAffectation[]> {
-    return this.http.get<LieuAffectation[]>(
-      this.baseUrl + '/lieuaffectation/lieuaffectations'
-    );
+  add(lieuaffectation: LieuAffectation): void {
+    this.http
+      .post<number>(this.baseUrl + '/lieuaffectation/add', lieuaffectation)
+      .subscribe();
   }
 
-  getById(id?: number): Observable<LieuAffectation> {
-    return this.http.get<LieuAffectation>(
-      this.baseUrl + '/lieuaffectation/get/' + id?.toString()
-    );
-  }
-
-  add(lieuaffectation: LieuAffectation): Observable<number> {
-    return this.http.post<number>(
-      this.baseUrl + '/lieuaffectation/add',
-      lieuaffectation
-    );
-  }
-
-  update(lieuaffectation: LieuAffectation, id: number): Observable<any> {
-    return this.http.put(
-      this.baseUrl + '/lieuaffectation/update/' + id.toString(),
-      lieuaffectation
-    );
+  update(id: number, lieuaffectation: LieuAffectation): void {
+    this.http
+      .put(
+        this.baseUrl + '/lieuaffectation/update/' + id.toString(),
+        lieuaffectation
+      )
+      .subscribe();
   }
 
   delete(id: number): Observable<any> {

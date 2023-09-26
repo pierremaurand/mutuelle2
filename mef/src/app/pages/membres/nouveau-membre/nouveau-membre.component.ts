@@ -116,7 +116,7 @@ export class NouveauMembreComponent implements OnInit {
   private initObservables(): void {
     this.sexes$ = this.sexeService.sexes$;
     this.postes$ = this.posteService.postes$;
-    this.lieux$ = this.lieuAffectationService.lieux$;
+    this.lieux$ = this.lieuAffectationService.lieuxAffectations$;
 
     // this.membre$ = this.route.params.pipe(
     //   switchMap((params) =>

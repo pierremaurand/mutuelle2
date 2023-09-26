@@ -49,7 +49,7 @@ export class AccueilComponent implements OnInit {
 
     this.signalrService.addPosteAddListener();
 
-    this.signalrService.addLieuAddListener();
+    this.signalrService.addLieuAffectationAddListener();
 
     this.signalrService.addMouvementAddListener();
 
@@ -83,8 +83,8 @@ export class AccueilComponent implements OnInit {
       this.posteService.getPostesFromServer();
     });
 
-    this.signalrService.lieuAdd$.subscribe(() => {
-      this.lieuService.getLieuxFromServer();
+    this.signalrService.lieuAffectationAdd$.subscribe(() => {
+      this.lieuService.getLieuxAffectationsFromServer();
     });
 
     this.signalrService.mouvementAdd$.subscribe(() => {

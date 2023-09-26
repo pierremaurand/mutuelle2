@@ -1,40 +1,58 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
   <!-- Page Heading -->
-  <div class="row mb-3">
-    <div class="col-md-8">
-      <h1 class="mb-2 text-gray-800">
-        <i class="fa fa-list"></i> Liste des lieux d'affectation
-      </h1>
-    </div>
-    <div class="col-md-4">
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">
+      <i class="fa fa-list"></i> Liste des lieux d'affectation
+    </h1>
+    <span>
       <app-bouton-action
-        (newEvent)="nouveauLieuAffectation()"
-        (exportEvent)="exportLieuAffectation()"
-        (importEvent)="importLieuAffectation()"
+        (newEvent)="newEvent()"
+        [afficheNew]="true"
       ></app-bouton-action>
-    </div>
+    </span>
   </div>
 
   <!-- DataTales Example -->
   <div class="card shadow mb-4">
     <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">Liste des affectations</h6>
+      <div class="row">
+        <div class="col-lg-4 col-md-6 col-sm-12">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <label for="search" class="btn btn-primary shadow-sm">
+                <i class="fa fa-search"></i>
+              </label>
+            </div>
+            <input
+              type="search"
+              class="form-control shadow-sm"
+              name="search"
+              id="search"
+              [formControl]="searchCtrl"
+              placeholder="Rechercher..."
+            />
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="card-body">
-      <div class="list-group">
+    <div class="card-body liste">
+      <div
+        class="list-group"
+        *ngIf="lieuxAffectations$ | async as lieuxAffectations"
+      >
         <a
           href="javascript:void(0);"
-          class="list-group-item list-group-item-action border-left-primary"
+          class="list-group-item list-group-item-action border-left-primary mb-2 shadow-sm rounded"
           aria-current="true"
           *ngFor="
-            let lieuaffectation of lieuaffectations | sort : ['lieu', 'asc']
+            let lieuAffectation of lieuxAffectations | sort : ['lieu', 'asc']
           "
         >
-          <div class="row" (click)="navigate(lieuaffectation.id)">
+          <div class="row" (click)="navigate(lieuAffectation.id)">
             <div class="col-12">
               <app-detail-lieu-affectation
-                [lieuaffectation]="lieuaffectation"
+                [lieuAffectation]="lieuAffectation"
               ></app-detail-lieu-affectation>
             </div>
           </div>

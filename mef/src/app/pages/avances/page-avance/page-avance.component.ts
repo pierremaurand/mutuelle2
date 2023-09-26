@@ -37,11 +37,11 @@ export class PageAvanceComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.initForm();
+    this.initFormControls();
     this.initObservables();
   }
 
-  private initForm() {
+  private initFormControls() {
     this.searchCtrl = this.formBuilder.control('');
     this.statusPretCtrl = this.formBuilder.control('');
     this.statusPretOptions = [

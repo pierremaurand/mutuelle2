@@ -2,9 +2,6 @@ import { Injectable } from '@angular/core';
 import * as signalR from '@microsoft/signalr';
 import { environment } from 'src/environments/environment';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Utilisateur } from '../models/utilisateur';
-import { Mouvement } from '../models/mouvement';
-import { Cotisation } from '../models/cotisation';
 
 @Injectable({
   providedIn: 'root',
@@ -31,9 +28,9 @@ export class SignalrService {
     return this._posteAdd$.asObservable();
   }
 
-  private _lieuAdd$ = new BehaviorSubject<boolean>(false);
-  get lieuAdd$(): Observable<boolean> {
-    return this._lieuAdd$.asObservable();
+  private _lieuAffectationAdd$ = new BehaviorSubject<boolean>(false);
+  get lieuAffectationAdd$(): Observable<boolean> {
+    return this._lieuAffectationAdd$.asObservable();
   }
 
   private _mouvementAdd$ = new BehaviorSubject<boolean>(false);
@@ -110,9 +107,9 @@ export class SignalrService {
     });
   };
 
-  public addLieuAddListener = () => {
-    this.hubConnection.on('LieuAdded', () => {
-      this._lieuAdd$.next(true);
+  public addLieuAffectationAddListener = () => {
+    this.hubConnection.on('LieuAffectationAdded', () => {
+      this._lieuAffectationAdd$.next(true);
     });
   };
 

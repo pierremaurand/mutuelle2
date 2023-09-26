@@ -42,6 +42,7 @@ import { DeboursementResolver } from './resolvers/deboursement.resolver';
 import { EcheancierResolver } from './resolvers/echeancier.resolver';
 import { MouvementsResolver } from './resolvers/mouvements.resolver';
 import { UtilisateurResolver } from './resolvers/utilisateur.resolver';
+import { LieuxResolver } from './resolvers/lieux.resolver';
 
 const routes: Routes = [
   {
@@ -251,13 +252,11 @@ const routes: Routes = [
         canActivate: [AuthService],
       },
       {
-        path: 'nouveaulieuaffectation',
+        path: 'nouveaulieuaffectation/:lieuAffectationId',
         component: NouveauLieuAffectationComponent,
-        canActivate: [AuthService],
-      },
-      {
-        path: 'nouveaulieuaffectation/:id',
-        component: NouveauLieuAffectationComponent,
+        resolve: {
+          lieuAffectation: LieuxResolver,
+        },
         canActivate: [AuthService],
       },
     ],

@@ -19,10 +19,10 @@ namespace mefApi.Data.Repo
 
 
 
-        public void Add(LieuAffectation lieuaffectation)
+        public void Add(LieuAffectation lieuAffectation)
         {
-            if(dc.LieuAffectations is not null && lieuaffectation is not null) {
-                dc.LieuAffectations.Add(lieuaffectation);
+            if(dc.LieuAffectations is not null && lieuAffectation is not null) {
+                dc.LieuAffectations.Add(lieuAffectation);
             }
         }
 
@@ -78,7 +78,7 @@ namespace mefApi.Data.Repo
         public async Task<bool> LieuExists(LieuAffectationDto lieu)
         {
             if(dc.LieuAffectations is not null)
-                return await dc.LieuAffectations.AnyAsync(x => x.Lieu == lieu.Lieu);
+                return await dc.LieuAffectations.AnyAsync(x => x.Lieu.ToLower() == lieu.Lieu.Trim().ToLower());
             return false;
         }
     }

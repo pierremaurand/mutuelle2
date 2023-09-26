@@ -64,7 +64,7 @@ export class MembreListComponent implements OnInit {
       this.membres$,
       this.sexeService.sexes$,
       this.posteService.postes$,
-      this.lieuAffectationService.lieux$,
+      this.lieuAffectationService.lieuxAffectations$,
     ]).pipe(
       map(([search, membres]) =>
         membres.filter((membre) =>

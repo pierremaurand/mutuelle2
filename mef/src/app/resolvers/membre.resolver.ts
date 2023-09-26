@@ -18,10 +18,7 @@ export class MembreResolver implements Resolve<Membre> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<Membre> {
-    const id = route.paramMap.get('membreId');
-    if (id) {
-      return this.membreService.getMembreById(+id);
-    }
-    return of(new Membre());
+    const id = route.paramMap.get('membreId') ?? 0;
+    return this.membreService.getMembreById(+id);
   }
 }

@@ -18,10 +18,7 @@ export class DeboursementResolver implements Resolve<Deboursement> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<Deboursement> {
-    const id = route.paramMap.get('deboursementId');
-    if (id) {
-      return this.deboursementService.getDeboursementById(+id);
-    }
-    return of(new Deboursement());
+    const id = route.paramMap.get('deboursementId') ?? 0;
+    return this.deboursementService.getDeboursementById(+id);
   }
 }

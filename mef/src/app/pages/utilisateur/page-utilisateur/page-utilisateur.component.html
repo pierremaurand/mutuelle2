@@ -1,31 +1,61 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
   <!-- Page Heading -->
-  <div class="row mb-3">
-    <div class="col-md-8">
-      <h1 class="mb-2 text-gray-800">
-        <i class="fa fa-list"></i> Liste des utilisateurs
-      </h1>
-    </div>
-    <div class="col-md-4">
-      <app-bouton-action (newEvent)="nouvelUtilisateur()"></app-bouton-action>
-    </div>
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">
+      <i class="fa fa-list"></i> Liste des utilisateurs
+    </h1>
+    <span>
+      <app-bouton-action
+        (newEvent)="newEvent()"
+        [afficheNew]="true"
+      ></app-bouton-action>
+    </span>
   </div>
 
   <!-- DataTales Example -->
   <div class="card shadow mb-4">
-    <div class="card-header py-3"></div>
-    <div class="card-body">
+    <div class="card-header py-3">
+      <div class="row">
+        <div class="col-4">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <label for="search" class="btn btn-primary shadow-sm">
+                <i class="fa fa-search"></i>
+              </label>
+            </div>
+            <input
+              type="search"
+              class="form-control"
+              id="search"
+              name="search"
+              [formControl]="searchCtrl"
+              placeholder="Rechercher..."
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body liste">
       <div class="list-group" *ngIf="utilisateurs$ | async as utilisateurs">
         <a
           href="javascript:void(0);"
-          class="list-group-item list-group-item-action"
+          class="list-group-item list-group-item-action mb-1"
           aria-current="true"
-          *ngFor="let utilisateur of utilisateurs | sort : ['login', 'asc']"
+          *ngFor="
+            let utilisateur of utilisateurs | sort : ['nomUtilisateur', 'asc']
+          "
         >
-          <app-details-utilisateur
-            [utilisateur]="utilisateur"
-          ></app-details-utilisateur>
+          <div
+            class="row"
+            (click)="navigate(utilisateur.id, utilisateur.membreId ?? 0)"
+          >
+            <div class="col-12">
+              <app-details-utilisateur
+                [utilisateur]="utilisateur"
+              ></app-details-utilisateur>
+            </div>
+          </div>
         </a>
       </div>
     </div>

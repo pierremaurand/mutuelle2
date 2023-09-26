@@ -17,6 +17,7 @@ import { environment } from 'src/environments/environment';
 })
 export class EnteteComponent implements OnInit {
   membre$!: Observable<Membre>;
+  membre: Membre = new Membre();
   utilisateur$!: Observable<Utilisateur>;
   imagesUrl = environment.imagesUrl;
 
@@ -29,16 +30,19 @@ export class EnteteComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.utilisateurService.getUtilisateursFromServer();
-    this.membreService.getMembresFromServer();
-    this.initInfos();
+    this.initObservables();
   }
 
-  private initInfos(): void {
-    const id = this.authService.getUserId();
-    this.utilisateur$ = this.utilisateurService.getUtilisateurById(id);
-    const membreId = this.authService.getMembreId();
-    this.membre$ = this.membreService.getMembreById(membreId);
+  private initObservables(): void {
+    this.utilisateur$ = this.utilisateurService.getUtilisateurById(
+      this.authService.getUserId()
+    );
+    this.membre$ = this.membreService.getMembreById(
+      this.authService.getMembreId()
+    );
+    this.membre$.subscribe((membre: Membre) => {
+      if (membre) this.membre = membre;
+    });
   }
 
   logout(): void {

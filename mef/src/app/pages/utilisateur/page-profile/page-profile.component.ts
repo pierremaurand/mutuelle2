@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Membre } from 'src/app/models/membre.model';
 import { InfosPassword } from 'src/app/models/infosPassword';
-import { MembreList } from 'src/app/models/membreList';
 import { UtilisateurService } from 'src/app/services/utilisateur.service';
 
 @Component({
@@ -27,11 +26,7 @@ export class PageProfileComponent implements OnInit {
 
   changePassword(): void {
     if (this.checkForm()) {
-      this.utilisateurService.changePassword(this.infos).subscribe(() => {
-        alert('Mot de passe changer avec success');
-        this.infos.confirmPassword = '';
-        this.infos.password = '';
-      });
+      this.utilisateurService.changePassword(this.infos);
     }
   }
 

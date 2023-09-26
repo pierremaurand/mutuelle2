@@ -41,8 +41,7 @@ import { AvanceResolver } from './resolvers/avance.resolver';
 import { DeboursementResolver } from './resolvers/deboursement.resolver';
 import { EcheancierResolver } from './resolvers/echeancier.resolver';
 import { MouvementsResolver } from './resolvers/mouvements.resolver';
-import { EcheancierAvanceResolver } from './resolvers/echeancier-avance.resolver';
-import { MouvementsAvanceResolver } from './resolvers/mouvements-avance.resolver';
+import { UtilisateurResolver } from './resolvers/utilisateur.resolver';
 
 const routes: Routes = [
   {
@@ -173,13 +172,12 @@ const routes: Routes = [
         canActivate: [AuthService],
       },
       {
-        path: 'nouvelutilisateur',
+        path: 'nouvelutilisateur/:utilisateurId/:membreId',
         component: NouvelUtilisateurComponent,
-        canActivate: [AuthService],
-      },
-      {
-        path: 'nouvelutilisateur/:id',
-        component: NouvelUtilisateurComponent,
+        resolve: {
+          utilisateur: UtilisateurResolver,
+          membre: MembreResolver,
+        },
         canActivate: [AuthService],
       },
       {

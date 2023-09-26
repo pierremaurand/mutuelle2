@@ -18,10 +18,7 @@ export class EcheancierAvanceResolver implements Resolve<Echeance[]> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<Echeance[]> {
-    const idAvance = route.paramMap.get('avanceId');
-    if (idAvance) {
-      return this.echeanceService.getEcheancierAvance(+idAvance);
-    }
-    return of([]);
+    const idAvance = route.paramMap.get('avanceId') ?? 0;
+    return this.echeanceService.getEcheancierAvance(+idAvance);
   }
 }

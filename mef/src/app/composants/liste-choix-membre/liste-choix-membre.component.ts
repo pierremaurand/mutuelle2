@@ -2,12 +2,10 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
-  Input,
   OnInit,
   Output,
 } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, combineLatest, map, startWith } from 'rxjs';
 import { Membre } from 'src/app/models/membre.model';
 import { MembreService } from 'src/app/services/membre.service';

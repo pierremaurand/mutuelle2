@@ -26,7 +26,6 @@ export class MembreListComponent implements OnInit {
     private sexeService: SexeService,
     private posteService: PosteService,
     private lieuAffectationService: LieuAffectationService,
-    private route: ActivatedRoute,
     private router: Router,
     private formBuilder: FormBuilder
   ) {}
@@ -55,8 +54,6 @@ export class MembreListComponent implements OnInit {
   }
 
   private initObservables(): void {
-    this.membres$ = this.membreService.membres$;
-
     const search$ = this.searchCtrl.valueChanges.pipe(
       startWith(this.searchCtrl.value),
       map((value) => value.toLowerCase())

@@ -18,10 +18,7 @@ export class MouvementsAvanceResolver implements Resolve<Mouvement[]> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<Mouvement[]> {
-    const idAvance = route.paramMap.get('avanceId');
-    if (idAvance) {
-      return this.compteService.getMouvementsAvance(+idAvance);
-    }
-    return of([]);
+    const idAvance = route.paramMap.get('avanceId') ?? 0;
+    return this.compteService.getMouvementsAvance(+idAvance);
   }
 }

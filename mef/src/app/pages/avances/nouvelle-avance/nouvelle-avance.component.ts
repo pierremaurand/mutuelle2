@@ -7,19 +7,11 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import {
-  Observable,
-  combineLatest,
-  combineLatestAll,
-  map,
-  startWith,
-  switchMap,
-} from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { StatusPret } from 'src/app/enums/statut-pret.enum';
 import { Membre } from 'src/app/models/membre.model';
 import { Avance } from 'src/app/models/avance';
 import { Deboursement } from 'src/app/models/deboursement.model';
-import { EcheanceAvance } from 'src/app/models/echeanceAvance';
 import { Mouvement } from 'src/app/models/mouvement';
 import { AvanceService } from 'src/app/services/avance.service';
 import { CompteService } from 'src/app/services/compte.service';
@@ -74,7 +66,6 @@ export class NouvelleAvanceComponent implements OnInit {
     private deboursementService: DeboursementService,
     private echeanceService: EcheanceService,
     private compteService: CompteService,
-    private membreService: MembreService,
     private datePipe: DatePipe,
     private fb: FormBuilder
   ) {}

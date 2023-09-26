@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { tap } from 'rxjs';
 import { AvanceService } from 'src/app/services/avance.service';
 import { CompteComptableService } from 'src/app/services/compte-comptable.service';
 import { CompteService } from 'src/app/services/compte.service';
@@ -13,6 +12,7 @@ import { MembreService } from 'src/app/services/membre.service';
 import { PosteService } from 'src/app/services/poste.service';
 import { SexeService } from 'src/app/services/sexe.service';
 import { SignalrService } from 'src/app/services/signalr.service';
+import { UtilisateurService } from 'src/app/services/utilisateur.service';
 
 @Component({
   selector: 'app-accueil',
@@ -34,11 +34,14 @@ export class AccueilComponent implements OnInit {
     public deboursementService: DeboursementService,
     public echeanceService: EcheanceService,
     public gabaritService: GabaritService,
-    public compteComptableService: CompteComptableService
+    public compteComptableService: CompteComptableService,
+    public utilisateurService: UtilisateurService
   ) {}
 
   ngOnInit(): void {
     this.signalrService.startConnection();
+
+    this.signalrService.addUtilisateurAddListener();
 
     this.signalrService.addMembreAddListener();
 
@@ -64,6 +67,10 @@ export class AccueilComponent implements OnInit {
   }
 
   private initObservables(): void {
+    this.signalrService.utilisateurAdd$.subscribe(() => {
+      this.utilisateurService.getUtilisateursFromServer();
+    });
+
     this.signalrService.membreAdd$.subscribe(() => {
       this.membreService.getMembresFromServer();
     });

@@ -16,7 +16,7 @@ import { environment } from 'src/environments/environment';
 })
 export class DetailsMembreComponent implements OnInit {
   @Input()
-  membre: Membre = new Membre();
+  membre!: Membre;
   @Input()
   width: number = 64;
   @Input()

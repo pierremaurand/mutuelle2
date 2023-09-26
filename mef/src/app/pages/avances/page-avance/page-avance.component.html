@@ -71,7 +71,13 @@
               | sort : ['dateDemande', 'desc']
               | sort : ['id', 'desc']
           "
-          (click)="navigate(avance.id, avance.membreId, avance.deboursementId)"
+          (click)="
+            navigate(
+              avance.id,
+              avance.membreId ?? 0,
+              avance.deboursementId ?? 0
+            )
+          "
           [avance]="avance"
         ></app-detail-avance>
       </div>

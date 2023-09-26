@@ -18,10 +18,7 @@ export class AvanceResolver implements Resolve<Avance> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<Avance> {
-    const id = route.paramMap.get('avanceId');
-    if (id) {
-      return this.avanceService.getAvanceById(+id);
-    }
-    return of(new Avance());
+    const id = route.paramMap.get('avanceId') ?? 0;
+    return this.avanceService.getAvanceById(+id);
   }
 }

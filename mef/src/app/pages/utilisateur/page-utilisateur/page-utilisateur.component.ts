@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, combineLatest, map, startWith } from 'rxjs';
 import { Utilisateur } from 'src/app/models/utilisateur';
-import { UtilisateurList } from 'src/app/models/utilisateurList';
+import { MembreService } from 'src/app/services/membre.service';
 import { UtilisateurService } from 'src/app/services/utilisateur.service';
 
 @Component({
@@ -14,24 +15,57 @@ import { UtilisateurService } from 'src/app/services/utilisateur.service';
 export class PageUtilisateurComponent implements OnInit {
   utilisateurs$!: Observable<Utilisateur[]>;
 
+  searchCtrl!: FormControl;
+
   constructor(
     private router: Router,
-    private utilisateurService: UtilisateurService
+    public utilisateurService: UtilisateurService,
+    public membreService: MembreService,
+    private formBuilder: FormBuilder
   ) {}
 
   ngOnInit(): void {
+    this.initForm();
     this.initObservables();
   }
 
+  private initForm() {
+    this.searchCtrl = this.formBuilder.control('');
+  }
+
   private initObservables(): void {
-    this.utilisateurs$ = this.utilisateurService.utilisateurs$;
+    const search$ = this.searchCtrl.valueChanges.pipe(
+      startWith(this.searchCtrl.value),
+      map((value) => value.toLowerCase())
+    );
+
+    this.utilisateurs$ = combineLatest([
+      search$,
+      this.utilisateurService.utilisateurs$,
+      this.membreService.membres$,
+    ]).pipe(
+      map(([search, utilisateurs, membres]) =>
+        utilisateurs.filter(
+          (utilisateur) =>
+            (utilisateur.membreId &&
+              membres.find(
+                (membre) =>
+                  membre.id === utilisateur.membreId &&
+                  membre.nom.toLowerCase().includes(search as string)
+              )) ||
+            !utilisateur.membreId
+        )
+      )
+    );
   }
 
-  nouvelUtilisateur(): void {
-    this.router.navigate(['nouvelutilisateur']);
+  newEvent(): void {
+    this.navigate(0, 0);
   }
 
-  navigate(id: number): void {
-    this.router.navigate(['/nouvelutilisateur/' + id]);
+  navigate(utilisateurId: number, membreId: number): void {
+    this.router.navigate([
+      '/nouvelutilisateur/' + utilisateurId + '/' + membreId,
+    ]);
   }
 }

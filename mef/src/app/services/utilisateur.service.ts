@@ -33,35 +33,33 @@ export class UtilisateurService {
     return this.utilisateurs$.pipe(
       map(
         (utilisateurs) =>
-          utilisateurs.filter(
-            (utilisateur) => utilisateur.nomUtilisateur === 'admin'
-          )[0]
+          utilisateurs.filter((utilisateur) => utilisateur.id === id)[0]
       )
     );
   }
 
-  add(utilisateur: Utilisateur): Observable<any> {
-    return this.http.post(this.baseUrl + '/utilisateur/add', utilisateur);
+  add(utilisateur: Utilisateur): void {
+    this.http.post(this.baseUrl + '/utilisateur/add', utilisateur).subscribe();
   }
 
-  initPassword(id: number, utilisateur: Utilisateur): Observable<any> {
-    return this.http.put(
-      this.baseUrl + '/utilisateur/initPassword/' + id.toString(),
-      utilisateur
-    );
+  initPassword(id: number, utilisateur: Utilisateur): void {
+    this.http
+      .put(
+        this.baseUrl + '/utilisateur/initPassword/' + id.toString(),
+        utilisateur
+      )
+      .subscribe();
   }
 
-  changePassword(infosPassword: InfosPassword): Observable<any> {
-    return this.http.put(
-      this.baseUrl + '/utilisateur/changePassword',
-      infosPassword
-    );
+  changePassword(infosPassword: InfosPassword): void {
+    this.http
+      .put(this.baseUrl + '/utilisateur/changePassword', infosPassword)
+      .subscribe();
   }
 
-  update(utilisateur: Utilisateur, id: number): Observable<any> {
-    return this.http.put(
-      this.baseUrl + '/utilisateur/update/' + id.toString(),
-      utilisateur
-    );
+  update(id: number, utilisateur: Utilisateur): void {
+    this.http
+      .put(this.baseUrl + '/utilisateur/update/' + id.toString(), utilisateur)
+      .subscribe();
   }
 }

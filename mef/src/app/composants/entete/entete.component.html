@@ -29,11 +29,10 @@
           class="mr-2 d-none d-lg-inline text-gray-600 small"
           >{{ utilisateur.nomUtilisateur | uppercase }}</span
         >
-        <!-- <img
-          *ngIf="membre$ | async as membre"
+        <img
           class="img-profile rounded-circle"
-          src="{{ imagesUrl }}/assets/images/{{ membre.photo }}"
-        /> -->
+          [src]="imagesUrl + '/assets/images/' + membre.photo"
+        />
       </a>
       <!-- Dropdown - User Information -->
       <div

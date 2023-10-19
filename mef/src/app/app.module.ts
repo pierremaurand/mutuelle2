@@ -92,6 +92,7 @@ import { NouveauMouvementComponent } from './pages/compte/nouveau-mouvement/nouv
 import { CotisationsMembreComponent } from './pages/cotisations/cotisations-membre/cotisations-membre.component';
 import { CotisationComponent } from './pages/cotisations/cotisation/cotisation.component';
 import { EcheancierComponent } from './composants/echeancier/echeancier.component';
+import { FiltreMembreComponent } from './composants/filtre-membre/filtre-membre.component';
 
 @NgModule({
   declarations: [
@@ -175,6 +176,7 @@ import { EcheancierComponent } from './composants/echeancier/echeancier.componen
     CotisationsMembreComponent,
     CotisationComponent,
     EcheancierComponent,
+    FiltreMembreComponent,
   ],
   providers: [
     {

@@ -10,28 +10,12 @@
   <!-- DataTales Example -->
   <div class="card shadow mb-4">
     <div class="card-header py-3">
-      <div class="row">
-        <div class="col-lg-4 col-md-12">
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <label for="search" class="btn btn-primary shadow-sm">
-                <i class="fa fa-search"></i>
-              </label>
-            </div>
-            <input
-              type="search"
-              class="form-control shadow-sm"
-              name="search"
-              id="search"
-              [formControl]="searchCtrl"
-              placeholder="Rechercher..."
-            />
-          </div>
-        </div>
-      </div>
+      <app-filtre-membre
+        (membresFound)="membresFound($event)"
+      ></app-filtre-membre>
     </div>
     <div class="card-body liste">
-      <div class="list-group" *ngIf="membres$ | async as membres">
+      <div class="list-group">
         <a
           href="javascript:void(0);"
           class="list-group-item list-group-item-action mb-1"

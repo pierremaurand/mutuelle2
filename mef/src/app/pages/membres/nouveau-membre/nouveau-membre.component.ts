@@ -6,18 +6,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import {
-  combineLatest,
-  map,
-  Observable,
-  startWith,
-  switchMap,
-  take,
-  tap,
-} from 'rxjs';
+import { map, Observable, startWith, switchMap } from 'rxjs';
 import { Membre } from 'src/app/models/membre.model';
 import { LieuAffectation } from 'src/app/models/lieuAffectation';
-import { MembreInfos } from 'src/app/models/membreInfos.model';
 import { Poste } from 'src/app/models/poste';
 import { Sexe } from 'src/app/models/sexe';
 import { UploadImage } from 'src/app/models/uploadImage';

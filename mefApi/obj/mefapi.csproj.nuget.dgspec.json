@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Maurand\\Documents\\projects\\mutuelle2\\mefapi\\mefapi.csproj": {}
+    "C:\\Users\\Maurand\\Documents\\projects\\mutuelle2\\mefApi\\mefapi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Maurand\\Documents\\projects\\mutuelle2\\mefapi\\mefapi.csproj": {
+    "C:\\Users\\Maurand\\Documents\\projects\\mutuelle2\\mefApi\\mefapi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Maurand\\Documents\\projects\\mutuelle2\\mefapi\\mefapi.csproj",
+        "projectUniqueName": "C:\\Users\\Maurand\\Documents\\projects\\mutuelle2\\mefApi\\mefapi.csproj",
         "projectName": "mefapi",
-        "projectPath": "C:\\Users\\Maurand\\Documents\\projects\\mutuelle2\\mefapi\\mefapi.csproj",
+        "projectPath": "C:\\Users\\Maurand\\Documents\\projects\\mutuelle2\\mefApi\\mefapi.csproj",
         "packagesPath": "C:\\Users\\Maurand\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Maurand\\Documents\\projects\\mutuelle2\\mefapi\\obj\\",
+        "outputPath": "C:\\Users\\Maurand\\Documents\\projects\\mutuelle2\\mefApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Maurand\\AppData\\Roaming\\NuGet\\NuGet.Config",

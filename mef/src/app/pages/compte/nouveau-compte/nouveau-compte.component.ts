@@ -20,6 +20,8 @@ export class NouveauCompteComponent implements OnInit {
   solde!: number;
   membre$!: Observable<Membre>;
   mouvements$!: Observable<Mouvement[]>;
+  mouvements!: Mouvement[];
+  membre!: Membre;
 
   constructor(
     private router: Router,
@@ -47,16 +49,16 @@ export class NouveauCompteComponent implements OnInit {
     );
 
     this.mouvements$.subscribe((mouvements) => {
-      this.solde = this.calculSolde(mouvements);
+      this.mouvements = mouvements;
     });
 
     this.membre$.subscribe((membre) => {
-      this.id = membre.id;
+      this.membre = membre;
     });
   }
 
   addMouvement(): void {
-    this.router.navigate([`/addmouvement/${this.id}`]);
+    this.router.navigate([`/addmouvement/${this.membre.id}`]);
   }
 
   //------------------------------------------------------------
@@ -71,6 +73,10 @@ export class NouveauCompteComponent implements OnInit {
       }
     });
     return solde;
+  }
+
+  getMouvements(mouvements: Mouvement[], index: number): Mouvement[] {
+    return mouvements.slice(index);
   }
 
   onGoBack(): void {

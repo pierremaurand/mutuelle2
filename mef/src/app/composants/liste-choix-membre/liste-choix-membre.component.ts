@@ -18,45 +18,21 @@ import { environment } from 'src/environments/environment';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ListeChoixMembreComponent implements OnInit {
-  membres$!: Observable<Membre[]>;
+  membres: Membre[] = [];
   @Output()
   membreChoisie = new EventEmitter<Membre>();
 
   imagesUrl = environment.imagesUrl;
 
-  searchCtrl!: FormControl;
+  constructor() {}
 
-  search!: string;
-
-  constructor(public membreService: MembreService, private fb: FormBuilder) {}
-
-  ngOnInit(): void {
-    this.initControls();
-    this.initObservables();
-  }
-
-  private initControls(): void {
-    this.searchCtrl = this.fb.control('');
-  }
-
-  private initObservables(): void {
-    const search$ = this.searchCtrl.valueChanges.pipe(
-      startWith(this.searchCtrl.value),
-      map((value) => value.toLowerCase())
-    );
-
-    this.membres$ = combineLatest([search$, this.membreService.membres$]).pipe(
-      map(([search, membres]) =>
-        membres.filter((membre) =>
-          membre.nom.toLowerCase().includes(search as string)
-        )
-      )
-    );
-  }
-
-  //---------------------------------------------
+  ngOnInit(): void {}
 
   sendMembre(membre: Membre): void {
     this.membreChoisie.emit(membre);
+  }
+
+  membresFound(membres: Membre[]): void {
+    this.membres = membres;
   }
 }

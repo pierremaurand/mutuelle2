@@ -18,6 +18,8 @@ export class MouvementComponent implements OnInit {
   index!: number;
   @Input()
   mouvement!: Mouvement;
+  @Input()
+  mouvements!: Mouvement[];
 
   constructor() {}
 
@@ -28,5 +30,17 @@ export class MouvementComponent implements OnInit {
       return false;
     }
     return true;
+  }
+
+  getSolde(): number {
+    let solde = 0;
+    this.mouvements.forEach((m) => {
+      if (m.typeOperation == TypeOperation.Debit) {
+        solde -= m.montant ?? 0;
+      } else {
+        solde += m.montant ?? 0;
+      }
+    });
+    return solde;
   }
 }

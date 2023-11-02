@@ -1,4 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { combineLatest, map, tap } from 'rxjs';
+import { Membre } from 'src/app/models/membre.model';
+import { Mouvement } from 'src/app/models/mouvement';
 import { AvanceService } from 'src/app/services/avance.service';
 import { CompteComptableService } from 'src/app/services/compte-comptable.service';
 import { CompteService } from 'src/app/services/compte.service';

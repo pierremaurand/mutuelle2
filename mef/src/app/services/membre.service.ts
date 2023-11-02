@@ -5,8 +5,12 @@ import { environment } from 'src/environments/environment';
 import { Membre } from '../models/membre.model';
 import { MvtCompte } from '../models/mvtCompte';
 import { MvtMembre } from '../models/mvtMembre';
-import { UploadImage } from '../models/uploadImage';
+import { PhotoMembre } from '../models/photo-membre.model';
 import { MembreInfos } from '../models/membreInfos.model';
+import { Mouvement } from '../models/mouvement';
+import { TypeOperation } from '../models/typeoperation';
+import { Cotisation } from '../models/cotisation';
+import { DonneesMembre } from '../models/donnees-membre.model';
 
 @Injectable({
   providedIn: 'root',
@@ -24,6 +28,7 @@ export class MembreService {
   constructor(private http: HttpClient) {}
 
   getMembresFromServer() {
+    console.log('Chargement des membres');
     this.http
       .get<Membre[]>(`${this.baseUrl}/membre/membres`)
       .pipe(
@@ -34,12 +39,34 @@ export class MembreService {
       .subscribe();
   }
 
-  addMembreToList(membre: Membre): void {
+  addMembreToList(infos: any): void {
+    if (infos.id && infos.membre) {
+      infos.membre.id = infos.id;
+    }
     this.membres$
       .pipe(
         tap((membres) => {
-          const updatedMembres = [...membres, membre];
+          const updatedMembres = [...membres, infos.membre];
           this._membres$.next(updatedMembres);
+        })
+      )
+      .subscribe();
+  }
+
+  updateMembreInfos(infos: any): void {
+    if (infos.membre && infos.id) {
+      infos.membre.id = infos.id;
+    }
+    this.membres$
+      .pipe(
+        take(1),
+        map((membres) =>
+          membres.map((membre) =>
+            membre.id === infos.id ? infos.membre : membre
+          )
+        ),
+        tap((membres) => {
+          this._membres$.next(membres);
         })
       )
       .subscribe();
@@ -51,35 +78,18 @@ export class MembreService {
     );
   }
 
-  update(membre: Membre, image?: UploadImage): void {
+  update(membre: Membre): void {
     this.http
-      .put<MembreInfos>(`${this.baseUrl}/membre/update/${membre.id}`, membre)
-      .subscribe(() => {
-        if (image) {
-          this.modifierImage(membre.id, image);
-        } else {
-          this.getMembresFromServer();
-        }
-      });
+      .put(`${this.baseUrl}/membre/update/${membre.id}`, membre)
+      .subscribe();
   }
 
-  add(membre: Membre, image?: UploadImage): void {
-    this.http
-      .post<MembreInfos>(`${this.baseUrl}/membre/add`, membre)
-      .subscribe((membre) => {
-        if (image) {
-          this.modifierImage(membre.id, image);
-        } else {
-          this.getMembresFromServer();
-        }
-      });
+  add(membre: Membre): void {
+    this.http.post(`${this.baseUrl}/membre/add`, membre).subscribe();
   }
 
-  private modifierImage(id: number, image: UploadImage): void {
-    image.membreId = id;
-    this.addImage(image).subscribe(() => {
-      this.getMembresFromServer();
-    });
+  addImage(id: number, image: PhotoMembre): void {
+    this.http.post(`${this.baseUrl}/membre/addImage/${id}`, image).subscribe();
   }
 
   //--------------------------------------------------------------------
@@ -117,13 +127,6 @@ export class MembreService {
     return this.http.post(this.baseUrl + '/membre/import', membres);
   }
 
-  addImage(uploadImage: UploadImage): Observable<MembreInfos> {
-    return this.http.post<MembreInfos>(
-      this.baseUrl + '/membre/addImage',
-      uploadImage
-    );
-  }
-
   deleteMembre(id: number): Observable<any> {
     return this.http.delete(this.baseUrl + '/membre/delete/' + id.toString());
   }
@@ -133,5 +136,36 @@ export class MembreService {
       return this.imagesUrl + '/assets/images/' + photo;
     }
     return this.imagesUrl + '/assets/images/default_man.jpg';
+  }
+
+  public updateSoldeToutCompte(membre: Membre, mouvements: Mouvement[]): void {
+    this.addMembreToList(membre);
+  }
+
+  public updateSoldeCotisation(
+    membre: Membre,
+    cotisations: Cotisation[]
+  ): void {
+    this.addMembreToList(membre);
+  }
+
+  private calculSoldeCompte(mouvements: Mouvement[]): number {
+    let solde = 0;
+    mouvements.map((mouvement) => {
+      if (mouvement.typeOperation == TypeOperation.Credit) {
+        solde += mouvement.montant ?? 0;
+      } else {
+        solde -= mouvement.montant ?? 0;
+      }
+    });
+    return solde;
+  }
+
+  private calculSoldeCotisation(cotisations: Cotisation[]): number {
+    let solde = 0;
+    cotisations.map((cotisation) => {
+      solde += cotisation.montant;
+    });
+    return solde;
   }
 }

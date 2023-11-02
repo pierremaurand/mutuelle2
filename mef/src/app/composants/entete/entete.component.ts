@@ -17,7 +17,6 @@ import { environment } from 'src/environments/environment';
 })
 export class EnteteComponent implements OnInit {
   membre$!: Observable<Membre>;
-  membre: Membre = new Membre();
   utilisateur$!: Observable<Utilisateur>;
   imagesUrl = environment.imagesUrl;
 
@@ -37,12 +36,15 @@ export class EnteteComponent implements OnInit {
     this.utilisateur$ = this.utilisateurService.getUtilisateurById(
       this.authService.getUserId()
     );
-    this.membre$ = this.membreService.getMembreById(
-      this.authService.getMembreId()
+    this.membre$ = combineLatest([
+      this.utilisateur$,
+      this.membreService.membres$,
+    ]).pipe(
+      map(
+        ([utilisateur, membres]) =>
+          membres.filter((membre) => membre.id === utilisateur.membreId)[0]
+      )
     );
-    this.membre$.subscribe((membre: Membre) => {
-      if (membre) this.membre = membre;
-    });
   }
 
   logout(): void {

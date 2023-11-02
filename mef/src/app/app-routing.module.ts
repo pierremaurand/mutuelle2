@@ -72,7 +72,6 @@ const routes: Routes = [
       {
         path: 'nouveaumembre/:membreId',
         component: NouveauMembreComponent,
-        resolve: { membre: MembreResolver },
         canActivate: [AuthService],
       },
       {

@@ -8,6 +8,7 @@ using System.Drawing.Imaging;
 using Microsoft.AspNetCore.SignalR;
 using mefApi.HubConfig;
 using Microsoft.AspNetCore.Authorization;
+using System.Runtime.Versioning;
 
 namespace mefApi.Controllers
 {
@@ -58,9 +59,14 @@ namespace mefApi.Controllers
             return Ok(membreDto);
         }
 
+        [SupportedOSPlatform("windows")]
         [HttpPost("add")]
         public async Task<IActionResult> Add(MembreDto membreDto)
         {
+            if(membreDto is null) {
+                return BadRequest("Les informations du membre sont manquant!");
+            }
+
             var membre = mapper.Map<Membre>(membreDto);
 
             var membreExist = await uow.MembreRepository.MembreExists(membreDto);
@@ -77,58 +83,44 @@ namespace mefApi.Controllers
             return StatusCode(201);
         }
 
-        [HttpPost("import")] 
-        public async Task<IActionResult> Import(IEnumerable<MembreDto> membresDto) {
-            var membres = mapper.Map<IEnumerable<Membre>>(membresDto);
-
-            foreach (var membre in membres)
-            {
-                
-                membre.ModifiePar = GetUserId();
-                membre.ModifieLe = DateTime.Now;
-                uow.MembreRepository.Add(membre);
-            }
-
-            await uow.SaveAsync();
-            await signalrHub.Clients.All.SendAsync("MembreAdded");
-            return StatusCode(201);
-        }
-
-        [HttpPost("addImage")]
-        public async Task<IActionResult> AddImage(UploadImage imageDetails)
+        [SupportedOSPlatform("windows")]
+        [HttpPost("addImage/{id}")]
+        public async Task<IActionResult> AddImage(int id, PhotoMembreDto photo)
         {   
-            if(imageDetails.MembreId == 0){
-                return BadRequest("Update not allowed");
-            } 
-        
-            var membreFromDb = await uow.MembreRepository.FindByIdAsync(imageDetails.MembreId);
+            if(photo is not null) {
+                if(photo.Image is not null) {
+                    var membre = await this.uow.MembreRepository.FindByIdAsync(id);
+
+                    if(membre is null) {
+                        return BadRequest("Ce membre n'existe pas!");
+                    }
+
+                    byte[] bytes = Convert.FromBase64String(photo.Image);
             
-            if(membreFromDb == null) 
-                return BadRequest("Update not allowed");
+                    Image image; 
+                    using(MemoryStream ms = new MemoryStream(bytes)){
+                        image = Image.FromStream(ms);
+                    }
+                    
+                    int i = 0;
+                    var imageName = "membre_"+id+"_"+i+"."+photo.Type;
+                    if(photo.Photo is not null){
+                        while(photo.Photo.Equals(imageName)){
+                            i += 1;
+                            imageName = "membre_"+id+"_"+i+"."+photo.Type;
+                        }
+                    }
 
-            if(imageDetails.Image is null) {
-                return BadRequest("Update not allowed");
+                    image.Save("wwwroot/assets/images/" + imageName, ImageFormat.Png);
+
+                    membre.Photo = imageName;
+                    await uow.SaveAsync();
+                    await signalrHub.Clients.All.SendAsync("MembreAdded");
+                }
+            } else {
+                return BadRequest("Aucune image n'a été attaché!");
             }
-
-            byte[] bytes = Convert.FromBase64String(imageDetails.Image);
             
-            Image image; 
-            using(MemoryStream ms = new MemoryStream(bytes)){
-                image = Image.FromStream(ms);
-            }
-            int i = 0;
-            var imageName = "membre_"+imageDetails.MembreId+"_"+i+"."+imageDetails.Type;
-            while(membreFromDb.Photo.Equals(imageName)){
-                i += 1;
-                imageName = "membre_"+imageDetails.MembreId+"_"+i+"."+imageDetails.Type;
-            }
-
-            image.Save("wwwroot/assets/images/"+imageName, ImageFormat.Png);
-
-            membreFromDb.Photo = imageName;
-            await uow.SaveAsync();
-            var membreUpdated = mapper.Map<MembreInfosDto>(membreFromDb);
-            await signalrHub.Clients.All.SendAsync("MembreAdded");
             return StatusCode(201);
         }
 

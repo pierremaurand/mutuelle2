@@ -30,6 +30,7 @@
           >{{ utilisateur.nomUtilisateur | uppercase }}</span
         >
         <img
+          *ngIf="membre$ | async as membre"
           class="img-profile rounded-circle"
           [src]="imagesUrl + '/assets/images/' + membre.photo"
         />

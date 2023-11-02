@@ -13,10 +13,7 @@
     <div class="card-body">
       <div class="row">
         <div class="col-3">
-          <app-infos-membre
-            *ngIf="membre$ | async as membre"
-            [membre]="membre"
-          ></app-infos-membre>
+          <app-infos-membre [membre]="membre"></app-infos-membre>
         </div>
         <div class="col-9">
           <div class="row mb-2 d-flex justify-content-between">
@@ -47,15 +44,13 @@
               <div class="row text-center entete">
                 <div class="col-sm-1">N°</div>
                 <div class="col-sm-2">Date</div>
-                <div class="col-sm-2">Type</div>
-                <div class="col-sm-5">Libellé</div>
-                <div class="col-sm-2">Montant</div>
+                <div class="col-sm-3">Libellé</div>
+                <div class="col-sm-2">Debit</div>
+                <div class="col-sm-2">Credit</div>
+                <div class="col-sm-2">Solde</div>
               </div>
               <div class="row">
-                <div
-                  class="col-sm-12 liste"
-                  *ngIf="mouvements$ | async as mouvements"
-                >
+                <div class="col-sm-12 liste">
                   <app-mouvement
                     *ngFor="
                       let mouvement of mouvements
@@ -65,6 +60,7 @@
                     "
                     [index]="i"
                     [mouvement]="mouvement"
+                    [mouvements]="getMouvements(mouvements, i)"
                   ></app-mouvement>
                 </div>
               </div>

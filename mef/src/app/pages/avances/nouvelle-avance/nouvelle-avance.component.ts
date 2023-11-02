@@ -120,7 +120,10 @@ export class NouvelleAvanceComponent implements OnInit {
     this.mouvements$ = this.route.data.pipe(map((data) => data['mouvements']));
 
     this.membre$.subscribe((membre: Membre) => {
-      this.membre = membre;
+      if (membre) {
+        this.membreIdCtrl.setValue(membre.id);
+        this.membre = membre;
+      }
     });
 
     this.avance$.subscribe((avance: Avance) => {
@@ -246,8 +249,8 @@ export class NouvelleAvanceComponent implements OnInit {
       nbrEcheances = this.dureeAccordeeCtrl.value;
       montant = this.montantAccordeCtrl.value;
       if (montant && nbrEcheances) {
-        montantEcheance = Math.round(montant / nbrEcheances);
-        reste = montant - montantEcheance * nbrEcheances;
+        reste = montant % nbrEcheances;
+        montantEcheance = (montant - reste) / nbrEcheances;
       }
 
       this.nbrEcheances = nbrEcheances ?? 0;
@@ -271,8 +274,9 @@ export class NouvelleAvanceComponent implements OnInit {
               'yyyy-MM-dd'
             );
             echeance.montantEcheance = montantEcheance;
-            if (i === 1) {
-              echeance.montantEcheance = montantEcheance + reste;
+            if (reste !== 0) {
+              echeance.montantEcheance = montantEcheance + 1;
+              reste -= 1;
             }
             this.echeancier.push(echeance);
           }

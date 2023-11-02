@@ -11,7 +11,11 @@
     <div class="card-body">
       <div class="row">
         <div class="col-3">
-          <app-infos-membre [membre]="membre"></app-infos-membre>
+          <app-infos-membre
+            [membre]="membre"
+            data-toggle="modal"
+            data-target="#chooseMember"
+          ></app-infos-membre>
         </div>
         <div class="col">
           <div class="row mb-2 d-flex justify-content-between">
@@ -43,7 +47,7 @@
           </div>
           <hr />
           <div class="row">
-            <div class="col-md-8 col-sm-12">
+            <div class="col">
               <div class="row" [formGroup]="userForm">
                 <input
                   type="hidden"
@@ -51,7 +55,7 @@
                   formControlName="membreId"
                 />
                 <input type="hidden" name="id" formControlName="id" />
-                <div class="form-group col-md-12 col-sm-12">
+                <div class="form-group col">
                   <label for="nomUtilisateur" class="form-label"
                     >Nom d'utilisateur</label
                   >
@@ -63,7 +67,7 @@
                     formControlName="nomUtilisateur"
                   />
                 </div>
-                <div class="form-group col-md-12 col-sm-12">
+                <div class="form-group col">
                   <label for="type">Type d'utilisateur</label>
                   <select
                     name="type"
@@ -78,14 +82,13 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-4 col-sm-12">
-              <app-liste-choix-membre
-                (membreChoisie)="membreChoisie($event)"
-              ></app-liste-choix-membre>
-            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<app-liste-choix-membre
+  (membreChoisie)="membreChoisie($event)"
+></app-liste-choix-membre>

@@ -6,12 +6,12 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, Observable, startWith, switchMap } from 'rxjs';
+import { combineLatest, map, Observable, startWith, switchMap } from 'rxjs';
 import { Membre } from 'src/app/models/membre.model';
 import { LieuAffectation } from 'src/app/models/lieuAffectation';
 import { Poste } from 'src/app/models/poste';
 import { Sexe } from 'src/app/models/sexe';
-import { UploadImage } from 'src/app/models/uploadImage';
+import { PhotoMembre } from 'src/app/models/photo-membre.model';
 import { LieuAffectationService } from 'src/app/services/lieu-affectation.service';
 import { MembreService } from 'src/app/services/membre.service';
 import { PosteService } from 'src/app/services/poste.service';
@@ -28,11 +28,13 @@ export class NouveauMembreComponent implements OnInit {
   photo: string = '';
   dateNaissance!: string | null;
   image!: string;
-  uploadImage!: UploadImage;
+  photoMembre: PhotoMembre = new PhotoMembre();
   imagesUrl = environment.imagesUrl;
   id!: number;
+  changeImage: boolean = false;
 
   membre$!: Observable<Membre>;
+  idMembre$!: Observable<number>;
   sexes$!: Observable<Sexe[]>;
   sexe$!: Observable<Sexe>;
   postes$!: Observable<Poste[]>;
@@ -105,35 +107,40 @@ export class NouveauMembreComponent implements OnInit {
   }
 
   private initObservables(): void {
+    this.idMembre$ = this.route.params.pipe(
+      map((params) => +params['membreId'])
+    );
     this.sexes$ = this.sexeService.sexes$;
     this.postes$ = this.posteService.postes$;
     this.lieux$ = this.lieuAffectationService.lieuxAffectations$;
 
-    // this.membre$ = this.route.params.pipe(
-    //   switchMap((params) =>
-    //     this.membreService.getMembreById(+params['membreId'])
-    //   )
-    // );
-
-    this.membre$ = this.route.data.pipe(map((data) => data['membre']));
+    this.membre$ = combineLatest([
+      this.idMembre$,
+      this.membreService.membres$,
+    ]).pipe(
+      map(([id, membres]) => membres.filter((membre) => membre.id === id)[0])
+    );
 
     this.membre$.subscribe((membre: Membre) => {
-      this.mainForm.patchValue({
-        id: membre.id,
-        nom: membre.nom,
-        sexeId: membre.sexeId,
-        posteId: membre.posteId,
-        lieuAffectationId: membre.lieuAffectationId,
-        dateNaissance: membre.dateNaissance,
-        lieuNaissance: membre.lieuNaissance,
-        contact: membre.contact,
-        email: membre.email,
-        photo: membre.photo,
-        estActif: membre.estActif,
-        dateAdhesion: membre.dateAdhesion,
-      });
-
-      this.photo = this.imagesUrl + '/assets/images/' + membre.photo;
+      if (membre) {
+        this.mainForm.patchValue({
+          id: membre.id,
+          nom: membre.nom,
+          sexeId: membre.sexeId,
+          posteId: membre.posteId,
+          lieuAffectationId: membre.lieuAffectationId,
+          dateNaissance: membre.dateNaissance,
+          lieuNaissance: membre.lieuNaissance,
+          contact: membre.contact,
+          email: membre.email,
+          photo: membre.photo,
+          estActif: membre.estActif,
+          dateAdhesion: membre.dateAdhesion,
+        });
+        this.photo = this.imagesUrl + '/assets/images/' + membre.photo;
+        this.changeImage = true;
+        this.photoMembre.photo = membre.photo;
+      }
     });
 
     this.sexe$ = this.sexeIdCtrl.valueChanges.pipe(
@@ -142,7 +149,7 @@ export class NouveauMembreComponent implements OnInit {
     );
 
     this.sexe$.subscribe((sexe: Sexe) => {
-      if (this.photo.includes('default_')) {
+      if (this.photo.includes('default_') && sexe) {
         if (sexe.symbole == 'M') {
           this.photoCtrl.setValue('default_man.jpg');
         } else {
@@ -157,29 +164,33 @@ export class NouveauMembreComponent implements OnInit {
 
   enregistrerMembre(): void {
     if (this.mainForm.valid) {
-      this.initImage();
       if (this.idCtrl.value === 0) {
         this.add();
       } else {
+        this.initImage();
         this.update();
+        this.addImage();
       }
       this.onGoBack();
     }
   }
 
   private update(): void {
-    this.membreService.update(this.mainForm.value, this.uploadImage);
+    this.membreService.update(this.mainForm.value);
   }
 
   private add(): void {
-    this.membreService.add(this.mainForm.value, this.uploadImage);
+    this.membreService.add(this.mainForm.value);
+  }
+
+  private addImage(): void {
+    this.membreService.addImage(this.idCtrl.value, this.photoMembre);
   }
 
   private initImage(): void {
     if (this.image) {
-      this.uploadImage = new UploadImage();
-      this.uploadImage.image = this.image.substring(22);
-      this.uploadImage.type = 'png';
+      this.photoMembre.image = this.image.substring(22);
+      this.photoMembre.type = 'png';
     }
   }
 

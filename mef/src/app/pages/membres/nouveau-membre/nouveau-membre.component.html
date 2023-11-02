@@ -11,7 +11,7 @@
   <div class="card shadow mb-4">
     <div class="card-body">
       <div class="row m-3">
-        <div class="col-md-2 mb-3 border-end text-primary">
+        <div class="col-lg-2 col-md-12 mb-3 border-end text-primary">
           <img
             [src]="photo"
             alt="photo du membre"
@@ -34,7 +34,7 @@
             >
           </div>
         </div>
-        <div class="col-md-10">
+        <div class="col-lg-10 col-md-12">
           <div class="col-md-12">
             <div class="row mb-2">
               <div class="col-md-12 d-flex justify-content-between">
@@ -221,6 +221,7 @@
         tabindex="-1"
         aria-labelledby="addPicture"
         aria-hidden="true"
+        *ngIf="changeImage"
       >
         <app-image-add
           [photo]="photo"

@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace mefApi.Dtos
 {
-    public class UploadImage
+    public class PhotoMembreDto
     {
-        public int MembreId { get; set; } = 0;
-        public string Image { get; set; } = string.Empty;
+        public string? Image { get; set; }
+        public string? Photo { get; set; }
         public string Type { get; set; } = "png";
     }
 }

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { MembreInfos } from 'src/app/models/membreInfos.model';
+import { Membre } from 'src/app/models/membre.model';
 
 @Component({
   selector: 'app-detail-membre',
@@ -9,7 +9,7 @@ import { MembreInfos } from 'src/app/models/membreInfos.model';
 })
 export class DetailMembreComponent {
   @Input()
-  membre!: MembreInfos;
+  membre!: Membre;
   @Input()
   width: number = 64;
 }

@@ -7,9 +7,6 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
-import { UploadImage } from 'src/app/models/uploadImage';
-import { MembreService } from 'src/app/services/membre.service';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-image-add',
@@ -26,7 +23,7 @@ export class ImageAddComponent implements OnInit {
   croppedImage: any = '';
   @ViewChild('closeModal') modalClose: any;
 
-  constructor(private membreService: MembreService) {}
+  constructor() {}
 
   ngOnInit(): void {}
 

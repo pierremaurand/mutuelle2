@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import * as signalR from '@microsoft/signalr';
 import { environment } from 'src/environments/environment';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { InfosMembre } from '../models/infos-membre.model';
 
 @Injectable({
   providedIn: 'root',

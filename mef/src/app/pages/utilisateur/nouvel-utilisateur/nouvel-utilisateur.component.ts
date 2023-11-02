@@ -9,7 +9,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, map } from 'rxjs';
 import { Membre } from 'src/app/models/membre.model';
 import { Utilisateur } from 'src/app/models/utilisateur';
-import { MembreService } from 'src/app/services/membre.service';
 import { UtilisateurService } from 'src/app/services/utilisateur.service';
 
 @Component({
@@ -33,7 +32,6 @@ export class NouvelUtilisateurComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private membreService: MembreService,
     private utilisateurService: UtilisateurService,
     private fb: FormBuilder
   ) {}

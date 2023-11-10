@@ -1,52 +1,59 @@
-<div class="container d-flex justify-content-center align-items-center">
-  <div class="col-md-4" [formGroup]="loginForm">
-    <div class="row mb-3">
-      <div class="col">
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <label for="login" class="btn btn-primary shadow-sm">
-              <i class="fa fa-user"></i>
-            </label>
+<div class="container">
+  <div class="row">
+    <div class="col"></div>
+    <div class="col border">
+      <div class="row d-flex justify-content-center align-items-center">
+        <div class="col" [formGroup]="loginForm">
+          <div class="row mb-3">
+            <div class="col">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <label for="login" class="btn btn-primary shadow-sm">
+                    <i class="fa fa-user"></i>
+                  </label>
+                </div>
+                <input
+                  type="text"
+                  class="form-control shadow-sm"
+                  id="login"
+                  name="login"
+                  placeholder="Identifiant"
+                  formControlName="login"
+                />
+              </div>
+            </div>
           </div>
-          <input
-            type="text"
-            class="form-control shadow-sm"
-            id="login"
-            name="login"
-            placeholder="Identifiant"
-            formControlName="login"
-          />
-        </div>
-      </div>
-    </div>
-    <div class="row mb-3">
-      <div class="col">
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <label for="password" class="btn btn-primary shadow-sm">
-              <i class="fa fa-lock"></i>
-            </label>
+          <div class="row mb-3">
+            <div class="col">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <label for="password" class="btn btn-primary shadow-sm">
+                    <i class="fa fa-lock"></i>
+                  </label>
+                </div>
+                <input
+                  type="password"
+                  class="form-control shadow-sm"
+                  id="password"
+                  name="password"
+                  placeholder="Mot de passe"
+                  formControlName="password"
+                />
+              </div>
+            </div>
           </div>
-          <input
-            type="password"
-            class="form-control shadow-sm"
-            id="password"
-            name="password"
-            placeholder="Mot de passe"
-            formControlName="password"
-          />
+          <div class="row">
+            <div class="col">
+              <button
+                class="form-control btn btn-primary shadow-sm"
+                (click)="login()"
+                [disabled]="loginForm.invalid"
+              >
+                <i class="fas fa-sign-in-alt"></i> Se connecter
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <button
-          class="form-control btn btn-primary shadow-sm"
-          (click)="login()"
-          [disabled]="loginForm.invalid"
-        >
-          <i class="fas fa-sign-in-alt"></i> Se connecter
-        </button>
       </div>
     </div>
   </div>

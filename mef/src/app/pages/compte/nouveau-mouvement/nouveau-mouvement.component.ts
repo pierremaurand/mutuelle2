@@ -23,6 +23,7 @@ export class NouveauMouvementComponent implements OnInit {
   solde!: number;
   id!: number;
   membre$!: Observable<Membre>;
+  idMembre$!: Observable<number>;
   gabarits$!: Observable<Gabarit[]>;
 
   mainForm!: FormGroup;
@@ -72,8 +73,13 @@ export class NouveauMouvementComponent implements OnInit {
   }
 
   private initObservables(): void {
-    this.membre$ = this.route.params.pipe(
-      switchMap((params) => this.membreService.getMembreById(+params['id']))
+    this.idMembre$ = this.route.params.pipe(map((params) => +params['id']));
+
+    this.membre$ = combineLatest([
+      this.idMembre$,
+      this.membreService.membres$,
+    ]).pipe(
+      map(([id, membres]) => membres.filter((membre) => membre.id === id)[0])
     );
 
     this.membre$.subscribe((membre) => {

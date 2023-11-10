@@ -1,11 +1,15 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Observable, combineLatest, map, switchMap } from 'rxjs';
+import { Observable, combineLatest, map } from 'rxjs';
 import { Membre } from 'src/app/models/membre.model';
 import { Mouvement } from 'src/app/models/mouvement';
 import { TypeOperation } from 'src/app/models/typeoperation';
 import { CompteService } from 'src/app/services/compte.service';
 import { MembreService } from 'src/app/services/membre.service';
+
+import * as pdfMake from 'pdfmake/build/pdfmake';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+(<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
   selector: 'app-nouveau-compte',
@@ -19,6 +23,7 @@ export class NouveauCompteComponent implements OnInit {
   SortDirection = 'desc';
   solde!: number;
   membre$!: Observable<Membre>;
+  idMembre$!: Observable<number>;
   mouvements$!: Observable<Mouvement[]>;
   mouvements!: Mouvement[];
   membre!: Membre;
@@ -35,21 +40,27 @@ export class NouveauCompteComponent implements OnInit {
   }
 
   private initObservables(): void {
-    this.membre$ = this.route.params.pipe(
-      switchMap((params) => this.membreService.getMembreById(+params['id']))
+    this.idMembre$ = this.route.params.pipe(map((params) => +params['id']));
+
+    this.membre$ = combineLatest([
+      this.idMembre$,
+      this.membreService.membres$,
+    ]).pipe(
+      map(([id, membres]) => membres.filter((membre) => membre.id === id)[0])
     );
 
     this.mouvements$ = combineLatest([
-      this.membre$,
+      this.idMembre$,
       this.compteService.mouvements$,
     ]).pipe(
-      map(([membre, mouvements]) =>
-        mouvements.filter((mouvement) => mouvement.membreId == membre.id)
+      map(([id, mouvements]) =>
+        mouvements.filter((mouvement) => mouvement.membreId === id)
       )
     );
 
     this.mouvements$.subscribe((mouvements) => {
       this.mouvements = mouvements;
+      this.solde = this.calculSolde(this.mouvements);
     });
 
     this.membre$.subscribe((membre) => {
@@ -81,5 +92,14 @@ export class NouveauCompteComponent implements OnInit {
 
   onGoBack(): void {
     this.router.navigate(['/comptes']);
+  }
+
+  generatePdf(): void {
+    const documentDefinition = {
+      content: {
+        text: 'relevé de compte',
+      },
+    };
+    pdfMake.createPdf(documentDefinition).open();
   }
 }

@@ -13,7 +13,10 @@
     <div class="card-body">
       <div class="row">
         <div class="col-3">
-          <app-infos-membre [membre]="membre"></app-infos-membre>
+          <app-infos-membre
+            *ngIf="membre$ | async as membre"
+            [membre]="membre"
+          ></app-infos-membre>
         </div>
         <div class="col-9">
           <div class="row mb-2 d-flex justify-content-between">
@@ -28,6 +31,7 @@
             <div class="col text-right">
               <button
                 class="d-none d-sm-inline-block btn btn-warning shadow-sm mr-2"
+                (click)="generatePdf()"
               >
                 <i class="fa fa-print"></i> Imprimer
               </button>
@@ -50,7 +54,10 @@
                 <div class="col-sm-2">Solde</div>
               </div>
               <div class="row">
-                <div class="col-sm-12 liste">
+                <div
+                  class="col-sm-12 liste"
+                  *ngIf="mouvements$ | async as mouvements"
+                >
                   <app-mouvement
                     *ngFor="
                       let mouvement of mouvements

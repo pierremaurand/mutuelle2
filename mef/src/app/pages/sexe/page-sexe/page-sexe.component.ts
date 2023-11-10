@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { Sexe } from 'src/app/models/sexe';
 import { SexeList } from 'src/app/models/sexeList';
 import { SexeService } from 'src/app/services/sexe.service';
 
@@ -7,27 +9,26 @@ import { SexeService } from 'src/app/services/sexe.service';
   selector: 'app-page-sexe',
   templateUrl: './page-sexe.component.html',
   styleUrls: ['./page-sexe.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PageSexeComponent implements OnInit {
-  sexes: SexeList[] = [];
+  sexes$!: Observable<Sexe[]>;
 
   constructor(private sexeService: SexeService, private router: Router) {}
 
   ngOnInit(): void {
-    this.sexeService.getAll().subscribe((data) => {
-      this.sexes = data;
-    });
+    this.initObservables();
   }
 
-  nouveauSexe(): void {
-    this.router.navigate(['/nouveausexe']);
+  initObservables(): void {
+    this.sexes$ = this.sexeService.sexes$;
+  }
+
+  newEvent(): void {
+    this.router.navigate(['/nouveausexe/0']);
   }
 
   navigate(id: number): void {
     this.router.navigate(['/nouveausexe/' + id.toString()]);
   }
-
-  importSexes(): void {}
-
-  exportSexes(): void {}
 }

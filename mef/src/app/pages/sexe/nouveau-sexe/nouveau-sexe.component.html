@@ -1,72 +1,68 @@
 <div class="container-fluid">
   <!-- Page Heading -->
-  <div class="row mb-3">
-    <div class="col-md-8">
-      <h1 class="mb-2 text-gray-800">
-        <i class="fa fa-info-circle text-primary"></i> Informations du sexe
-      </h1>
-    </div>
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">
+      <i class="fa fa-info-circle text-primary"></i>
+      &nbsp;Informations sur le sexe
+    </h1>
   </div>
 
   <!-- DataTales Example -->
   <div class="card shadow mb-4">
-    <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">
-        Formulaire d'ajout d'un sexe
-      </h6>
-    </div>
     <div class="card-body">
       <div class="row m-3">
-        <div class="col-md-2 border-end text-primary">
-          <img src="{{ photo }}" alt="photo gabarit" />
+        <div class="col-md-3 col-sm-12 border-end text-primary">
+          <img [src]="photo" alt="photo du sexe" />
         </div>
-        <div class="col-md-10">
-          <div class="col-md-12">
-            <div class="row">
-              <div class="col-md-12 d-flex justify-content-between">
-                <a href="javascript:void(0);" (click)="cancel()"
-                  ><i class="fa fa-arrow-left"></i> Retour à la liste</a
+        <div class="col-md-9 col-sm-12">
+          <div class="row">
+            <div class="col-md-12 d-flex justify-content-between">
+              <a
+                href="javascript:void(0);"
+                (click)="cancel()"
+                class="btn btn-primary rounded-circle shadow-sm"
+              >
+                <i class="fa fa-arrow-left"></i>
+              </a>
+              <div class="group">
+                <button
+                  type="button"
+                  class="btn btn-success"
+                  (click)="enregistrer()"
+                  [disabled]="sexeForm.invalid"
                 >
-                <div class="group">
-                  <button
-                    type="button"
-                    class="btn btn-success"
-                    (click)="enregistrerSexe()"
-                  >
-                    <i class="fa fa-save"></i>&nbsp; Enregistrer
-                  </button>
-                </div>
+                  <i class="fa fa-save"></i>&nbsp; Enregistrer
+                </button>
               </div>
             </div>
-            <hr />
-            <div class="row">
-              <div class="col-md-12">
-                <form #membreForm="ngForm">
-                  <div class="row">
-                    <div class="form-group col-md-6">
-                      <label for="nom">Nom</label>
-                      <input
-                        type="text"
-                        id="nom"
-                        class="form-control"
-                        name="nom"
-                        [(ngModel)]="sexe.nom"
-                        placeholder="Le nom du sexe"
-                      />
-                    </div>
-                    <div class="form-group col-md-6">
-                      <label for="symbole">Symbole</label>
-                      <input
-                        type="text"
-                        id="symbole"
-                        class="form-control"
-                        name="symbole"
-                        [(ngModel)]="sexe.symbole"
-                        placeholder="Le symbole du sexe"
-                      />
-                    </div>
-                  </div>
-                </form>
+          </div>
+          <hr />
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row" [formGroup]="sexeForm">
+                <input type="hidden" name="id" formControlName="id" />
+                <div class="form-group col-md-6">
+                  <label for="nom">Nom du sexe</label>
+                  <input
+                    type="text"
+                    id="nom"
+                    class="form-control"
+                    name="nom"
+                    formControlName="nom"
+                    placeholder="Le nom du sexe"
+                  />
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="symbole">Symbole su sexe</label>
+                  <input
+                    type="text"
+                    id="symbole"
+                    class="form-control"
+                    name="symbole"
+                    formControlName="symbole"
+                    placeholder="Le symbole du sexe"
+                  />
+                </div>
               </div>
             </div>
           </div>

@@ -46,7 +46,7 @@ export class LieuAffectationService {
 
   add(lieuaffectation: LieuAffectation): void {
     this.http
-      .post<number>(this.baseUrl + '/lieuaffectation/add', lieuaffectation)
+      .post(this.baseUrl + '/lieuaffectation/add', lieuaffectation)
       .subscribe();
   }
 

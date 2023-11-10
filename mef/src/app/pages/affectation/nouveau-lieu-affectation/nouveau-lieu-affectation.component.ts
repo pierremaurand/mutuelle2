@@ -6,10 +6,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Observable, map } from 'rxjs';
+import { Observable, combineLatest, map } from 'rxjs';
 import { LieuAffectation } from 'src/app/models/lieuAffectation';
 import { LieuAffectationService } from 'src/app/services/lieu-affectation.service';
-import { LoaderService } from 'src/app/services/loader.service';
 
 @Component({
   selector: 'app-nouveau-lieu-affectation',
@@ -21,6 +20,7 @@ export class NouveauLieuAffectationComponent implements OnInit {
   lieuAffectation!: LieuAffectation;
   lieuAffectation$!: Observable<LieuAffectation>;
   photo: string = '';
+  idLieuAffectation$!: Observable<number>;
 
   lieuAffectationForm!: FormGroup;
   idLieuAffectationCtrl!: FormControl;
@@ -53,8 +53,20 @@ export class NouveauLieuAffectationComponent implements OnInit {
   }
 
   private initObservables(): void {
-    this.lieuAffectation$ = this.route.data.pipe(
-      map((data) => data['lieuAffectation'])
+    this.idLieuAffectation$ = this.route.params.pipe(
+      map((params) => +params['lieuAffectationId'])
+    );
+
+    this.lieuAffectation$ = combineLatest([
+      this.idLieuAffectation$,
+      this.lieuAffectationService.lieuxAffectations$,
+    ]).pipe(
+      map(
+        ([id, lieuxAffectations]) =>
+          lieuxAffectations.filter(
+            (lieuAffectation) => lieuAffectation.id === id
+          )[0]
+      )
     );
 
     this.lieuAffectation$.subscribe((lieuAffectation) => {

@@ -221,12 +221,7 @@ const routes: Routes = [
         canActivate: [AuthService],
       },
       {
-        path: 'nouveausexe',
-        component: NouveauSexeComponent,
-        canActivate: [AuthService],
-      },
-      {
-        path: 'nouveausexe/:id',
+        path: 'nouveausexe/:sexeId',
         component: NouveauSexeComponent,
         canActivate: [AuthService],
       },
@@ -253,9 +248,6 @@ const routes: Routes = [
       {
         path: 'nouveaulieuaffectation/:lieuAffectationId',
         component: NouveauLieuAffectationComponent,
-        resolve: {
-          lieuAffectation: LieuxResolver,
-        },
         canActivate: [AuthService],
       },
     ],

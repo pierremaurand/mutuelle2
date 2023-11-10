@@ -46,7 +46,6 @@ namespace mefApi.Controllers
         }
 
         [HttpPost("add")]
-        [AllowAnonymous]
         public async Task<IActionResult> Add(LieuAffectationDto lieuAffectationDto)
         {
             var lieuAffectation = mapper.Map<LieuAffectation>(lieuAffectationDto);

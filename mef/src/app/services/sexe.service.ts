@@ -45,12 +45,14 @@ export class SexeService {
     return this.http.get<Sexe>(this.baseUrl + '/sexe/get/' + id?.toString());
   }
 
-  add(sexe: Sexe): Observable<number> {
-    return this.http.post<number>(this.baseUrl + '/sexe/add', sexe);
+  add(sexe: Sexe): void {
+    this.http.post(this.baseUrl + '/sexe/add', sexe).subscribe();
   }
 
-  update(sexe: Sexe, id: number): Observable<any> {
-    return this.http.put(this.baseUrl + '/sexe/update/' + id.toString(), sexe);
+  update(id: number, sexe: Sexe): void {
+    this.http
+      .put(this.baseUrl + '/sexe/update/' + id.toString(), sexe)
+      .subscribe();
   }
 
   deleteSexe(id: number): Observable<any> {

@@ -4,6 +4,8 @@ using mefApi.Dtos;
 using mefApi.Interfaces;
 using mefApi.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.SignalR;
+using mefApi.HubConfig;
 
 namespace mefApi.Controllers
 {
@@ -13,10 +15,13 @@ namespace mefApi.Controllers
         private readonly IUnitOfWork uow;
         private readonly IMapper mapper;
 
-        public SexeController(IMapper mapper, IUnitOfWork uow)
+        private readonly IHubContext<SignalrServer> signalrHub; 
+
+        public SexeController(IMapper mapper, IUnitOfWork uow, IHubContext<SignalrServer> signalrHub)
         {
             this.mapper = mapper;
             this.uow = uow;
+            this.signalrHub = signalrHub;
         }
 
         [HttpGet("sexes")]
@@ -46,21 +51,18 @@ namespace mefApi.Controllers
         public async Task<IActionResult> Add(SexeDto sexeDto)
         {
             var sexe = mapper.Map<Sexe>(sexeDto);
+            var sexeExist = await uow.SexeRepository.SexeExists(sexeDto);
 
-            if(await uow.SexeRepository.SexeExists(sexeDto)) {
-                sexe = await uow.SexeRepository.FindByNomAsync(sexeDto.Symbole);
-                if(sexe is null) {
-                    return NotFound("Ce sexe n'existe pas dans la base de donnée");
-                }
-            } else {
-                sexe.ModifiePar = GetUserId();
-                sexe.ModifieLe = DateTime.Now;
-                uow.SexeRepository.Add(sexe);
-                await uow.SaveAsync();
+            if(sexeExist) {
+                return BadRequest("Ce sexe existe déjà dans la base de données");
             }
-            
-            
-            return Ok(sexe.Id);
+
+            sexe.ModifiePar = GetUserId();
+            sexe.ModifieLe = DateTime.Now;
+            uow.SexeRepository.Add(sexe);
+            await uow.SaveAsync();
+            await signalrHub.Clients.All.SendAsync("SexeAdded");
+            return StatusCode(201);
         }
 
         [HttpPut("update/{id}")]
@@ -78,6 +80,7 @@ namespace mefApi.Controllers
             sexeFromDb.ModifieLe = DateTime.Now;
             mapper.Map(sexeDto, sexeFromDb);
             await uow.SaveAsync();
+            await signalrHub.Clients.All.SendAsync("SexeAdded");
             return StatusCode(200);
         }
 

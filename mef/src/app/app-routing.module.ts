@@ -174,10 +174,6 @@ const routes: Routes = [
       {
         path: 'nouvelutilisateur/:utilisateurId/:membreId',
         component: NouvelUtilisateurComponent,
-        resolve: {
-          utilisateur: UtilisateurResolver,
-          membre: MembreResolver,
-        },
         canActivate: [AuthService],
       },
       {

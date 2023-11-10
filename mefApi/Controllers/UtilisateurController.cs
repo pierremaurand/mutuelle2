@@ -4,10 +4,12 @@ using System.Security.Cryptography;
 using System.Text;
 using AutoMapper;
 using mefApi.Dtos;
+using mefApi.HubConfig;
 using mefApi.Interfaces;
 using mefApi.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.IdentityModel.Tokens;
 
 namespace mefApi.Controllers
@@ -18,11 +20,14 @@ namespace mefApi.Controllers
         private readonly IMapper mapper;
         private readonly IConfiguration configuration;
 
-        public UtilisateurController(IMapper mapper, IUnitOfWork uow, IConfiguration configuration)
+        private readonly IHubContext<SignalrServer> signalrHub; 
+
+        public UtilisateurController(IMapper mapper, IUnitOfWork uow, IConfiguration configuration, IHubContext<SignalrServer> signalrHub)
         {
             this.configuration = configuration;
             this.mapper = mapper;
             this.uow = uow;
+            this.signalrHub = signalrHub;
         }
 
         [HttpGet("utilisateurs")]
@@ -123,11 +128,12 @@ namespace mefApi.Controllers
             var utilisateur = mapper.Map<Utilisateur>(utilisateurDto);
             utilisateur.MotDePasse = passwordHash;
             utilisateur.ClesMotDePasse = passwordKey;
-            // utilisateur.ModifiePar = GetUserId();
-            utilisateur.ModifiePar = 0;
+            utilisateur.ModifiePar = GetUserId();
+            // utilisateur.ModifiePar = 0;
             utilisateur.ModifieLe = DateTime.Now;
             uow.UtilisateurRepository.Add(utilisateur);
             await uow.SaveAsync();
+            await signalrHub.Clients.All.SendAsync("UtilisateurAdded");
             return StatusCode(201);
 
         }
@@ -201,6 +207,7 @@ namespace mefApi.Controllers
             utilisateurFromDb.ModifieLe = DateTime.Now;
             mapper.Map(utilisateurDto, utilisateurFromDb);
             await uow.SaveAsync();
+            await signalrHub.Clients.All.SendAsync("UtilisateurAdded");
             return StatusCode(200);
         }
 

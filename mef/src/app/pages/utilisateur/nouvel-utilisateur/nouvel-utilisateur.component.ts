@@ -6,9 +6,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Observable, map } from 'rxjs';
+import { Observable, combineLatest, map } from 'rxjs';
 import { Membre } from 'src/app/models/membre.model';
 import { Utilisateur } from 'src/app/models/utilisateur';
+import { MembreService } from 'src/app/services/membre.service';
 import { UtilisateurService } from 'src/app/services/utilisateur.service';
 
 @Component({
@@ -23,6 +24,9 @@ export class NouvelUtilisateurComponent implements OnInit {
   membre$!: Observable<Membre>;
   utilisateur$!: Observable<Utilisateur>;
 
+  idUtilisateur$!: Observable<number>;
+  idMembre$!: Observable<number>;
+
   userForm!: FormGroup;
   idUtilisateurCtrl!: FormControl;
   membreIdCtrl!: FormControl;
@@ -33,6 +37,7 @@ export class NouvelUtilisateurComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private utilisateurService: UtilisateurService,
+    private membreService: MembreService,
     private fb: FormBuilder
   ) {}
 
@@ -59,10 +64,30 @@ export class NouvelUtilisateurComponent implements OnInit {
   }
 
   private initObservable(): void {
-    this.utilisateur$ = this.route.data.pipe(
-      map((data) => data['utilisateur'])
+    this.idUtilisateur$ = this.route.params.pipe(
+      map((params) => +params['utilisateurId'])
     );
-    this.membre$ = this.route.data.pipe(map((data) => data['membre']));
+
+    this.idMembre$ = this.route.params.pipe(
+      map((params) => +params['membreId'])
+    );
+
+    this.utilisateur$ = combineLatest([
+      this.idUtilisateur$,
+      this.utilisateurService.utilisateurs$,
+    ]).pipe(
+      map(
+        ([id, utilisateurs]) =>
+          utilisateurs.filter((utilisateur) => utilisateur.id === id)[0]
+      )
+    );
+
+    this.membre$ = combineLatest([
+      this.idMembre$,
+      this.membreService.membres$,
+    ]).pipe(
+      map(([id, membres]) => membres.filter((membre) => membre.id === id)[0])
+    );
 
     this.utilisateur$.subscribe((utilisateur: Utilisateur) => {
       if (utilisateur) {

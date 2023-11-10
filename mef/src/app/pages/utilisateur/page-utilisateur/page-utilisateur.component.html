@@ -40,7 +40,7 @@
       <div class="list-group" *ngIf="utilisateurs$ | async as utilisateurs">
         <a
           href="javascript:void(0);"
-          class="list-group-item list-group-item-action mb-1"
+          class="list-group-item list-group-item-action mb-2 shadow-sm rounded"
           aria-current="true"
           *ngFor="
             let utilisateur of utilisateurs | sort : ['nomUtilisateur', 'asc']

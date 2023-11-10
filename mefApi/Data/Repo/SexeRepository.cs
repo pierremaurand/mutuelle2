@@ -1,9 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using mefApi.Interfaces;
 using mefApi.Models;
-using System.Threading.Tasks;
-using System.Linq;
-using System.Collections.Generic;
 using mefApi.Dtos;
 
 namespace mefApi.Data.Repo

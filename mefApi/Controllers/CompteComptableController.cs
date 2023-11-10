@@ -1,9 +1,11 @@
 using AutoMapper;
 using mefApi.Dtos;
+using mefApi.HubConfig;
 using mefApi.Interfaces;
 using mefApi.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 namespace mefApi.Controllers
 {
@@ -12,10 +14,13 @@ namespace mefApi.Controllers
         private readonly IUnitOfWork uow;
         private readonly IMapper mapper;
 
-        public CompteComptableController(IMapper mapper, IUnitOfWork uow)
+        private readonly IHubContext<SignalrServer> signalrHub; 
+
+        public CompteComptableController(IMapper mapper, IUnitOfWork uow, IHubContext<SignalrServer> signalrHub)
         {
             this.mapper = mapper;
             this.uow = uow;
+            this.signalrHub = signalrHub;
         }
 
         [HttpGet("comptes")]
@@ -41,14 +46,20 @@ namespace mefApi.Controllers
         }
 
         [HttpPost("addcompte")]
-        [AllowAnonymous]
         public async Task<IActionResult> Add(CompteComptableDto compteDto)
         {
             var compte = mapper.Map<CompteComptable>(compteDto);
+            var compteExist = await uow.CompteComptableRepository.CompteExists(compteDto);
+
+            if(compteExist) {
+                return BadRequest("Ce compte compteble existe déjà dans la base de données");
+            }
+
             compte.ModifiePar = GetUserId();
             compte.ModifieLe = DateTime.Now;
             uow.CompteComptableRepository.Add(compte);
             await uow.SaveAsync();
+            await signalrHub.Clients.All.SendAsync("CompteComptableAdded");
             return StatusCode(201);
         }
 
@@ -83,6 +94,7 @@ namespace mefApi.Controllers
             compteFromDb.ModifieLe = DateTime.Now;
             mapper.Map(compteDto, compteFromDb);
             await uow.SaveAsync();
+            await signalrHub.Clients.All.SendAsync("CompteComptableAdded");
             return StatusCode(200);
         }
 

@@ -1,12 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, map, take, tap } from 'rxjs';
+import { BehaviorSubject, Observable, map, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Membre } from '../models/membre.model';
 import { CompteList } from '../models/compteList';
 import { Mouvement } from '../models/mouvement';
-import { Compte } from '../models/compte';
-import { CompteInfos } from '../models/compte-infos.model';
 
 @Injectable({
   providedIn: 'root',

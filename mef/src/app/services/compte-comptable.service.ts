@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, map, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { CompteComptable } from '../models/comptecomptable';
 
@@ -12,6 +12,30 @@ export class CompteComptableService {
   imagesUrl = environment.imagesUrl;
 
   constructor(private http: HttpClient) {}
+
+  private _comptes$ = new BehaviorSubject<CompteComptable[]>([]);
+  get comptes$(): Observable<CompteComptable[]> {
+    return this._comptes$.asObservable();
+  }
+
+  getCompteComptablesFromServer() {
+    this.http
+      .get<CompteComptable[]>(`${this.baseUrl}/compteComptable/comptes`)
+      .pipe(
+        tap((comptes) => {
+          this._comptes$.next(comptes);
+        })
+      )
+      .subscribe();
+  }
+
+  getCompteComptableById(id: number): Observable<CompteComptable> {
+    return this.comptes$.pipe(
+      map((comptes) => comptes.filter((compte) => compte.id === id)[0])
+    );
+  }
+
+  //-------------------------------------------------------
 
   getAll(): Observable<CompteComptable[]> {
     return this.http.get<CompteComptable[]>(
@@ -25,15 +49,16 @@ export class CompteComptableService {
     );
   }
 
-  add(compte: CompteComptable): Observable<any> {
-    return this.http.post(this.baseUrl + '/compteComptable/addcompte', compte);
+  add(compte: CompteComptable): void {
+    this.http
+      .post(this.baseUrl + '/compteComptable/addcompte', compte)
+      .subscribe();
   }
 
-  update(compte: any, id: number): Observable<any> {
-    return this.http.put(
-      this.baseUrl + '/compteComptable/update/' + id.toString(),
-      compte
-    );
+  update(id: number, compte: CompteComptable): void {
+    this.http
+      .put(this.baseUrl + '/compteComptable/update/' + id.toString(), compte)
+      .subscribe();
   }
 
   delete(id: number): Observable<any> {

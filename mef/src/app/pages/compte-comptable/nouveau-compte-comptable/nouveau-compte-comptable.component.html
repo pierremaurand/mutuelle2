@@ -1,68 +1,67 @@
 <div class="container-fluid">
   <!-- Page Heading -->
-  <div class="row mb-3">
-    <div class="col-md-8">
-      <h1 class="mb-2 text-gray-800">
-        <i class="fa fa-info-circle text-primary"></i>
-        &nbsp;Informations du compte comptable
-      </h1>
-    </div>
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">
+      <i class="fa fa-info-circle text-primary"></i>
+      &nbsp;Informations sur le compte
+    </h1>
   </div>
 
   <!-- DataTales Example -->
   <div class="card shadow mb-4">
-    <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">
-        Formulaire d'ajout d'un compte comptable
-      </h6>
-    </div>
     <div class="card-body">
       <div class="row">
-        <div class="col-md-2 border-end text-primary">
-          <img src="{{ photo }}" alt="photo gabarit" />
+        <div class="col-md-3 col-sm-12 border-end text-primary">
+          <img [src]="photo" alt="photo compte" />
         </div>
-        <div class="col-md-10">
-          <form #membreForm="ngForm">
-            <div class="row">
-              <div class="col-md-12 d-flex justify-content-between">
-                <a href="javascript:void(0);" (click)="cancel()"
-                  ><i class="fa fa-arrow-left"></i> Retour à la liste</a
-                >
+        <div class="col-md-9 col-sm-12">
+          <div class="row">
+            <div class="col-md-12 d-flex justify-content-between">
+              <a
+                href="javascript:void(0);"
+                (click)="cancel()"
+                class="btn btn-primary rounded-circle shadow-sm"
+              >
+                <i class="fa fa-arrow-left"></i>
+              </a>
+              <div class="group">
                 <button
                   type="button"
                   class="btn btn-success"
-                  (click)="enregistrerCompte()"
+                  (click)="enregistrer()"
+                  [disabled]="compteForm.invalid"
                 >
                   <i class="fa fa-save"></i>&nbsp; Enregistrer
                 </button>
               </div>
             </div>
-            <hr />
-            <div class="row">
-              <div class="form-group col-6">
-                <label for="compte">Numéro</label>
-                <input
-                  type="text"
-                  id="compte"
-                  class="form-control"
-                  name="compte"
-                  [(ngModel)]="compte.compte"
-                  placeholder="Le numéro de compte"
-                />
-              </div>
-              <div class="form-group col-6">
-                <label for="libelle">Libellé</label>
-                <input
-                  type="text"
-                  id="libelle"
-                  class="form-control"
-                  name="libelle"
-                  [(ngModel)]="compte.libelle"
-                  placeholder="Le libellé du compte"
-                />
-              </div>
+          </div>
+          <hr />
+          <div class="row" [formGroup]="compteForm">
+            <input type="hidden" name="id" formControlName="id" />
+            <div class="form-group col-6">
+              <label for="compte">Numéro</label>
+              <input
+                type="text"
+                id="compte"
+                class="form-control"
+                name="compte"
+                formControlName="compte"
+                placeholder="Le numéro du compte"
+              />
             </div>
-          </form>
+            <div class="form-group col-6">
+              <label for="libelle">Libellé</label>
+              <input
+                type="text"
+                id="libelle"
+                class="form-control"
+                name="libelle"
+                formControlName="libelle"
+                placeholder="Le libellé du compte"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>

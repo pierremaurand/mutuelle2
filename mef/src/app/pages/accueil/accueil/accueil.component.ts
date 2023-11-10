@@ -64,6 +64,10 @@ export class AccueilComponent implements OnInit {
 
     this.signalrService.addEcheanceAddListener();
 
+    this.signalrService.addCompteComptableAddListener();
+
+    this.signalrService.addGabaritAddListener();
+
     this.cotisationService.getMoisFromServer();
 
     this.initObservables();
@@ -112,6 +116,14 @@ export class AccueilComponent implements OnInit {
 
     this.signalrService.echeanceAdd$.subscribe(() => {
       this.echeanceService.getEcheancesFromServer();
+    });
+
+    this.signalrService.compteComptableAdd$.subscribe(() => {
+      this.compteComptableService.getCompteComptablesFromServer();
+    });
+
+    this.signalrService.gabaritAdd$.subscribe(() => {
+      this.gabaritService.getGabaritsFromServer();
     });
   }
 }

@@ -4,6 +4,7 @@ using mefApi.Models;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Collections.Generic;
+using mefApi.Dtos;
 
 namespace mefApi.Data.Repo
 {
@@ -59,6 +60,12 @@ namespace mefApi.Data.Repo
                 }
             }
             return null;
+        }
+
+        public async Task<bool> CompteExists(CompteComptableDto compte) {
+            if(dc.CompteComptables is not null)
+                return await dc.CompteComptables.AnyAsync(x => x.Compte == compte.Compte);
+            return false;
         }
     }
 }

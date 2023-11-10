@@ -191,12 +191,7 @@ const routes: Routes = [
         canActivate: [AuthService],
       },
       {
-        path: 'nouveaucomptecomptable',
-        component: NouveauCompteComptableComponent,
-        canActivate: [AuthService],
-      },
-      {
-        path: 'nouveaucomptecomptable/:id',
+        path: 'nouveaucomptecomptable/:compteComptableId',
         component: NouveauCompteComptableComponent,
         canActivate: [AuthService],
       },
@@ -206,12 +201,7 @@ const routes: Routes = [
         canActivate: [AuthService],
       },
       {
-        path: 'nouveaugabarit',
-        component: NouveauGabaritComponent,
-        canActivate: [AuthService],
-      },
-      {
-        path: 'nouveaugabarit/:id',
+        path: 'nouveaugabarit/:gabaritId',
         component: NouveauGabaritComponent,
         canActivate: [AuthService],
       },
@@ -231,12 +221,7 @@ const routes: Routes = [
         canActivate: [AuthService],
       },
       {
-        path: 'nouveauposte',
-        component: NouveauPosteComponent,
-        canActivate: [AuthService],
-      },
-      {
-        path: 'nouveauposte/:id',
+        path: 'nouveauposte/:posteId',
         component: NouveauPosteComponent,
         canActivate: [AuthService],
       },

@@ -1,8 +1,10 @@
 using AutoMapper;
 using mefApi.Dtos;
+using mefApi.HubConfig;
 using mefApi.Interfaces;
 using mefApi.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 namespace mefApi.Controllers
 {
@@ -11,10 +13,13 @@ namespace mefApi.Controllers
         private readonly IUnitOfWork uow;
         private readonly IMapper mapper;
 
-        public PosteController(IMapper mapper, IUnitOfWork uow)
+        private readonly IHubContext<SignalrServer> signalrHub; 
+
+        public PosteController(IMapper mapper, IUnitOfWork uow, IHubContext<SignalrServer> signalrHub)
         {
             this.mapper = mapper;
             this.uow = uow;
+            this.signalrHub = signalrHub;
         }
 
         [HttpGet("postes")]
@@ -43,21 +48,18 @@ namespace mefApi.Controllers
         public async Task<IActionResult> Add(PosteDto posteDto)
         {
             var poste = mapper.Map<Poste>(posteDto);
+            var posteExist = await uow.PosteRepository.PosteExists(posteDto);
 
-            if(await uow.PosteRepository.PosteExists(posteDto)) 
-            {
-                poste = await uow.PosteRepository.FindByLibelleAsync(posteDto.Libelle);
-                if(poste is null) {
-                    return NotFound("Ce poste n'existe pas");
-                }
-            } else {
-                poste.ModifiePar = GetUserId();
-                poste.ModifieLe = DateTime.Now;
-                uow.PosteRepository.Add(poste);
-                await uow.SaveAsync();
+            if(posteExist) {
+                return BadRequest("Ce poste existe déjà dans la base de données");
             }
-            
-            return Ok(poste.Id);
+
+            poste.ModifiePar = GetUserId();
+            poste.ModifieLe = DateTime.Now;
+            uow.PosteRepository.Add(poste);
+            await uow.SaveAsync();
+            await signalrHub.Clients.All.SendAsync("PosteAdded");
+            return StatusCode(201);
         }
 
         [HttpPut("update/{id}")]
@@ -75,6 +77,7 @@ namespace mefApi.Controllers
             posteFromDb.ModifieLe = DateTime.Now;
             mapper.Map(posteDto, posteFromDb);
             await uow.SaveAsync();
+            await signalrHub.Clients.All.SendAsync("PosteAdded");
             return StatusCode(200);
         }
 
@@ -84,10 +87,6 @@ namespace mefApi.Controllers
             uow.PosteRepository.Delete(id);
             await uow.SaveAsync();
             return Ok(id);
-        }
-
-        private bool PostExist(string libelle) {
-            return true;
         }
 
     }

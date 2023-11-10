@@ -1,5 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Observable, combineLatest, map } from 'rxjs';
 import { Poste } from 'src/app/models/poste';
 import { LoaderService } from 'src/app/services/loader.service';
 import { PosteService } from 'src/app/services/poste.service';
@@ -8,42 +15,71 @@ import { PosteService } from 'src/app/services/poste.service';
   selector: 'app-nouveau-poste',
   templateUrl: './nouveau-poste.component.html',
   styleUrls: ['./nouveau-poste.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NouveauPosteComponent implements OnInit {
-  poste: Poste = new Poste();
-  idPoste: number = 0;
+  poste!: Poste;
+  poste$!: Observable<Poste>;
   photo: string = '';
+  idPoste$!: Observable<number>;
+
+  posteForm!: FormGroup;
+  idPosteCtrl!: FormControl;
+  libellePosteCtrl!: FormControl;
 
   constructor(
     private router: Router,
-    private activatedRoute: ActivatedRoute,
+    private route: ActivatedRoute,
     private posteService: PosteService,
-    private loaderService: LoaderService
+    private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
-    this.idPoste = this.activatedRoute.snapshot.params['id'];
     this.photo = this.posteService.getImageUrl();
-    if (this.idPoste) {
-      this.posteService.getById(this.idPoste).subscribe((poste: any) => {
-        this.poste = poste;
-      });
-    }
+    this.initFormControls();
+    this.initForms();
+    this.initObservables();
   }
 
-  enregistrerPoste(): void {
-    if (this.idPoste) {
-      this.posteService
-        .update(this.poste, this.idPoste)
-        .subscribe((value: any) => {
-          this.loaderService.hide();
-          this.cancel();
-        });
-    } else {
-      this.posteService.add(this.poste).subscribe((id: number) => {
-        this.loaderService.hide();
-        this.cancel();
-      });
+  private initFormControls(): void {
+    this.idPosteCtrl = this.fb.control(0, Validators.required);
+    this.libellePosteCtrl = this.fb.control('', Validators.required);
+  }
+
+  private initForms(): void {
+    this.posteForm = this.fb.group({
+      id: this.idPosteCtrl,
+      libelle: this.libellePosteCtrl,
+    });
+  }
+
+  private initObservables(): void {
+    this.idPoste$ = this.route.params.pipe(map((params) => +params['posteId']));
+
+    this.poste$ = combineLatest([
+      this.idPoste$,
+      this.posteService.postes$,
+    ]).pipe(
+      map(([id, postes]) => postes.filter((poste) => poste.id === id)[0])
+    );
+
+    this.poste$.subscribe((poste) => {
+      if (poste) {
+        this.idPosteCtrl.setValue(poste.id);
+        this.libellePosteCtrl.setValue(poste.libelle);
+        this.poste = poste;
+      }
+    });
+  }
+
+  enregistrer(): void {
+    if (this.posteForm.valid) {
+      if (this.poste) {
+        this.posteService.update(this.poste.id, this.posteForm.value);
+      } else {
+        this.posteService.add(this.posteForm.value);
+      }
+      this.cancel();
     }
   }
 

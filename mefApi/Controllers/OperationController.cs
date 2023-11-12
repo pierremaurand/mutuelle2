@@ -17,24 +17,9 @@ namespace mefApi.Controllers
             this.uow = uow;
         }
 
-        [HttpPost("add/{id}")]
-        public async Task<IActionResult> AddOperations(int id, OperationDto[] operationsDto)
-        {
-            var operations = mapper.Map<IEnumerable<Operation>>(operationsDto);
-            foreach(var operation in operations) {
-                operation.GabaritId = id; 
-                operation.ModifiePar = GetUserId();
-                operation.ModifieLe = DateTime.Now;
-                uow.OperationRepository.Add(operation);
-            }
-            
-            await uow.SaveAsync();
-            return StatusCode(201);
-        }
-
-        [HttpGet("operations/{id}")]
-        public async Task<IActionResult> GetGabaritOperations(int id) {
-            var operations = await uow.OperationRepository.GetGabaritOperations(id);
+        [HttpGet("operations")]
+        public async Task<IActionResult> GetAll() {
+            var operations = await uow.OperationRepository.GetAllAsync();
             var operationsDto = mapper.Map<IEnumerable<OperationDto>>(operations);
             return Ok(operationsDto);
         }

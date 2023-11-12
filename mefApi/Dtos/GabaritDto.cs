@@ -10,5 +10,6 @@ namespace mefApi.Dtos
         [Required(ErrorMessage = "Le libellé est obligatoire")] 
         public string Libelle { get; set; } = string.Empty;
         public bool EstActif { get; set; } = false;
+        public IEnumerable<OperationDto> Operations { get; set; } = new List<OperationDto>();
     }
 }

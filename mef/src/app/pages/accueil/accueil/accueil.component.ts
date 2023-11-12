@@ -12,6 +12,7 @@ import { EcheanceService } from 'src/app/services/echeance.service';
 import { GabaritService } from 'src/app/services/gabarit.service';
 import { LieuAffectationService } from 'src/app/services/lieu-affectation.service';
 import { MembreService } from 'src/app/services/membre.service';
+import { OperationService } from 'src/app/services/operation.service';
 import { PosteService } from 'src/app/services/poste.service';
 import { SexeService } from 'src/app/services/sexe.service';
 import { SignalrService } from 'src/app/services/signalr.service';
@@ -37,6 +38,7 @@ export class AccueilComponent implements OnInit {
     public deboursementService: DeboursementService,
     public echeanceService: EcheanceService,
     public gabaritService: GabaritService,
+    public operationService: OperationService,
     public compteComptableService: CompteComptableService,
     public utilisateurService: UtilisateurService
   ) {}
@@ -124,6 +126,7 @@ export class AccueilComponent implements OnInit {
 
     this.signalrService.gabaritAdd$.subscribe(() => {
       this.gabaritService.getGabaritsFromServer();
+      this.operationService.getOperationsFromServer();
     });
   }
 }

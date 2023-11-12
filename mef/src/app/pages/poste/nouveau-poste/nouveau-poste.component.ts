@@ -8,7 +8,6 @@ import {
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, combineLatest, map } from 'rxjs';
 import { Poste } from 'src/app/models/poste';
-import { LoaderService } from 'src/app/services/loader.service';
 import { PosteService } from 'src/app/services/poste.service';
 
 @Component({

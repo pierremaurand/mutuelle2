@@ -34,11 +34,10 @@ namespace mefApi.Data.Repo
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<Operation>?> GetGabaritOperations(int id)
+        public async Task<IEnumerable<Operation>?> GetAllAsync()
         {
             if(dc.Operations is not null) {
                 var operations = await dc.Operations
-                .Where(o => o.GabaritId == id)
                 .ToListAsync();
                 if(operations is not null) {
                     return operations;

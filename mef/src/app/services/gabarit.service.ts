@@ -14,43 +14,23 @@ export class GabaritService {
 
   constructor(private http: HttpClient) {}
 
-  private _loading$ = new BehaviorSubject<boolean>(false);
-  get loading$(): Observable<boolean> {
-    return this._loading$.asObservable();
-  }
-
   private _gabarits$ = new BehaviorSubject<Gabarit[]>([]);
   get gabarits$(): Observable<Gabarit[]> {
     return this._gabarits$.asObservable();
   }
 
-  private lastGabaritsLoad = 0;
-
-  private setLoadingStatus(loading: boolean) {
-    this._loading$.next(loading);
-  }
-
   getGabaritsFromServer() {
-    if (Date.now() - this.lastGabaritsLoad <= 300000) {
-      return;
-    }
-    this.setLoadingStatus(true);
     this.http
       .get<Gabarit[]>(`${this.baseUrl}/gabarit/gabarits`)
       .pipe(
         tap((gabarits) => {
-          this.lastGabaritsLoad = Date.now();
           this._gabarits$.next(gabarits);
-          this.setLoadingStatus(false);
         })
       )
       .subscribe();
   }
 
   getGabaritById(id: number): Observable<Gabarit> {
-    if (!this.lastGabaritsLoad) {
-      this.getGabaritsFromServer();
-    }
     return this.gabarits$.pipe(
       map((gabarits) => gabarits.filter((gabarit) => gabarit.id === id)[0])
     );
@@ -82,15 +62,14 @@ export class GabaritService {
     return this.http.get<Gabarit[]>(this.baseUrl + '/gabarit/active');
   }
 
-  add(gabarit: Gabarit): Observable<number> {
-    return this.http.post<number>(this.baseUrl + '/gabarit/add', gabarit);
+  add(gabarit: Gabarit): void {
+    this.http.post<number>(this.baseUrl + '/gabarit/add', gabarit).subscribe();
   }
 
-  update(gabarit: Gabarit, id: number): Observable<any> {
-    return this.http.put(
-      this.baseUrl + '/gabarit/update/' + id.toString(),
-      gabarit
-    );
+  update(id: number, gabarit: Gabarit): void {
+    this.http
+      .put(this.baseUrl + '/gabarit/update/' + id.toString(), gabarit)
+      .subscribe();
   }
 
   deleteGabarit(id: number): Observable<any> {

@@ -1,8 +1,10 @@
 using AutoMapper;
 using mefApi.Dtos;
+using mefApi.HubConfig;
 using mefApi.Interfaces;
 using mefApi.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 namespace mefApi.Controllers
 {
@@ -10,11 +12,12 @@ namespace mefApi.Controllers
     {
         private readonly IUnitOfWork uow;
         private readonly IMapper mapper;
-
-        public GabaritController(IMapper mapper, IUnitOfWork uow)
+        private readonly IHubContext<SignalrServer> signalrHub; 
+        public GabaritController(IMapper mapper, IUnitOfWork uow, IHubContext<SignalrServer> signalrHub)
         {
             this.mapper = mapper;
             this.uow = uow;
+            this.signalrHub = signalrHub;
         }
 
         [HttpGet("gabarits")]
@@ -57,10 +60,18 @@ namespace mefApi.Controllers
             
             gabarit.ModifiePar = GetUserId();
             gabarit.ModifieLe = DateTime.Now;
-
             uow.GabaritRepository.Add(gabarit);
+
+            var operations = mapper.Map<IEnumerable<Operation>>(gabaritDto.Operations);
+            foreach(var operation in operations) {
+                operation.Gabarit = gabarit; 
+                operation.ModifiePar = GetUserId();
+                operation.ModifieLe = DateTime.Now;
+                uow.OperationRepository.Add(operation);
+            }
             await uow.SaveAsync();
-            return Ok(gabarit.Id);
+            await signalrHub.Clients.All.SendAsync("GabaritAdded");
+            return StatusCode(201);
         }
 
         [HttpPut("update/{id}")]
@@ -77,6 +88,7 @@ namespace mefApi.Controllers
             gabaritFromDb.ModifieLe = DateTime.Now;
             mapper.Map(gabaritDto, gabaritFromDb);
             await uow.SaveAsync();
+            await signalrHub.Clients.All.SendAsync("GabaritAdded");
             return StatusCode(200);
         }
 

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Operation } from '../models/operation';
 
@@ -12,16 +12,19 @@ export class OperationService {
 
   constructor(private http: HttpClient) {}
 
-  getAll(id?: number): Observable<Operation[]> {
-    return this.http.get<Operation[]>(
-      this.baseUrl + '/operation/operations/' + id?.toString()
-    );
+  private _operations$ = new BehaviorSubject<Operation[]>([]);
+  get operations$(): Observable<Operation[]> {
+    return this._operations$.asObservable();
   }
 
-  add(id: number, operations: Operation[]): Observable<any> {
-    return this.http.post(
-      this.baseUrl + '/operation/add/' + id.toString(),
-      operations
-    );
+  getOperationsFromServer() {
+    this.http
+      .get<Operation[]>(`${this.baseUrl}/operation/operations`)
+      .pipe(
+        tap((operations) => {
+          this._operations$.next(operations);
+        })
+      )
+      .subscribe();
   }
 }

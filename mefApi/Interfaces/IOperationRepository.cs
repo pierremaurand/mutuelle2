@@ -8,7 +8,7 @@ namespace mefApi.Interfaces
 {
     public interface IOperationRepository
     {
-        Task<IEnumerable<Operation>?> GetGabaritOperations(int id);
+        Task<IEnumerable<Operation>?> GetAllAsync();
         void Add(Operation operation);
         void Delete(int id);
         Task<Operation?> FindByIdAsync(int id);

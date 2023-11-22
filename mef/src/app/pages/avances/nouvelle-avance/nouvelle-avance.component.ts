@@ -7,7 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Observable, map } from 'rxjs';
+import { Observable, combineLatest, map } from 'rxjs';
 import { StatusPret } from 'src/app/enums/statut-pret.enum';
 import { Membre } from 'src/app/models/membre.model';
 import { Avance } from 'src/app/models/avance';
@@ -17,9 +17,9 @@ import { AvanceService } from 'src/app/services/avance.service';
 import { CompteService } from 'src/app/services/compte.service';
 import { DeboursementService } from 'src/app/services/deboursement.service';
 import { EcheanceService } from 'src/app/services/echeance.service';
-import { MembreService } from 'src/app/services/membre.service';
 import { Echeance } from 'src/app/models/echeance.model';
 import { TypeOperation } from 'src/app/models/typeoperation';
+import { MembreService } from 'src/app/services/membre.service';
 
 @Component({
   selector: 'app-nouvelle-avance',
@@ -41,8 +41,11 @@ export class NouvelleAvanceComponent implements OnInit {
   montant!: number;
   membre: Membre = new Membre();
   avance$!: Observable<Avance>;
+  idAvance$!: Observable<number>;
   membre$!: Observable<Membre>;
+  idMembre$!: Observable<number>;
   deboursement$!: Observable<Deboursement>;
+  idDeboursement$!: Observable<number>;
   echeancier$!: Observable<Echeance[]>;
   mouvements$!: Observable<Mouvement[]>;
 
@@ -62,6 +65,7 @@ export class NouvelleAvanceComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
+    private membreService: MembreService,
     private avanceService: AvanceService,
     private deboursementService: DeboursementService,
     private echeanceService: EcheanceService,
@@ -111,13 +115,53 @@ export class NouvelleAvanceComponent implements OnInit {
   }
 
   private initObservables() {
-    this.avance$ = this.route.data.pipe(map((data) => data['avance']));
-    this.membre$ = this.route.data.pipe(map((data) => data['membre']));
-    this.deboursement$ = this.route.data.pipe(
-      map((data) => data['deboursement'])
+    const idAvance$ = this.route.params.pipe(
+      map((params) => +params['avanceId'])
     );
-    this.echeancier$ = this.route.data.pipe(map((data) => data['echeancier']));
-    this.mouvements$ = this.route.data.pipe(map((data) => data['mouvements']));
+
+    const idMembre$ = this.route.params.pipe(
+      map((params) => +params['membreId'])
+    );
+
+    const idDeboursement$ = this.route.params.pipe(
+      map((params) => +params['deboursementId'])
+    );
+
+    this.avance$ = combineLatest([idAvance$, this.avanceService.avances$]).pipe(
+      map(([id, avances]) => avances.filter((avance) => avance.id === id)[0])
+    );
+
+    this.membre$ = combineLatest([idMembre$, this.membreService.membres$]).pipe(
+      map(([id, membres]) => membres.filter((membre) => membre.id === id)[0])
+    );
+
+    this.deboursement$ = combineLatest([
+      idDeboursement$,
+      this.deboursementService.deboursements$,
+    ]).pipe(
+      map(
+        ([id, deboursements]) =>
+          deboursements.filter((deboursement) => deboursement.id === id)[0]
+      )
+    );
+
+    this.echeancier$ = combineLatest([
+      idAvance$,
+      this.echeanceService.echeances$,
+    ]).pipe(
+      map(([id, echeances]) =>
+        echeances.filter((echeance) => echeance.avanceId === id)
+      )
+    );
+
+    this.mouvements$ = combineLatest([
+      idAvance$,
+      this.compteService.mouvements$,
+    ]).pipe(
+      map(([id, mouvements]) =>
+        mouvements.filter((mouvement) => mouvement.avanceId === id)
+      )
+    );
 
     this.membre$.subscribe((membre: Membre) => {
       if (membre) {
@@ -194,7 +238,7 @@ export class NouvelleAvanceComponent implements OnInit {
       mouvement.typeOperation = TypeOperation.Debit;
       mouvement.montant = this.montantAccordeCtrl.value;
       mouvement.libelle = 'Décaissement avance n° ' + this.idAvanceCtrl.value;
-      this.compteService.enregistrerMouvement(mouvement);
+      this.avanceService.enregistrerMouvement(mouvement);
     }
 
     this.onGoBack();

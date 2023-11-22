@@ -1,34 +1,27 @@
-<div class="card shadow-sm mb-1 p-2">
-  <div class="row d-flex align-items-center">
-    <div class="col-md-6 col-sm-12">
-      <div class="row" *ngIf="membre$ | async as membre">
-        <div class="col-12">
-          <app-details-membre [membre]="membre"></app-details-membre>
-        </div>
-      </div>
+<div class="row" *ngIf="membre$ | async as membre">
+  <div class="col-md-6 col-sm-12">
+    <app-details-membre [membre]="membre"></app-details-membre>
+  </div>
+  <div
+    class="col-md-6 col-sm-12 text-md-right text-sm-center"
+    *ngIf="avance$ | async as avance"
+  >
+    <div class="text-right">
+      <span
+        class="badge"
+        [ngClass]="{
+          'badge-success': status == 4,
+          'badge-warning': status == 3,
+          'badge-danger': status == 2,
+          'badge-info': status == 1,
+          'badge-primary': status == 0
+        }"
+        >{{ getStatusString() }}</span
+      >
     </div>
-    <div class="col-md-6 col-sm-12">
-      <div class="row d-flex align-items-center justify-content-end">
-        <div class="col-md-4 col-sm-12">
-          <div class="text-right">
-            <span
-              class="badge"
-              [ngClass]="{
-                'badge-success': status == 4,
-                'badge-warning': status == 3,
-                'badge-danger': status == 2,
-                'badge-info': status == 1,
-                'badge-primary': status == 0
-              }"
-              >{{ getStatusString() }}</span
-            >
-          </div>
-          <h5 class="text-right">
-            <span class="mis-en-avant">{{ solde | number }}</span>
-            <small> FCFA</small>
-          </h5>
-        </div>
-      </div>
-    </div>
+    <h5 *ngIf="solde" class="text-right">
+      <span class="mis-en-avant">{{ solde | number }}</span>
+      <small> FCFA</small>
+    </h5>
   </div>
 </div>

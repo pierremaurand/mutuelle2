@@ -45,5 +45,25 @@ namespace mefApi.Controllers
             await signalrHub.Clients.All.SendAsync("EcheanceAdded");
             return StatusCode(201);
         }
+
+        [HttpPost("addPayement")]
+        public async Task<IActionResult> AddPayement(MouvementDto mouvementDto)
+        {
+            if(mouvementDto.Id != 0) {
+                return BadRequest("Ce mouvement existe déjà dans la bdd");
+            }
+            var mouvement = mapper.Map<Mouvement>(mouvementDto);
+            
+            mouvement.ModifiePar = GetUserId();
+            mouvement.ModifieLe = DateTime.Now;
+            uow.MouvementRepository.Add(mouvement);
+            await uow.SaveAsync();
+            await signalrHub.Clients.All.SendAsync("MouvementAdded");
+            await signalrHub.Clients.All.SendAsync("AvanceAdded");
+            await signalrHub.Clients.All.SendAsync("DeboursementAdded");
+            await signalrHub.Clients.All.SendAsync("EcheanceAdded");
+            return StatusCode(201);
+        }
+
     }
 }

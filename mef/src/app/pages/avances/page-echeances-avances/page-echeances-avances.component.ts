@@ -1,7 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { Observable, combineLatest, map, startWith } from 'rxjs';
+import { Avance } from 'src/app/models/avance';
 import { Echeance } from 'src/app/models/echeance.model';
+import { Membre } from 'src/app/models/membre.model';
 import { Mouvement } from 'src/app/models/mouvement';
 import { TypeOperation } from 'src/app/models/typeoperation';
 import { AvanceService } from 'src/app/services/avance.service';
@@ -23,6 +25,8 @@ export class PageEcheancesAvancesComponent implements OnInit {
 
   echeances$!: Observable<Echeance[]>;
   mouvements$!: Observable<Mouvement[]>;
+  membres$!: Observable<Membre[]>;
+  avances$!: Observable<Avance[]>;
 
   dateEcheanceCtrl!: FormControl;
   searchCtrl!: FormControl;
@@ -48,6 +52,13 @@ export class PageEcheancesAvancesComponent implements OnInit {
   private initObservables(): void {
     this.echeances$ = this.echeanceService.echeances$;
     this.mouvements$ = this.compteService.mouvements$;
+    this.membres$ = this.membreService.membres$;
+    this.avances$ = this.avanceService.avances$;
+
+    this.mouvements$.subscribe();
+    this.echeances$.subscribe();
+    this.membres$.subscribe();
+    this.avances$.subscribe();
 
     const search$ = this.searchCtrl.valueChanges.pipe(
       startWith(this.searchCtrl.value),
@@ -61,10 +72,10 @@ export class PageEcheancesAvancesComponent implements OnInit {
     this.echeances$ = combineLatest([
       search$,
       dateEcheance$,
-      this.echeanceService.echeances$,
-      this.membreService.membres$,
-      this.avanceService.avances$,
-      this.compteService.mouvements$,
+      this.echeances$,
+      this.membres$,
+      this.avances$,
+      this.mouvements$,
     ]).pipe(
       map(([search, dateEcheance, echeances, membres, avances, mouvements]) =>
         echeances.filter(
@@ -104,6 +115,8 @@ export class PageEcheancesAvancesComponent implements OnInit {
 
   effacer(): void {
     this.dateEcheanceCtrl.setValue('');
+    const checkboxes = document.getElementsByClassName('checkbox');
+    const nbrElements = checkboxes.length;
   }
 
   private calculResteAPayer(montant: number, mouvements: Mouvement[]): number {

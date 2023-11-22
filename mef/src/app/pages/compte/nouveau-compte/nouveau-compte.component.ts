@@ -9,6 +9,8 @@ import { MembreService } from 'src/app/services/membre.service';
 
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+import { TDocumentDefinitions } from 'pdfmake/interfaces';
+import { environment } from 'src/environments/environment';
 (<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
@@ -27,6 +29,8 @@ export class NouveauCompteComponent implements OnInit {
   mouvements$!: Observable<Mouvement[]>;
   mouvements!: Mouvement[];
   membre!: Membre;
+
+  imagesUrl = environment.imagesUrl;
 
   constructor(
     private router: Router,
@@ -94,12 +98,62 @@ export class NouveauCompteComponent implements OnInit {
     this.router.navigate(['/comptes']);
   }
 
-  generatePdf(): void {
-    const documentDefinition = {
-      content: {
-        text: 'relevé de compte',
+  getDocumentDefinition(): TDocumentDefinitions {
+    return {
+      header: [
+        {
+          text: 'Rélevé de Compte',
+          bold: true,
+          fontSize: 15,
+          alignment: 'center',
+          margin: [10, 0, 0, 0],
+        },
+      ],
+      content: [
+        {
+          columns: [
+            [
+              {
+                text: this.membre.nom,
+                style: 'name',
+              },
+              {
+                text: 'Contact : ' + this.membre.contact,
+              },
+            ],
+            [
+              {
+                image: 'photo',
+                width: 75,
+                alignment: 'right',
+              },
+            ],
+          ],
+        },
+      ],
+      styles: {
+        name: {
+          fontSize: 16,
+          bold: true,
+        },
+      },
+      images: {
+        photo: this.imagesUrl + '/assets/images/' + this.membre.photo,
       },
     };
+  }
+
+  getImage() {
+    const photo = this.imagesUrl + '/assets/images/' + this.membre.photo;
+    return {
+      image: photo,
+      width: 75,
+      alignment: 'right',
+    };
+  }
+
+  generatePdf(): void {
+    const documentDefinition = this.getDocumentDefinition();
     pdfMake.createPdf(documentDefinition).open();
   }
 }

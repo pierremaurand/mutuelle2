@@ -134,10 +134,6 @@ export class CompteService {
   }
 
   enregistrerMouvement(mvts: Mouvement): void {
-    this.http
-      .post(this.baseUrl + '/compte/addmouvement', mvts)
-      .subscribe((res) => {
-        console.log(res);
-      });
+    this.http.post(this.baseUrl + '/compte/addmouvement', mvts).subscribe();
   }
 }

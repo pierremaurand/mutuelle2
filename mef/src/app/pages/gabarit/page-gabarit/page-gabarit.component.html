@@ -40,13 +40,9 @@
       <div class="list-group" *ngIf="gabarits$ | async as gabarits">
         <a
           href="javascript:void(0);"
-          class="list-group-item list-group-item-action"
+          class="list-group-item list-group-item-action mb-2 shadow-sm rounded border"
           aria-current="true"
           *ngFor="let gabarit of gabarits"
-          [ngClass]="{
-            'border-left-success text-success': gabarit.estActif,
-            'border-left-danger text-danger': !gabarit.estActif
-          }"
         >
           <div class="row" (click)="navigate(gabarit.id)">
             <div class="col-12">

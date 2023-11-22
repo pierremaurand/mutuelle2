@@ -20,7 +20,7 @@
       <div class="list-group" *ngIf="sexes$ | async as sexes">
         <a
           href="javascript:void(0);"
-          class="list-group-item list-group-item-action border-left-primary mb-2 shadow-sm rounded"
+          class="list-group-item list-group-item-action mb-2 shadow-sm rounded border"
           aria-current="true"
           *ngFor="let sexe of sexes | sort : ['nom', 'asc']"
         >

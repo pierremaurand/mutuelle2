@@ -83,7 +83,7 @@ export class NouvelleCotisationComponent implements OnInit {
 
   enregistrer(): void {
     if (this.mainForm.valid) {
-      this.cotisationService.ajoutCotisation(this.id, this.mainForm.value);
+      this.cotisationService.addCotisation(this.id, this.mainForm.value);
       this.onGoBack();
     }
   }

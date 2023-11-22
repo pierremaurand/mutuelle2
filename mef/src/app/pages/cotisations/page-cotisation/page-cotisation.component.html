@@ -24,13 +24,9 @@
       <div class="list-group">
         <a
           href="javascript:void(0);"
-          class="list-group-item list-group-item-action mb-1"
+          class="list-group-item list-group-item-action mb-2 shadow-sm rounded border"
           aria-current="true"
           *ngFor="let membre of membres | sort : ['nom', 'asc']"
-          [ngClass]="{
-            'border-left-success text-success': membre.estActif,
-            'border-left-danger text-danger': !membre.estActif
-          }"
         >
           <div class="row" (click)="navigate(membre.id)">
             <div class="col-12">

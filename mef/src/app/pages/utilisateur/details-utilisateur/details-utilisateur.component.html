@@ -1,12 +1,11 @@
 <div class="row">
-  <div class="col-md-1 col-sm-12">
+  <div class="col-md-1 col-sm-12 text-center">
     <img
-      src="{{ imagesUrl }}/assets/images/{{ membre.photo }}"
-      width="{{ width }}"
-      class="rounded-circle"
+      [src]="imagesUrl + '/assets/images/' + membre.photo"
+      class="rounded-circle img-fluid"
     />
   </div>
-  <div class="col-md-11 col-sm-12">
+  <div class="col-md-11 col-sm-12 text-md-left text-sm-center">
     <h5 class="{{ size }}">
       {{ utilisateur.nomUtilisateur | uppercase }}
     </h5>

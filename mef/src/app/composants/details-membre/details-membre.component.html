@@ -1,14 +1,15 @@
 <div class="row">
-  <div class="col-lg-2 col-md-12 text-center">
+  <div class="col-md-2 col-sm-12 text-md-left text-sm-center">
     <img
       [src]="imagesUrl + '/assets/images/' + membre.photo"
-      width="{{ width }}"
-      class="rounded-circle"
+      class="rounded-circle img-fluid"
     />
   </div>
-  <div class="col-lg-10 col-md-12 text-sm-center align-item-center">
+  <div
+    class="col-md-10 col-sm-12 text-md-left text-sm-center align-item-center"
+  >
     <h5
-      class="{{ size }}"
+      class="text-truncate"
       [ngClass]="{
         'text-success': membre.estActif,
         'text-danger': !membre.estActif
@@ -16,7 +17,7 @@
     >
       {{ membre.nom | uppercase }}
     </h5>
-    <small class="text-primary">
+    <small class="text-primary text-truncate">
       <span *ngIf="sexe$ | async as sexe">
         <i class="fa fa-venus-mars"></i>
         {{ sexe.nom | uppercase }} |

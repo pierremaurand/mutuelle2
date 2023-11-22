@@ -96,6 +96,10 @@ export class AvanceService {
     );
   }
 
+  enregistrerMouvement(mvts: Mouvement): void {
+    this.http.post(this.baseUrl + '/avance/debourser', mvts).subscribe();
+  }
+
   //----------------------------------------
 
   getAllEcheances(): Observable<EcheanceAvance[]> {

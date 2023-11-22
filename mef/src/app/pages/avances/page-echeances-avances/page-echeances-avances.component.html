@@ -71,18 +71,28 @@
       </form>
     </div>
     <div class="card-body liste">
-      <div *ngIf="echeances$ | async as echeances">
-        <app-detail-echeance-avance
+      <div class="list-group" *ngIf="echeances$ | async as echeances">
+        <a
+          href="javascript:void(0);"
+          class="list-group-item list-group-item-action mb-2 shadow-sm rounded border"
+          aria-current="true"
           *ngFor="
             let echeance of echeances
               | sort : ['avanceId', 'desc']
               | sort : ['dateEcheance', 'desc'];
             let i = index
           "
-          [index]="i"
-          [echeance]="echeance"
-          (echeanceChoisie)="addEcheance($event)"
-        ></app-detail-echeance-avance>
+        >
+          <div class="row">
+            <div class="col-12">
+              <app-detail-echeance-avance
+                [index]="i"
+                [echeance]="echeance"
+                (echeanceChoisie)="addEcheance($event)"
+              ></app-detail-echeance-avance>
+            </div>
+          </div>
+        </a>
       </div>
     </div>
   </div>

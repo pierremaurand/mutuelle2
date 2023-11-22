@@ -6,7 +6,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, combineLatest, map, of } from 'rxjs';
 import { Avance } from 'src/app/models/avance';
 import { Membre } from 'src/app/models/membre.model';
 import { AvanceService } from 'src/app/services/avance.service';
@@ -49,9 +49,16 @@ export class DetailEcheanceAvanceComponent implements OnInit {
   }
 
   private initObservable(): void {
-    this.mouvements$ = this.compteService.getMouvementsEcheance(
-      this.echeance.id
+    const idEcheance$ = of(this.echeance.id);
+    this.mouvements$ = combineLatest([
+      idEcheance$,
+      this.compteService.mouvements$,
+    ]).pipe(
+      map(([id, mouvements]) =>
+        mouvements.filter((mouvement) => mouvement.echeanceId === id)
+      )
     );
+
     this.mouvements$.subscribe((mouvements) => {
       this.calculSolde(mouvements);
     });

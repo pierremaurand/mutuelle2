@@ -64,22 +64,32 @@
       </div>
     </div>
     <div class="card-body liste">
-      <div *ngIf="avances$ | async as avances">
-        <app-detail-avance
+      <div class="list-group" *ngIf="avances$ | async as avances">
+        <a
+          href="javascript:void(0);"
+          class="list-group-item list-group-item-action mb-2 shadow-sm rounded border"
+          aria-current="true"
           *ngFor="
             let avance of avances
               | sort : ['dateDemande', 'desc']
               | sort : ['id', 'desc']
           "
-          (click)="
-            navigate(
-              avance.id,
-              avance.membreId ?? 0,
-              avance.deboursementId ?? 0
-            )
-          "
-          [avance]="avance"
-        ></app-detail-avance>
+        >
+          <div
+            class="row"
+            (click)="
+              navigate(
+                avance.id,
+                avance.membreId ?? 0,
+                avance.deboursementId ?? 0
+              )
+            "
+          >
+            <div class="col-12">
+              <app-detail-avance [idAvance]="avance.id"></app-detail-avance>
+            </div>
+          </div>
+        </a>
       </div>
     </div>
   </div>

@@ -62,7 +62,8 @@ export class GabaritService {
     return this.http.get<Gabarit[]>(this.baseUrl + '/gabarit/active');
   }
 
-  add(gabarit: Gabarit): void {
+  add(gabarit: Gabarit, operations: Operation[]): void {
+    gabarit.operations = operations;
     this.http.post<number>(this.baseUrl + '/gabarit/add', gabarit).subscribe();
   }
 

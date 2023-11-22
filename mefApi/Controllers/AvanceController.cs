@@ -78,6 +78,24 @@ namespace mefApi.Controllers
             return StatusPret.ENCOURS;
         }
 
+        [HttpPost("debourser")]
+        public async Task<IActionResult> Debourser(MouvementDto mouvementDto)
+        {
+            if(mouvementDto.Id != 0) {
+                return BadRequest("Ce mouvement existe déjà dans la bdd");
+            }
+            var mouvement = mapper.Map<Mouvement>(mouvementDto);
+            
+            mouvement.ModifiePar = GetUserId();
+            mouvement.ModifieLe = DateTime.Now;
+            uow.MouvementRepository.Add(mouvement);
+            await uow.SaveAsync();
+            await signalrHub.Clients.All.SendAsync("MouvementAdded");
+            await signalrHub.Clients.All.SendAsync("AvanceAdded");
+            await signalrHub.Clients.All.SendAsync("DeboursementAdded");
+            return StatusCode(201);
+        }
+
         [HttpGet("echeances")]
         public async Task<IActionResult> GetEcheances()
         {

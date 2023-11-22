@@ -11,7 +11,9 @@
   <div class="card shadow mb-4">
     <div class="card-body">
       <div class="row m-3">
-        <div class="col-lg-2 col-md-12 mb-3 border-end text-primary">
+        <div
+          class="col-lg-2 col-md-12 mb-3 text-center border-end text-primary"
+        >
           <img
             [src]="photo"
             alt="photo du membre"
@@ -76,7 +78,7 @@
                       formControlName="estActif"
                     />
                     <input type="hidden" name="photo" formControlName="photo" />
-                    <div class="form-group col-8">
+                    <div class="form-group col-lg-8 col-md-12">
                       <label for="nom" class="form-label">Nom</label>
                       <input
                         type="text"
@@ -86,7 +88,7 @@
                         formControlName="nom"
                       />
                     </div>
-                    <div class="form-group col">
+                    <div class="form-group col-lg-4 col-md-12">
                       <label for="sexeId" class="form-label">Sexe</label>
                       <select
                         id="sexeId"
@@ -106,7 +108,7 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div class="form-group col">
+                    <div class="form-group col-lg-6 col-md-12">
                       <label for="dateNaissance" class="form-label"
                         >Date de naissance</label
                       >
@@ -118,7 +120,7 @@
                         formControlName="dateNaissance"
                       />
                     </div>
-                    <div class="form-group col">
+                    <div class="form-group col-lg-6 col-md-12">
                       <label for="lieuNaissance" class="form-label"
                         >Lieu de naissance</label
                       >
@@ -132,7 +134,7 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div class="form-group col">
+                    <div class="form-group col-lg-6 col-md-12">
                       <label for="contact" class="form-label">Téléphone</label>
                       <input
                         type="text"
@@ -142,7 +144,7 @@
                         formControlName="contact"
                       />
                     </div>
-                    <div class="form-group col">
+                    <div class="form-group col-lg-6 col-md-12">
                       <label for="email" class="form-label">Email</label>
                       <input
                         type="email"
@@ -158,7 +160,7 @@
               <div class="tab-pane" id="infosMembre">
                 <div class="p-3">
                   <div class="row">
-                    <div class="form-group col">
+                    <div class="form-group col-lg-6 col-md-12">
                       <label for="posteId" class="form-label">Poste</label>
                       <select
                         id="posteId"
@@ -176,7 +178,7 @@
                         </ng-container>
                       </select>
                     </div>
-                    <div class="form-group col">
+                    <div class="form-group col-lg-6 col-md-12">
                       <label for="lieuAffectationId" class="form-label"
                         >Affectation</label
                       >
@@ -196,7 +198,7 @@
                         </ng-container>
                       </select>
                     </div>
-                    <div class="form-group col">
+                    <div class="form-group col-lg-6 col-md-12">
                       <label for="dateAdhesion" class="form-label"
                         >Date d'adhésion</label
                       >

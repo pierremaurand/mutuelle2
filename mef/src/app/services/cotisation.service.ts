@@ -70,7 +70,7 @@ export class CotisationService {
   }
 
   ajoutCotisation(id: number, cotisation: Cotisation): void {
-    this.addCotisation(id, cotisation).subscribe(() => {});
+    this.addCotisation(id, cotisation);
   }
 
   //----------------------------------------------
@@ -97,10 +97,12 @@ export class CotisationService {
     );
   }
 
-  addCotisation(id: number, cotisations: Cotisation): Observable<any> {
-    return this.http.post(
-      this.baseUrl + '/cotisation/addcotisation/' + id.toString(),
-      cotisations
-    );
+  addCotisation(id: number, cotisations: Cotisation): void {
+    this.http
+      .post(
+        this.baseUrl + '/cotisation/addcotisation/' + id.toString(),
+        cotisations
+      )
+      .subscribe();
   }
 }

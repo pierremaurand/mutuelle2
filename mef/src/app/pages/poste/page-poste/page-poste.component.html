@@ -40,7 +40,7 @@
       <div class="list-group" *ngIf="postes$ | async as postes">
         <a
           href="javascript:void(0);"
-          class="list-group-item list-group-item-action border-left-primary mb-2 shadow-sm rounded"
+          class="list-group-item list-group-item-action mb-2 shadow-sm rounded border"
           aria-current="true"
           *ngFor="let poste of postes | sort : ['libelle', 'asc']"
         >

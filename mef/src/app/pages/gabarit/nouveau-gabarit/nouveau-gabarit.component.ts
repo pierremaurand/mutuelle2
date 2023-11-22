@@ -28,11 +28,11 @@ import { OperationService } from 'src/app/services/operation.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NouveauGabaritComponent implements OnInit {
-  operation!: Operation;
   comptes$!: Observable<CompteComptable[]>;
   comptes: CompteComptable[] = [];
   operations$!: Observable<Operation[]>;
   operations: Operation[] = [];
+  operationOk: boolean = false;
 
   gabarit!: Gabarit;
   gabarit$!: Observable<Gabarit>;
@@ -43,12 +43,6 @@ export class NouveauGabaritComponent implements OnInit {
   idGabaritCtrl!: FormControl;
   libelleGabaritCtrl!: FormControl;
   estActifGabaritCtrl!: FormControl;
-
-  operationForm!: FormGroup;
-  idOperationCtrl!: FormControl;
-  compteComptableIdOperationCtrl!: FormControl;
-  typeOperationOperationCtrl!: FormControl;
-  tauxOperationCtrl!: FormControl;
 
   SortbyParam = 'typeOperation';
   SortDirection = 'asc';
@@ -76,31 +70,11 @@ export class NouveauGabaritComponent implements OnInit {
     this.estActifGabaritCtrl = this.fb.control(false, Validators.required);
   }
 
-  private initOperationControls(): void {
-    this.idOperationCtrl = this.fb.control(0, Validators.required);
-    this.compteComptableIdOperationCtrl = this.fb.control(
-      '',
-      Validators.required
-    );
-    this.typeOperationOperationCtrl = this.fb.control('', Validators.required);
-    this.tauxOperationCtrl = this.fb.control('', Validators.required);
-  }
-
   private initForms(): void {
     this.gabaritForm = this.fb.group({
       id: this.idGabaritCtrl,
       libelle: this.libelleGabaritCtrl,
       estActif: this.estActifGabaritCtrl,
-    });
-  }
-
-  private initOperationForm(): void {
-    this.operationForm = this.fb.group({
-      id: this.idOperationCtrl,
-      gabaritId: this.idGabaritCtrl,
-      compteComptableId: this.compteComptableIdOperationCtrl,
-      typeOperation: this.typeOperationOperationCtrl,
-      taux: this.tauxOperationCtrl,
     });
   }
 
@@ -144,101 +118,72 @@ export class NouveauGabaritComponent implements OnInit {
 
     this.operations$.subscribe((operations) => {
       this.operations = operations;
+      this.checkOperations();
     });
   }
 
-  enregistrer(): void {}
-
-  checkGabaritInfo(): boolean {
-    // if (this.operations.length === 0 || this.gabarit.libelle == '') {
-    //   alert('Les informations ne sont pas valides!');
-    //   return false;
-    // }
-
-    // let credit = 100;
-    // let debit = 100;
-    // this.operations.map((operation) => {
-    //   if (operation.typeOperation == 0) {
-    //     debit -= operation.taux;
-    //   } else {
-    //     credit -= operation.taux;
-    //   }
-    // });
-    // if (debit != 0 || credit != 0) {
-    //   alert('Ecriture non équilibré!');
-    //   return false;
-    // }
-
-    return true;
+  enregistrer(): void {
+    if (this.gabaritForm.valid) {
+      if (this.gabarit) {
+        this.gabaritService.update(this.gabarit.id, this.gabaritForm.value);
+      } else {
+        this.gabaritService.add(this.gabaritForm.value, this.operations);
+      }
+      this.cancel();
+    }
   }
 
-  checkOperationInfos(): boolean {
-    if (this.operation.compteComptableId == 0) {
-      return false;
+  private checkOperations(): void {
+    this.operationOk = false;
+    if (this.operations.length === 0) {
+      return;
     }
 
-    if (this.operation.taux == 0) {
-      return false;
+    let credit = 100;
+    let debit = 100;
+    this.operations.map((operation) => {
+      if (operation.typeOperation == 0) {
+        debit -= operation.taux;
+      } else {
+        credit -= operation.taux;
+      }
+    });
+    if (debit != 0 || credit != 0) {
+      return;
     }
 
-    return true;
+    this.operationOk = true;
   }
 
-  ajouterOperation(): void {
-    // if (this.checkOperationInfos()) {
-    //   if (this.operations) {
-    //     this.operations.push(this.operation);
-    //     this.resetForm();
-    //   }
-    // }
-  }
-
-  resetForm(): void {
-    this.operation = new Operation();
+  ajouterOperation(operation: Operation): void {
+    if (this.operations) {
+      this.operations.push(operation);
+      this.checkOperations();
+    }
   }
 
   cancel(): void {
     this.router.navigate(['/gabarits']);
   }
 
-  getNumCompte(id?: number): string {
+  getNumCompte(id: number): string {
     let compte = '';
-    // this.comptes.map((cmp) => {
-    //   if (cmp.id == id) {
-    //     compte = cmp.compte;
-    //   }
-    // });
+    this.comptes.map((cmp) => {
+      if (cmp.id === id) {
+        compte = cmp.compte;
+      }
+    });
     return compte;
   }
 
-  getLibelleCompte(id?: number): string {
+  getLibelleCompte(id: number): string {
     let libelle = '';
-    // this.comptes.map((cmp) => {
-    //   if (cmp.id == id) {
-    //     libelle = cmp.libelle;
-    //   }
-    // });
+    this.comptes.map((cmp) => {
+      if (cmp.id === id) {
+        libelle = cmp.libelle;
+      }
+    });
     return libelle;
-  }
-
-  chargementGabarit(): void {
-    // if (this.gabaritId) {
-    //   this.gabaritService
-    //     .getById(this.gabaritId)
-    //     .subscribe((gabarit: Gabarit) => {
-    //       this.gabarit = gabarit;
-    //       this.operationService
-    //         .getAll(this.gabaritId)
-    //         .subscribe((operations: Operation[]) => {
-    //           this.operations = operations;
-    //         });
-    //     });
-    // }
-  }
-
-  newOperation(): void {
-    this.initOperationControls();
-    this.initOperationForm();
   }
 
   activer(): void {

@@ -7,6 +7,7 @@ import { Mouvement } from 'src/app/models/mouvement';
 import { TypeOperation } from 'src/app/models/typeoperation';
 import { AvanceService } from 'src/app/services/avance.service';
 import { CompteService } from 'src/app/services/compte.service';
+import { EcheanceService } from 'src/app/services/echeance.service';
 
 @Component({
   selector: 'app-payer-echeances-avances',
@@ -21,7 +22,7 @@ export class PayerEcheancesAvancesComponent implements OnInit {
   echeancesPayer = new EventEmitter();
 
   constructor(
-    public compteService: CompteService,
+    private echeanceService: EcheanceService,
     private datePipe: DatePipe
   ) {}
 
@@ -39,7 +40,7 @@ export class PayerEcheancesAvancesComponent implements OnInit {
       mouvement.libelle =
         'Remboursement échéance avance n° ' + echeance.avanceId;
       mouvement.typeOperation = TypeOperation.Credit;
-      this.compteService.enregistrerMouvement(mouvement);
+      this.echeanceService.enregistrerMouvement(mouvement);
     });
     this.echeancesPayer.emit();
   }

@@ -1,37 +1,28 @@
 <div class="row" *ngIf="echeancier.length != 0">
-  <div class="col-sm-12">
-    <div class="row entente">
-      <div class="col-sm-1">N°</div>
-      <div class="col-sm-2">Date échéance</div>
-      <div class="col-sm-3">Capital (Fcfa)</div>
-      <div class="col-sm-3">Interêts (Fcfa)</div>
-      <div class="col-sm-3">Montant échéance (Fcfa)</div>
-    </div>
-    <div class="row liste">
-      <div class="col-sm-12 table table-striped">
-        <div
-          class="row ligne"
-          *ngFor="let echeance of echeancier; let i = index"
-        >
-          <div class="col-sm-1 text-center">{{ 1 + i }}</div>
-          <div class="col-sm-2 text-center">
-            {{ echeance.dateEcheance | date : "dd/MM/yyyy" }}
-          </div>
-          <div class="col-sm-3 text-right">
-            <span *ngIf="echeance.capital">{{
-              echeance.capital | number
-            }}</span>
-          </div>
-          <div class="col-sm-3 text-right">
-            <span *ngIf="echeance.interet">{{
-              echeance.interet | number
-            }}</span>
-          </div>
-          <div class="col-sm-3 text-right">
-            {{ echeance.montantEcheance | number }}
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <table class="table table-striped table-sm table-border table-hover">
+    <thead>
+      <tr class="text-center">
+        <th>N°</th>
+        <th>Date échéance</th>
+        <th *ngIf="afficheCapital">Capital (Fcfa)</th>
+        <th *ngIf="afficheInteret">Interêts (Fcfa)</th>
+        <th>Montant échéance (Fcfa)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let echeance of echeancier; let i = index">
+        <td class="text-center">{{ 1 + i }}</td>
+        <td class="text-center">
+          {{ echeance.dateEcheance | date : "dd/MM/yyyy" }}
+        </td>
+        <td *ngIf="afficheCapital" class="text-right">
+          {{ echeance.capital | number }}
+        </td>
+        <td *ngIf="afficheInteret" class="text-right">
+          {{ echeance.interet | number }}
+        </td>
+        <td class="text-right">{{ calculSolde(echeance) | number }}</td>
+      </tr>
+    </tbody>
+  </table>
 </div>

@@ -122,13 +122,6 @@ const routes: Routes = [
       {
         path: 'nouvelleavance/:avanceId/:membreId/:deboursementId',
         component: NouvelleAvanceComponent,
-        resolve: {
-          avance: AvanceResolver,
-          membre: MembreResolver,
-          deboursement: DeboursementResolver,
-          echeancier: EcheancierResolver,
-          mouvements: MouvementsResolver,
-        },
         canActivate: [AuthService],
       },
       {

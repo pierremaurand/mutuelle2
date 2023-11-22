@@ -40,7 +40,6 @@ namespace mefApi.Controllers
             cotisation.ModifiePar = GetUserId();
             cotisation.ModifieLe = DateTime.Now;
             uow.CotisationRepository.Add(cotisation);
-            await uow.SaveAsync();
 
             var mois = await uow.MoisRepository.FindAsync(cotisation.MoisId);
             var dateMvt = cotisation.Annee + "-" + "01" + "-25";
@@ -65,7 +64,6 @@ namespace mefApi.Controllers
             mouvement.ModifiePar = GetUserId();
             mouvement.ModifieLe = DateTime.Now;
             uow.MouvementRepository.Add(mouvement);
-            await uow.SaveAsync();
 
             // RETENU 10%
             mouvement = new Mouvement();
@@ -85,9 +83,8 @@ namespace mefApi.Controllers
             mouvement.ModifieLe = DateTime.Now;
             uow.MouvementRepository.Add(mouvement);
             await uow.SaveAsync();
-            
-            await signalrHub.Clients.All.SendAsync("MouvementAdded");
             await signalrHub.Clients.All.SendAsync("CotisationAdded");
+            await signalrHub.Clients.All.SendAsync("MouvementAdded");
             return StatusCode(201);
         }
 

@@ -39,7 +39,7 @@ export class EcheanceService {
     return this.http.post<number>(this.baseUrl + '/echeance/add', echeances);
   }
 
-  enregistrerMouvement(mvts: Mouvement): void {
+  enregistrerMouvements(mvts: Mouvement[]): void {
     this.http.post(this.baseUrl + '/echeance/addPayement', mvts).subscribe();
   }
 

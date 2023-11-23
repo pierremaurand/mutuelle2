@@ -39,7 +39,8 @@ namespace mefApi.Controllers
             foreach(var echeance in echeances) {
                 echeance.ModifiePar = GetUserId();
                 echeance.ModifieLe = DateTime.Now;
-                uow.EcheanceRepository.Add(echeance);
+                if(echeance.Id == 0)
+                    uow.EcheanceRepository.Add(echeance);
             }
             await uow.SaveAsync();
             await signalrHub.Clients.All.SendAsync("EcheanceAdded");
@@ -47,16 +48,15 @@ namespace mefApi.Controllers
         }
 
         [HttpPost("addPayement")]
-        public async Task<IActionResult> AddPayement(MouvementDto mouvementDto)
+        public async Task<IActionResult> AddPayement(MouvementDto[] mouvementsDto)
         {
-            if(mouvementDto.Id != 0) {
-                return BadRequest("Ce mouvement existe déjà dans la bdd");
+            var mouvements = mapper.Map<List<Mouvement>>(mouvementsDto);
+            foreach(var mouvement in mouvements) {
+                mouvement.ModifiePar = GetUserId();
+                mouvement.ModifieLe = DateTime.Now;
+                if(mouvement.Id == 0)
+                    uow.MouvementRepository.Add(mouvement);
             }
-            var mouvement = mapper.Map<Mouvement>(mouvementDto);
-            
-            mouvement.ModifiePar = GetUserId();
-            mouvement.ModifieLe = DateTime.Now;
-            uow.MouvementRepository.Add(mouvement);
             await uow.SaveAsync();
             await signalrHub.Clients.All.SendAsync("MouvementAdded");
             await signalrHub.Clients.All.SendAsync("AvanceAdded");

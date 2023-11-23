@@ -20,6 +20,7 @@ export class PayerEcheancesAvancesComponent implements OnInit {
   dateMouvement: string = '';
   @Output()
   echeancesPayer = new EventEmitter();
+  mouvements: Mouvement[] = [];
 
   constructor(
     private echeanceService: EcheanceService,
@@ -29,6 +30,7 @@ export class PayerEcheancesAvancesComponent implements OnInit {
   ngOnInit(): void {}
 
   enregistrer(): void {
+    this.mouvements.length = 0;
     this.echeancier.forEach((echeance) => {
       let mouvement = new Mouvement();
       mouvement.avanceId = echeance.avanceId ?? 0;
@@ -40,8 +42,9 @@ export class PayerEcheancesAvancesComponent implements OnInit {
       mouvement.libelle =
         'Remboursement échéance avance n° ' + echeance.avanceId;
       mouvement.typeOperation = TypeOperation.Credit;
-      this.echeanceService.enregistrerMouvement(mouvement);
+      this.mouvements.push(mouvement);
     });
+    this.echeanceService.enregistrerMouvements(this.mouvements);
     this.echeancesPayer.emit();
   }
 }

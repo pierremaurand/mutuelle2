@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, combineLatest, map, switchMap, take, tap } from 'rxjs';
+import { Observable, combineLatest, map, of, switchMap, take, tap } from 'rxjs';
 import { Membre } from 'src/app/models/membre.model';
 import { Utilisateur } from 'src/app/models/utilisateur';
 import { AlertifyService } from 'src/app/services/alertify.service';
@@ -17,7 +17,11 @@ import { environment } from 'src/environments/environment';
 })
 export class EnteteComponent implements OnInit {
   membre$!: Observable<Membre>;
+  membres$!: Observable<Membre[]>;
+
   utilisateur$!: Observable<Utilisateur>;
+  utilisateurs$!: Observable<Utilisateur[]>;
+
   imagesUrl = environment.imagesUrl;
 
   constructor(
@@ -33,16 +37,25 @@ export class EnteteComponent implements OnInit {
   }
 
   private initObservables(): void {
-    this.utilisateur$ = this.utilisateurService.getUtilisateurById(
-      this.authService.getUserId()
+    this.utilisateurs$ = this.utilisateurService.utilisateurs$;
+    this.membres$ = this.membreService.membres$;
+
+    const idUser = of(this.authService.getUserId());
+
+    this.utilisateur$ = combineLatest([idUser, this.utilisateurs$]).pipe(
+      map(
+        ([id, utilisateurs]) =>
+          utilisateurs.filter((utilisateur) => utilisateur.id === id)[0]
+      )
     );
-    this.membre$ = combineLatest([
-      this.utilisateur$,
-      this.membreService.membres$,
-    ]).pipe(
+
+    this.membre$ = combineLatest([this.utilisateur$, this.membres$]).pipe(
       map(
         ([utilisateur, membres]) =>
-          membres.filter((membre) => membre.id === utilisateur.membreId)[0]
+          membres.filter(
+            (membre) =>
+              utilisateur.membreId && membre.id === utilisateur.membreId
+          )[0]
       )
     );
   }

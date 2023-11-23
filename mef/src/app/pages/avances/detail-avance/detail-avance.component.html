@@ -1,12 +1,9 @@
 <div class="row" *ngIf="membre$ | async as membre">
-  <div class="col-md-6 col-sm-12">
+  <div class="col-lg-8 col-md-12 col-sm-12">
     <app-details-membre [membre]="membre"></app-details-membre>
   </div>
-  <div
-    class="col-md-6 col-sm-12 text-md-right text-sm-center"
-    *ngIf="avance$ | async as avance"
-  >
-    <div class="text-right">
+  <div class="col-lg-4 col-md-12 col-sm-12" *ngIf="avance$ | async as avance">
+    <div class="text-lg-right text-md-center text-sm-center">
       <span
         class="badge"
         [ngClass]="{
@@ -19,7 +16,7 @@
         >{{ getStatusString() }}</span
       >
     </div>
-    <h5 *ngIf="solde" class="text-right">
+    <h5 *ngIf="solde" class="text-lg-right text-md-center text-sm-center">
       <span class="mis-en-avant">{{ solde | number }}</span>
       <small> FCFA</small>
     </h5>

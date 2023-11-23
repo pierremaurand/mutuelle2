@@ -1,37 +1,29 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
   <!-- Page Heading -->
-  <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">
+  <div class="row mb-4">
+    <h1
+      class="h3 mb-0 text-gray-800 col-lg-6 col-md-12 col-sm-12 text-lg-left text-md-center text-sm-center"
+    >
       <i class="fa fa-list"></i> Liste des échéances avances
     </h1>
   </div>
 
   <!-- DataTales Example -->
   <div class="card shadow mb-4">
-    <div class="card-header py-3 d-flex align-items-center">
-      <form class="form-inline">
-        <div class="input-group mr-2">
-          <div class="input-group-prepend">
-            <label for="search" class="btn btn-primary shadow-sm">
-              <i class="fa fa-search"></i>
-            </label>
-          </div>
+    <div class="card-header">
+      <div class="row">
+        <div class="col-lg-4 col-md-12 col-sm-12">
           <input
             type="search"
-            class="form-control shadow-sm"
+            class="form-control"
             name="search"
             id="search"
             [formControl]="searchCtrl"
             placeholder="Rechercher..."
           />
         </div>
-        <div class="input-group shadow-sm mr-2">
-          <div class="input-group-prepend">
-            <label for="dateEcheance" class="input-group-text"
-              >Date Echéances:</label
-            >
-          </div>
+        <div class="col-lg-4 col-md-12 col-sm-12">
           <input
             type="date"
             class="form-control"
@@ -40,35 +32,32 @@
             [formControl]="dateEcheanceCtrl"
             placeholder="Date Echéances"
           />
-          <div class="input-group-append">
-            <button class="btn btn-primary shadow-sm" (click)="effacer()">
-              <i class="fa fa-list-alt"></i>
+        </div>
+        <div class="col-lg-4 col-md-12 col-sm-12">
+          <div class="d-flex justify-content-between">
+            <button
+              type="botton"
+              class="btn btn-success shadow-sm"
+              data-toggle="modal"
+              data-target="#formulaire"
+              (click)="payer()"
+              [disabled]="echeancier.length == 0"
+            >
+              <i class="fa fa-check-circle"></i> Payer
+            </button>
+            <button
+              type="botton"
+              class="btn btn-primary shadow-sm"
+              data-toggle="modal"
+              data-target="#formulaire"
+              (click)="decaler()"
+              [disabled]="true"
+            >
+              <i class="fa fa-arrow-circle-right"></i> Décaler
             </button>
           </div>
         </div>
-        <div>
-          <button
-            type="botton"
-            class="btn btn-success shadow-sm mr-2"
-            data-toggle="modal"
-            data-target="#formulaire"
-            (click)="payer()"
-            [disabled]="echeancier.length == 0"
-          >
-            <i class="fa fa-check-circle"></i> Payer
-          </button>
-          <button
-            type="botton"
-            class="btn btn-primary shadow-sm"
-            data-toggle="modal"
-            data-target="#formulaire"
-            (click)="decaler()"
-            [disabled]="true"
-          >
-            <i class="fa fa-arrow-circle-right"></i> Décaler
-          </button>
-        </div>
-      </form>
+      </div>
     </div>
     <div class="card-body liste">
       <div class="list-group" *ngIf="echeances$ | async as echeances">

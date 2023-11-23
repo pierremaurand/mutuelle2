@@ -76,6 +76,26 @@ export class NouveauCompteComponent implements OnInit {
     this.router.navigate([`/addmouvement/${this.membre.id}`]);
   }
 
+  estDebit(mouvement: Mouvement): boolean {
+    if (mouvement.typeOperation == TypeOperation.Credit) {
+      return false;
+    }
+    return true;
+  }
+
+  getSolde(i: number, liste: Mouvement[]): number {
+    let solde = 0;
+    const mouvements = this.getMouvements(i, liste);
+    mouvements.forEach((m) => {
+      if (m.typeOperation == TypeOperation.Debit) {
+        solde -= m.montant ?? 0;
+      } else {
+        solde += m.montant ?? 0;
+      }
+    });
+    return solde;
+  }
+
   //------------------------------------------------------------
 
   private calculSolde(mouvements: Mouvement[]): number {
@@ -90,8 +110,8 @@ export class NouveauCompteComponent implements OnInit {
     return solde;
   }
 
-  getMouvements(mouvements: Mouvement[], index: number): Mouvement[] {
-    return mouvements.slice(index);
+  private getMouvements(index: number, liste: Mouvement[]): Mouvement[] {
+    return liste.slice(index);
   }
 
   onGoBack(): void {

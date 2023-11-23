@@ -15,7 +15,11 @@ import { MembreService } from 'src/app/services/membre.service';
 export class CotisationsMembreComponent implements OnInit {
   id!: number;
   solde!: number;
+
   membre$!: Observable<Membre>;
+  membres$!: Observable<Membre[]>;
+
+  allCotisations$!: Observable<Cotisation[]>;
   cotisations$!: Observable<Cotisation[]>;
 
   constructor(
@@ -30,16 +34,18 @@ export class CotisationsMembreComponent implements OnInit {
   }
 
   private initObservables(): void {
-    this.membre$ = this.route.params.pipe(
-      switchMap((params) => this.membreService.getMembreById(+params['id']))
+    const idMembre$ = this.route.params.pipe(map((params) => +params['id']));
+    this.membres$ = this.membreService.membres$;
+    this.membre$ = combineLatest([idMembre$, this.membres$]).pipe(
+      map(([id, membres]) => membres.filter((membre) => membre.id === id)[0])
     );
 
     this.cotisations$ = combineLatest([
-      this.membre$,
+      idMembre$,
       this.cotisationService.cotisations$,
     ]).pipe(
-      map(([membre, cotisations]) =>
-        cotisations.filter((cotisation) => cotisation.membreId == membre.id)
+      map(([id, cotisations]) =>
+        cotisations.filter((cotisation) => cotisation.membreId === id)
       )
     );
 

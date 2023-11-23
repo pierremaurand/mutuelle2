@@ -1,19 +1,16 @@
-<div
-  class="row ligne d-sm-flex align-items-center"
-  [ngClass]="{ pair: index % 2 }"
->
-  <div class="col-1 text-center">{{ index + 1 }}</div>
-  <div class="col-2 text-center">
+<tr>
+  <td class="text-center">{{ index + 1 }}</td>
+  <td class="text-center">
     {{ mouvement.dateMvt | date : "dd/MM/yyyy" }}
-  </div>
-  <div class="col-3 text-truncate">
+  </td>
+  <td class="text-truncate">
     {{ mouvement.libelle }}
-  </div>
-  <div class="col-2 text-right">
+  </td>
+  <td class="text-right">
     {{ (estDebit() ? mouvement.montant : 0) | number }}
-  </div>
-  <div class="col-2 text-right">
+  </td>
+  <td class="text-right">
     {{ (!estDebit() ? mouvement.montant : 0) | number }}
-  </div>
-  <div class="col-2 text-right">{{ getSolde() | number }}</div>
-</div>
+  </td>
+  <td class="text-right">{{ getSolde() | number }}</td>
+</tr>

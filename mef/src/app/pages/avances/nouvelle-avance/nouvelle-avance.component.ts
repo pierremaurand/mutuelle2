@@ -28,39 +28,44 @@ import { MembreService } from 'src/app/services/membre.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NouvelleAvanceComponent implements OnInit {
-  echeancier: Echeance[] = [];
-  nbrEcheances: number = 0;
-  mouvements: Mouvement[] = [];
   status!: StatusPret;
-  avanceFormDisabled: boolean = false;
-  deboursementFormDisabled: boolean = false;
-  echeancierDisabled: boolean = false;
-  mouvementsDisabled: boolean = false;
 
   solde!: number;
   montant!: number;
-  membre: Membre = new Membre();
-  avance$!: Observable<Avance>;
-  idAvance$!: Observable<number>;
-  membre$!: Observable<Membre>;
-  idMembre$!: Observable<number>;
+
+  deboursement!: Deboursement;
   deboursement$!: Observable<Deboursement>;
-  idDeboursement$!: Observable<number>;
+  deboursements$!: Observable<Deboursement[]>;
+
+  echeancier!: Echeance[];
+  nbrEcheances: number = 0;
   echeancier$!: Observable<Echeance[]>;
+  echeances$!: Observable<Echeance[]>;
+
+  mouvements!: Mouvement[];
+  mouvementsAvance$!: Observable<Mouvement[]>;
   mouvements$!: Observable<Mouvement[]>;
+
+  membre!: Membre;
+  membre$!: Observable<Membre>;
+  membres$!: Observable<Membre[]>;
+
+  avance!: Avance;
+  avance$!: Observable<Avance>;
+  avances$!: Observable<Avance[]>;
 
   avanceForm!: FormGroup;
   montantSolliciteCtrl!: FormControl;
   nombreEcheancesSolliciteCtrl!: FormControl;
   dateDemandeCtrl!: FormControl;
-  membreIdCtrl!: FormControl;
+  idMembreCtrl!: FormControl;
   idAvanceCtrl!: FormControl;
 
   debourForm!: FormGroup;
   montantAccordeCtrl!: FormControl;
   dureeAccordeeCtrl!: FormControl;
   dateDecaissementCtrl!: FormControl;
-  idDebourCtrl!: FormControl;
+  idDeboursementCtrl!: FormControl;
 
   constructor(
     private router: Router,
@@ -86,12 +91,12 @@ export class NouvelleAvanceComponent implements OnInit {
       montantSollicite: this.montantSolliciteCtrl,
       nombreEcheancesSollicite: this.nombreEcheancesSolliciteCtrl,
       dateDemande: this.dateDemandeCtrl,
-      membreId: this.membreIdCtrl,
+      membreId: this.idMembreCtrl,
     });
 
     this.debourForm = this.fb.group({
-      id: this.idDebourCtrl,
-      membreId: this.membreIdCtrl,
+      id: this.idDeboursementCtrl,
+      membreId: this.idMembreCtrl,
       montantAccorde: this.montantAccordeCtrl,
       dureeAccordee: this.dureeAccordeeCtrl,
       dateDecaissement: this.dateDecaissementCtrl,
@@ -106,15 +111,21 @@ export class NouvelleAvanceComponent implements OnInit {
       Validators.required
     );
     this.dateDemandeCtrl = this.fb.control('', Validators.required);
-    this.membreIdCtrl = this.fb.control('', Validators.required);
+    this.idMembreCtrl = this.fb.control('', Validators.required);
 
-    this.idDebourCtrl = this.fb.control(0, Validators.required);
+    this.idDeboursementCtrl = this.fb.control(0, Validators.required);
     this.montantAccordeCtrl = this.fb.control('', Validators.required);
     this.dureeAccordeeCtrl = this.fb.control('', Validators.required);
     this.dateDecaissementCtrl = this.fb.control('', Validators.required);
   }
 
   private initObservables() {
+    this.avances$ = this.avanceService.avances$;
+    this.membres$ = this.membreService.membres$;
+    this.deboursements$ = this.deboursementService.deboursements$;
+    this.echeances$ = this.echeanceService.echeances$;
+    this.mouvements$ = this.compteService.mouvements$;
+
     const idAvance$ = this.route.params.pipe(
       map((params) => +params['avanceId'])
     );
@@ -127,17 +138,17 @@ export class NouvelleAvanceComponent implements OnInit {
       map((params) => +params['deboursementId'])
     );
 
-    this.avance$ = combineLatest([idAvance$, this.avanceService.avances$]).pipe(
+    this.avance$ = combineLatest([idAvance$, this.avances$]).pipe(
       map(([id, avances]) => avances.filter((avance) => avance.id === id)[0])
     );
 
-    this.membre$ = combineLatest([idMembre$, this.membreService.membres$]).pipe(
+    this.membre$ = combineLatest([idMembre$, this.membres$]).pipe(
       map(([id, membres]) => membres.filter((membre) => membre.id === id)[0])
     );
 
     this.deboursement$ = combineLatest([
       idDeboursement$,
-      this.deboursementService.deboursements$,
+      this.deboursements$,
     ]).pipe(
       map(
         ([id, deboursements]) =>
@@ -145,19 +156,13 @@ export class NouvelleAvanceComponent implements OnInit {
       )
     );
 
-    this.echeancier$ = combineLatest([
-      idAvance$,
-      this.echeanceService.echeances$,
-    ]).pipe(
+    this.echeancier$ = combineLatest([idAvance$, this.echeances$]).pipe(
       map(([id, echeances]) =>
         echeances.filter((echeance) => echeance.avanceId === id)
       )
     );
 
-    this.mouvements$ = combineLatest([
-      idAvance$,
-      this.compteService.mouvements$,
-    ]).pipe(
+    this.mouvementsAvance$ = combineLatest([idAvance$, this.mouvements$]).pipe(
       map(([id, mouvements]) =>
         mouvements.filter((mouvement) => mouvement.avanceId === id)
       )
@@ -165,63 +170,69 @@ export class NouvelleAvanceComponent implements OnInit {
 
     this.membre$.subscribe((membre: Membre) => {
       if (membre) {
-        this.membreIdCtrl.setValue(membre.id);
+        this.idMembreCtrl.setValue(membre.id);
         this.membre = membre;
       }
     });
 
     this.avance$.subscribe((avance: Avance) => {
-      if (avance.id != 0) this.avanceFormDisabled = true;
-      this.avanceForm.patchValue({
-        id: avance.id,
-        membreId: avance.membreId,
-        montantSollicite: avance.montantSollicite,
-        nombreEcheancesSollicite: avance.nombreEcheancesSollicite,
-        dateDemande: avance.dateDemande,
-      });
+      if (avance) {
+        this.avance = avance;
+        this.avanceForm.patchValue({
+          id: avance.id,
+          membreId: avance.membreId,
+          montantSollicite: avance.montantSollicite,
+          nombreEcheancesSollicite: avance.nombreEcheancesSollicite,
+          dateDemande: avance.dateDemande,
+        });
+      }
     });
 
     this.deboursement$.subscribe((deboursement) => {
-      if (deboursement.id != 0) this.deboursementFormDisabled = true;
-
-      this.debourForm.patchValue({
-        id: deboursement.id,
-        montantAccorde: deboursement.montantAccorde,
-        dureeAccordee: deboursement.dureeAccordee,
-        dateDecaissement: deboursement.dateDecaissement,
-        membreId: deboursement.membreId,
-      });
+      console.log(deboursement);
+      if (deboursement) {
+        this.debourForm.patchValue({
+          id: deboursement.id,
+          montantAccorde: deboursement.montantAccorde,
+          dureeAccordee: deboursement.dureeAccordee,
+          dateDecaissement: deboursement.dateDecaissement,
+          membreId: deboursement.membreId,
+        });
+        this.deboursement = deboursement;
+      }
     });
 
     this.echeancier$.subscribe((echeancier: Echeance[]) => {
-      if (echeancier.length != 0) this.echeancierDisabled = true;
-
-      this.echeancier = echeancier;
-      this.nbrEcheances = echeancier.length;
+      if (echeancier.length != 0) {
+        this.echeancier = echeancier;
+        this.nbrEcheances = echeancier.length;
+      }
     });
 
-    this.mouvements$.subscribe((mouvements: Mouvement[]) => {
-      if (mouvements.length != 0) this.mouvementsDisabled = true;
-
-      this.mouvements = mouvements;
-      this.solde = this.calculSolde();
+    this.mouvementsAvance$.subscribe((mouvements: Mouvement[]) => {
+      if (mouvements.length != 0) {
+        this.mouvements = mouvements;
+        this.solde = this.calculSolde();
+      }
     });
   }
 
   membreChoisie(membre: Membre) {
-    this.membreIdCtrl.setValue(membre.id);
+    this.idMembreCtrl.setValue(membre.id);
     this.membre = membre;
   }
 
   private calculSolde(): number {
     let solde = 0;
-    this.mouvements.forEach((mouvement) => {
-      if (mouvement.typeOperation === TypeOperation.Debit) {
-        solde += mouvement.montant;
-      } else {
-        solde -= mouvement.montant;
-      }
-    });
+    if (this.mouvements) {
+      this.mouvements.forEach((mouvement) => {
+        if (mouvement.typeOperation === TypeOperation.Debit) {
+          solde += mouvement.montant;
+        } else {
+          solde -= mouvement.montant;
+        }
+      });
+    }
 
     return solde;
   }
@@ -231,9 +242,9 @@ export class NouvelleAvanceComponent implements OnInit {
   debourser(): void {
     if (this.debourForm.valid) {
       let mouvement = new Mouvement();
-      mouvement.membreId = this.membreIdCtrl.value;
+      mouvement.membreId = this.idMembreCtrl.value;
       mouvement.avanceId = this.idAvanceCtrl.value;
-      mouvement.deboursementId = this.idDebourCtrl.value;
+      mouvement.deboursementId = this.idDeboursementCtrl.value;
       mouvement.dateMvt = this.dateDecaissementCtrl.value;
       mouvement.typeOperation = TypeOperation.Debit;
       mouvement.montant = this.montantAccordeCtrl.value;
@@ -253,7 +264,7 @@ export class NouvelleAvanceComponent implements OnInit {
   }
 
   enregistrerDecision(): void {
-    if (this.debourForm.valid && this.idDebourCtrl.value == 0) {
+    if (this.debourForm.valid && this.idDeboursementCtrl.value == 0) {
       this.deboursementService
         .deboursementAvance(this.idAvanceCtrl.value, this.debourForm.value)
         .subscribe();
@@ -312,7 +323,7 @@ export class NouvelleAvanceComponent implements OnInit {
             }
             let echeance: Echeance = new Echeance();
             echeance.avanceId = this.idAvanceCtrl.value;
-            echeance.membreId = this.membreIdCtrl.value;
+            echeance.membreId = this.idMembreCtrl.value;
             echeance.dateEcheance = this.datePipe.transform(
               curDate,
               'yyyy-MM-dd'

@@ -17,11 +17,11 @@ import { TypeOperation } from 'src/app/models/typeoperation';
 })
 export class EcheancierComponent implements OnInit {
   @Input()
-  echeancier: Echeance[] = [];
+  echeancier!: Echeance[];
   @Input()
   nbrEcheances?: number = 0;
   @Input()
-  mouvements: Mouvement[] = [];
+  mouvements!: Mouvement[];
 
   afficheCapital: boolean = true;
   afficheInteret: boolean = true;
@@ -34,28 +34,36 @@ export class EcheancierComponent implements OnInit {
   }
 
   private afficheColInteret(): boolean {
-    const echeancier = this.echeancier.filter((echeance) => {
-      echeance.interet;
-    });
-    return echeancier.length !== 0 ? true : false;
+    if (this.echeancier) {
+      const echeancier = this.echeancier.filter((echeance) => {
+        echeance.interet;
+      });
+      return echeancier.length !== 0 ? true : false;
+    }
+    return false;
   }
 
   private afficheColCapital(): boolean {
-    const echeancier = this.echeancier.filter((echeance) => {
-      echeance.capital;
-    });
-    return echeancier.length !== 0 ? true : false;
+    if (this.echeancier) {
+      const echeancier = this.echeancier.filter((echeance) => {
+        echeance.capital;
+      });
+      return echeancier.length !== 0 ? true : false;
+    }
+    return false;
   }
 
   calculSolde(echance: Echeance): number {
-    const mouvements = this.mouvements.filter((mouvement) => {
-      mouvement.echeanceId === echance.id;
-    });
-    mouvements.forEach((mouvement) => {
-      if (mouvement.typeOperation == TypeOperation.Credit) {
-        echance.montantEcheance -= mouvement.montant;
-      }
-    });
+    if (this.mouvements) {
+      const mouvements = this.mouvements.filter((mouvement) => {
+        mouvement.echeanceId === echance.id;
+      });
+      mouvements.forEach((mouvement) => {
+        if (mouvement.typeOperation == TypeOperation.Credit) {
+          echance.montantEcheance -= mouvement.montant;
+        }
+      });
+    }
     return echance.montantEcheance;
   }
 

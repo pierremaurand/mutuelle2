@@ -14,16 +14,6 @@ namespace mefApi.Helpers
             CreateMap<Sexe, SexeDto>().ReverseMap();
 
             CreateMap<Membre, MembreDto>().ReverseMap();
-            CreateMap<Membre, CompteDto>().ReverseMap();
-            CreateMap<Membre, CompteInfosDto>().ReverseMap();
-            CreateMap<Membre, CotisationInfosDto>().ReverseMap();
-            CreateMap<Membre, CotisationMembreDto>().ReverseMap();
-            CreateMap<Membre, MembreInfosDto>()
-                .ForMember(m => m.Sexe, opt => opt.MapFrom(src => src.Sexe.Nom))
-                .ForMember(m => m.Poste, opt => opt.MapFrom(src => src.Poste.Libelle))
-                .ForMember(m => m.Lieu, opt => opt.MapFrom(src => src.LieuAffectation.Lieu));
-
-
             
             CreateMap<Poste, PosteDto>().ReverseMap();
 
@@ -32,6 +22,7 @@ namespace mefApi.Helpers
             CreateMap<CompteComptable, CompteComptableDto>().ReverseMap();
 
             CreateMap<Gabarit, GabaritDto>().ReverseMap();
+            
             CreateMap<Operation, OperationDto>().ReverseMap();
 
             CreateMap<Compte, CompteDto>().ReverseMap();

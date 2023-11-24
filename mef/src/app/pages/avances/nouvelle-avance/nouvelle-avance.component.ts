@@ -39,9 +39,11 @@ export class NouvelleAvanceComponent implements OnInit {
 
   echeancier!: Echeance[];
   nbrEcheances: number = 0;
+  echeancierGenerer: boolean = false;
   echeancier$!: Observable<Echeance[]>;
   echeances$!: Observable<Echeance[]>;
 
+  mouvement!: Mouvement;
   mouvements!: Mouvement[];
   mouvementsAvance$!: Observable<Mouvement[]>;
   mouvements$!: Observable<Mouvement[]>;
@@ -189,7 +191,6 @@ export class NouvelleAvanceComponent implements OnInit {
     });
 
     this.deboursement$.subscribe((deboursement) => {
-      console.log(deboursement);
       if (deboursement) {
         this.debourForm.patchValue({
           id: deboursement.id,
@@ -241,15 +242,16 @@ export class NouvelleAvanceComponent implements OnInit {
 
   debourser(): void {
     if (this.debourForm.valid) {
-      let mouvement = new Mouvement();
-      mouvement.membreId = this.idMembreCtrl.value;
-      mouvement.avanceId = this.idAvanceCtrl.value;
-      mouvement.deboursementId = this.idDeboursementCtrl.value;
-      mouvement.dateMvt = this.dateDecaissementCtrl.value;
-      mouvement.typeOperation = TypeOperation.Debit;
-      mouvement.montant = this.montantAccordeCtrl.value;
-      mouvement.libelle = 'Décaissement avance n° ' + this.idAvanceCtrl.value;
-      this.avanceService.enregistrerMouvement(mouvement);
+      this.mouvement = new Mouvement();
+      this.mouvement.membreId = this.idMembreCtrl.value;
+      this.mouvement.avanceId = this.idAvanceCtrl.value;
+      this.mouvement.deboursementId = this.idDeboursementCtrl.value;
+      this.mouvement.dateMvt = this.dateDecaissementCtrl.value;
+      this.mouvement.typeOperation = TypeOperation.Debit;
+      this.mouvement.montant = this.montantAccordeCtrl.value;
+      this.mouvement.libelle =
+        'Décaissement avance n° ' + this.idAvanceCtrl.value;
+      this.avanceService.debourser(this.mouvement);
     }
 
     this.onGoBack();
@@ -265,16 +267,16 @@ export class NouvelleAvanceComponent implements OnInit {
 
   enregistrerDecision(): void {
     if (this.debourForm.valid && this.idDeboursementCtrl.value == 0) {
-      this.deboursementService
-        .deboursementAvance(this.idAvanceCtrl.value, this.debourForm.value)
-        .subscribe();
+      this.avanceService.validate(
+        this.idAvanceCtrl.value,
+        this.debourForm.value
+      );
+      this.onGoBack();
     }
-
-    this.onGoBack();
   }
 
   enregistrerEcheancier(): void {
-    if (this.debourForm.valid && this.echeancier.length != 0) {
+    if (this.echeancier.length != 0) {
       this.echeanceService.addEcheances(this.echeancier).subscribe();
     }
 
@@ -338,5 +340,6 @@ export class NouvelleAvanceComponent implements OnInit {
         }
       }
     }
+    this.echeancierGenerer = true;
   }
 }

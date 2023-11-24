@@ -27,23 +27,4 @@ export class DeboursementService {
       )
       .subscribe();
   }
-
-  getDeboursementById(id: number): Observable<Deboursement> {
-    return this.deboursements$.pipe(
-      map(
-        (deboursements) =>
-          deboursements.filter((deboursement) => deboursement.id === id)[0]
-      )
-    );
-  }
-
-  deboursementAvance(
-    id: number,
-    deboursement: Deboursement
-  ): Observable<number> {
-    return this.http.post<number>(
-      this.baseUrl + '/deboursement/deboursementavance/' + id.toString(),
-      deboursement
-    );
-  }
 }

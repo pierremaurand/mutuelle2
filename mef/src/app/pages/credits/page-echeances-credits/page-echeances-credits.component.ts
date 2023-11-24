@@ -38,8 +38,6 @@ export class PageEcheancesCreditsComponent implements OnInit {
       ?.toString();
     this.initControls();
     this.initObservables();
-    this.creditService.getCreditsFromServer();
-    this.creditService.getEcheancesFromServer();
   }
 
   private initControls(): void {
@@ -47,24 +45,22 @@ export class PageEcheancesCreditsComponent implements OnInit {
   }
 
   private initObservables(): void {
-    this.echeances$ = this.creditService.echeances$;
-
     const dateEcheance$ = this.dateEcheanceCtrl.valueChanges.pipe(
       startWith(this.dateEcheanceCtrl.value)
     );
 
-    this.echeances$ = combineLatest([
-      dateEcheance$,
-      this.creditService.echeances$,
-    ]).pipe(
-      map(([dateEcheance, echeances]) =>
-        echeances.filter(
-          (echeance) =>
-            echeance.dateEcheance?.includes(dateEcheance) &&
-            this.getEtatPayement(echeance)
-        )
-      )
-    );
+    // this.echeances$ = combineLatest([
+    //   dateEcheance$,
+    //   this.creditService.echeances$,
+    // ]).pipe(
+    //   map(([dateEcheance, echeances]) =>
+    //     echeances.filter(
+    //       (echeance) =>
+    //         echeance.dateEcheance?.includes(dateEcheance) &&
+    //         this.getEtatPayement(echeance)
+    //     )
+    //   )
+    // );
   }
 
   getEtatPayement(echeance: EcheanceCredit): boolean {

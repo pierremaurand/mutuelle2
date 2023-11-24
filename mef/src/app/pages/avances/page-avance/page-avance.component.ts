@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Observable, combineLatest, map, startWith } from 'rxjs';
 import { StatusPret } from 'src/app/enums/statut-pret.enum';
 import { Avance } from 'src/app/models/avance';
+import { Membre } from 'src/app/models/membre.model';
 import { Mouvement } from 'src/app/models/mouvement';
 import { TypeOperation } from 'src/app/models/typeoperation';
 import { AvanceService } from 'src/app/services/avance.service';
@@ -19,6 +20,8 @@ import { MembreService } from 'src/app/services/membre.service';
 })
 export class PageAvanceComponent implements OnInit {
   avances$!: Observable<Avance[]>;
+  membres$!: Observable<Membre[]>;
+  mouvements$!: Observable<Mouvement[]>;
 
   searchCtrl!: FormControl;
   statusPretCtrl!: FormControl;
@@ -54,6 +57,10 @@ export class PageAvanceComponent implements OnInit {
   }
 
   private initObservables(): void {
+    this.avances$ = this.avanceService.avances$;
+    this.membres$ = this.membreService.membres$;
+    this.mouvements$ = this.compteService.mouvements$;
+
     const search$ = this.searchCtrl.valueChanges.pipe(
       startWith(this.searchCtrl.value),
       map((value) => value.toLowerCase())
@@ -67,12 +74,11 @@ export class PageAvanceComponent implements OnInit {
     this.avances$ = combineLatest([
       search$,
       statusPret$,
-      this.membreService.membres$,
-      this.avanceService.avances$,
-      this.compteService.mouvements$,
-      this.deboursementService.deboursements$,
+      this.membres$,
+      this.avances$,
+      this.mouvements$,
     ]).pipe(
-      map(([search, statusPret, membres, avances, mouvements, deboursements]) =>
+      map(([search, statusPret, membres, avances, mouvements]) =>
         avances.filter(
           (avance) =>
             membres.find(

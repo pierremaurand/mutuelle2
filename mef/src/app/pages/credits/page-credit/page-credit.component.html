@@ -1,11 +1,15 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
   <!-- Page Heading -->
-  <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">
+  <div class="row mb-4">
+    <h1
+      class="h3 mb-0 text-gray-800 col-lg-6 col-md-12 col-sm-12 text-lg-left text-md-center text-sm-center"
+    >
       <i class="fa fa-list"></i> Liste des crédits
     </h1>
-    <span>
+    <span
+      class="col-lg-6 col-md-12 col-sm-12 text-lg-right text-md-center text-sm-center"
+    >
       <app-bouton-action
         (newEvent)="newEvent()"
         [afficheNew]="true"
@@ -17,7 +21,7 @@
   <div class="card shadow mb-4">
     <div class="card-header py-3">
       <div class="row">
-        <div class="col-4">
+        <div class="col-lg-6 col-md-12 col-sm-12">
           <div class="input-group">
             <div class="input-group-prepend">
               <label for="search" class="btn btn-primary shadow-sm">
@@ -34,7 +38,7 @@
             />
           </div>
         </div>
-        <div class="col-3">
+        <div class="col-lg-6 col-md-12 col-sm-12">
           <div class="input-group">
             <div class="input-group-prepend">
               <label for="status" class="btn btn-primary shadow-sm">
@@ -77,12 +81,18 @@
             'border-left-success text-success': credit.status == 3
           }"
         >
-          <div class="row" (click)="navigate(credit.id)">
+          <div
+            class="row"
+            (click)="
+              navigate(
+                credit.id,
+                credit.membreId ?? 0,
+                credit.deboursementId ?? 0
+              )
+            "
+          >
             <div class="col-12">
-              <app-detail-credit
-                [creditId]="credit.id"
-                [membreId]="credit.membreId"
-              ></app-detail-credit>
+              <app-detail-credit [idCredit]="credit.id"></app-detail-credit>
             </div>
           </div>
         </a>

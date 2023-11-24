@@ -1,1 +1,20 @@
+.liste {
+  height: 400px;
+  overflow-y: auto;
+}
 
+a {
+  text-decoration: none;
+}
+
+.mis-en-avant {
+  text-shadow: 1px 1px 1px black;
+  letter-spacing: 1px;
+}
+
+#chooseMembreIcon {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  z-index: 99;
+}

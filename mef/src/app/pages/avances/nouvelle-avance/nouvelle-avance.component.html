@@ -54,7 +54,7 @@
                     type="button"
                     class="d-none d-sm-inline-block btn btn-success shadow-sm"
                     (click)="enregistrerDecision()"
-                    *ngIf="avance && !deboursement && debourForm.valid"
+                    *ngIf="!deboursement && debourForm.valid"
                   >
                     <i class="fa fa-save"></i>
                   </button>
@@ -62,7 +62,7 @@
                     type="button"
                     class="d-none d-sm-inline-block btn btn-success shadow-sm"
                     (click)="enregistrerEcheancier()"
-                    *ngIf="!deboursement"
+                    *ngIf="deboursement && echeancierGenerer"
                   >
                     <i class="fa fa-save"></i>
                   </button>
@@ -70,7 +70,12 @@
                     type="button"
                     class="d-none d-sm-inline-block btn btn-success shadow-sm"
                     (click)="debourser()"
-                    *ngIf="!mouvements && echeancier"
+                    *ngIf="
+                      !mouvements &&
+                      echeancier &&
+                      echeancier.length != 0 &&
+                      !echeancierGenerer
+                    "
                   >
                     <i class="fa fa-coins"></i>
                   </button>

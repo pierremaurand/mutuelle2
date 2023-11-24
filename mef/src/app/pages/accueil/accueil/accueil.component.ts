@@ -62,6 +62,8 @@ export class AccueilComponent implements OnInit {
 
     this.signalrService.addAvanceAddListener();
 
+    this.signalrService.addCreditAddListener();
+
     this.signalrService.addDeboursementAddListener();
 
     this.signalrService.addEcheanceAddListener();

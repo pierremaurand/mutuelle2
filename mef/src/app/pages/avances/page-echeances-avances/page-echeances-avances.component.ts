@@ -104,7 +104,6 @@ export class PageEcheancesAvancesComponent implements OnInit {
 
   getEtatPayement(montantEcheance: number, mouvements: Mouvement[]): boolean {
     const solde = this.calculResteAPayer(montantEcheance, mouvements);
-    console.log(solde);
     if (solde > 0) {
       return true;
     }

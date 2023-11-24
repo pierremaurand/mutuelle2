@@ -1,11 +1,16 @@
 <div class="container-fluid">
   <!-- Page Heading -->
-  <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">
+  <div class="row mb-4">
+    <h1
+      class="h3 mb-0 text-gray-800 col-lg-8 col-md-12 col-sm-12 text-lg-left text-md-center text-sm-center"
+    >
       <i class="fa fa-info-circle text-primary"></i>
       &nbsp;Informations sur le crédit
     </h1>
-    <h1 class="h3 mb-2 text-gray-800" *ngIf="solde">
+    <h1
+      class="h3 mb-2 text-gray-800 col-lg-4 col-md-12 col-sm-12 text-lg-right text-md-center text-sm-center"
+      *ngIf="solde"
+    >
       {{ solde | number }} FCFA
     </h1>
   </div>
@@ -14,220 +19,248 @@
   <div class="card shadow mb-4">
     <div class="card-body">
       <div>
-        <div class="row m-3">
-          <div class="col-3">
-            <div *ngIf="membre">
-              <app-infos-membre [membre]="membre"></app-infos-membre>
+        <div class="row">
+          <div class="col-lg-3 col-md-12 col-sm-12">
+            <div
+              id="chooseMembreIcon"
+              class="btn btn-danger rounded-circle shadow-sm"
+              data-toggle="modal"
+              data-target="#chooseMember"
+              *ngIf="!credit"
+            >
+              <i class="fa fa-user"></i>
             </div>
+            <app-infos-membre [membre]="membre"></app-infos-membre>
           </div>
-          <div
-            [ngClass]="{
-              'col-md-6': !creditFormDisabled,
-              'col-md-9': creditFormDisabled
-            }"
-          >
-            <div class="col-md-12">
-              <div class="row mb-2">
-                <div class="col-md-12 d-flex justify-content-between">
-                  <a
-                    href="javascript:void(0);"
-                    (click)="onGoBack()"
-                    class="btn btn-primary rounded-circle shadow-sm"
-                    ><i class="fa fa-arrow-left"></i
-                  ></a>
+          <div class="col-lg-9 col-md-12 col-sm-12">
+            <div class="row mb-2">
+              <div class="col-12 d-flex justify-content-between">
+                <a
+                  href="javascript:void(0);"
+                  (click)="onGoBack()"
+                  class="btn btn-primary rounded-circle shadow-sm"
+                  ><i class="fa fa-arrow-left"></i
+                ></a>
+                <button
+                  type="button"
+                  class="d-none d-sm-inline-block btn btn-success shadow-sm"
+                  (click)="enregistrerDemande()"
+                  *ngIf="creditForm.valid && !credit"
+                >
+                  <i class="fa fa-save"></i>
+                </button>
+                <button
+                  type="button"
+                  class="d-none d-sm-inline-block btn btn-success shadow-sm"
+                  (click)="enregistrerAccord()"
+                  *ngIf="deboursementForm.valid && !deboursement"
+                >
+                  <i class="fa fa-save"></i>
+                </button>
+                <button
+                  type="button"
+                  class="d-none d-sm-inline-block btn btn-success shadow-sm"
+                  (click)="enregistrerEcheancier()"
+                  *ngIf="deboursement && echeancierGenerer"
+                >
+                  <i class="fa fa-save"></i>
+                </button>
+                <button
+                  type="button"
+                  class="d-none d-sm-inline-block btn btn-success shadow-sm"
+                  (click)="debourser()"
+                  *ngIf="
+                    !mouvements &&
+                    echeancier &&
+                    echeancier.length != 0 &&
+                    !echeancierGenerer
+                  "
+                >
+                  <i class="fa fa-coins"></i>
+                </button>
+              </div>
+            </div>
+            <nav class="nav nav-tabs">
+              <a
+                class="nav-item nav-link active"
+                href="#infosDemande"
+                data-toggle="tab"
+                >Infos demande</a
+              >
+              <a
+                class="nav-item nav-link"
+                href="#decisionComite"
+                data-toggle="tab"
+                *ngIf="credit"
+                >Décision du comité</a
+              >
+              <a
+                class="nav-item nav-link"
+                href="#echeancier"
+                data-toggle="tab"
+                *ngIf="deboursement"
+                >Echéancier</a
+              >
+            </nav>
+            <div class="tab-content">
+              <div class="tab-pane active" id="infosDemande">
+                <div class="p-3" [formGroup]="creditForm">
+                  <div class="row">
+                    <div class="form-group col-lg-6 col-md-12 col-sm-12">
+                      <label for="montantSollicite" class="form-label"
+                        >Montant sollicité:
+                        <span class="mis-en-avant text-primary">{{
+                          montantSolliciteCtrl.value | number
+                        }}</span
+                        ><span> FCFA</span></label
+                      >
+                      <input
+                        type="number"
+                        id="montantSollicite"
+                        class="form-control shadow-sm"
+                        name="montantSollicite"
+                        formControlName="montantSollicite"
+                        placeholder="Montant sollicité"
+                        [attr.disabled]="credit"
+                      />
+                    </div>
+                    <div class="form-group col-lg-6 col-md-12 col-sm-12">
+                      <label for="dureeSollicite" class="form-label"
+                        >Nombre d'échéances sollicité</label
+                      >
+                      <input
+                        type="number"
+                        id="dureeSollicite"
+                        class="form-control shadow-sm"
+                        name="dureeSollicite"
+                        formControlName="dureeSollicite"
+                        placeholder="Nombre d'échéances"
+                        [attr.disabled]="credit"
+                      />
+                    </div>
+                    <div class="form-group col-lg-6 col-md-12 col-sm-12">
+                      <label for="dateDemande" class="form-label"
+                        >Date de la demande</label
+                      >
+                      <input
+                        type="date"
+                        id="dateDemande"
+                        class="form-control shadow-sm"
+                        name="dateDemande"
+                        formControlName="dateDemande"
+                        placeholder="Date de la demande"
+                        [attr.disabled]="credit"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="decisionComite">
+                <div class="p-3" [formGroup]="deboursementForm">
+                  <div class="row">
+                    <div class="form-group col-lg-6 col-md-12 col-sm-12">
+                      <label for="montantAccorde" class="form-label"
+                        >Montant Accordé:
+                        <span class="mis-en-avant text-primary">{{
+                          montantAccordeCtrl.value | number
+                        }}</span
+                        ><span> FCFA</span></label
+                      >
+                      <input
+                        type="number"
+                        id="montantAccorde"
+                        class="form-control shadow-sm"
+                        name="montantAccorde"
+                        placeholder="Montant accordé"
+                        formControlName="montantAccorde"
+                        (change)="calculInteret()"
+                        [attr.disabled]="deboursement"
+                      />
+                    </div>
+                    <div class="form-group col-lg-6 col-md-12 col-sm-12">
+                      <label for="dureeAccordee" class="form-label"
+                        >Durée accordée</label
+                      >
+                      <input
+                        type="number"
+                        id="dureeAccordee"
+                        class="form-control shadow-sm"
+                        name="dureeAccordee"
+                        placeholder="Nombre d'échéances"
+                        formControlName="dureeAccordee"
+                        (change)="calculInteret()"
+                        [attr.disabled]="deboursement"
+                      />
+                    </div>
+                    <div class="form-group col-lg-6 col-md-12 col-sm-12">
+                      <label for="montantInteret" class="form-label"
+                        >Montant Intérets:
+                        <span class="mis-en-avant text-primary">{{
+                          montantInteretCtrl.value | number
+                        }}</span
+                        ><span> FCFA</span></label
+                      >
+                      <input
+                        type="number"
+                        id="montantInteret"
+                        class="form-control shadow-sm"
+                        name="montantInteret"
+                        [attr.disabled]="true"
+                        placeholder="Montant intérets"
+                        formControlName="montantInteret"
+                      />
+                    </div>
+                    <div class="form-group col-lg-6 col-md-12 col-sm-12">
+                      <label for="montantCommission" class="form-label"
+                        >Montant commission:
+                        <span class="mis-en-avant text-primary">{{
+                          montantCommissionCtrl.value | number
+                        }}</span
+                        ><span> FCFA</span></label
+                      >
+                      <input
+                        type="number"
+                        id="montantCommission"
+                        class="form-control shadow-sm"
+                        name="montantCommission"
+                        [attr.disabled]="true"
+                        placeholder="Montant commission"
+                        formControlName="montantCommission"
+                      />
+                    </div>
+                    <div class="form-group col-lg-6 col-md-12 col-sm-12">
+                      <label for="dateDecaissement" class="form-label"
+                        >Date du décaissement</label
+                      >
+                      <input
+                        type="date"
+                        id="dateDecaissement"
+                        class="form-control shadow-sm"
+                        name="dateDecaissement"
+                        placeholder="Date du décaissement"
+                        formControlName="dateDecaissement"
+                        [attr.disabled]="deboursement"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="echeancier">
+                <div class="p-3">
                   <button
-                    type="button"
-                    class="d-none d-sm-inline-block btn btn-success shadow-sm"
-                    (click)="enregistrer()"
-                    [disabled]="creditForm.invalid && debourForm.invalid"
+                    class="btn btn-primary btn-sm"
+                    (click)="genererEcheancier()"
+                    *ngIf="!echeancier"
                   >
-                    <i class="fa fa-save"></i>&nbsp; Enregistrer
+                    Générer l'échéancier
                   </button>
+                  <app-echeancier
+                    *ngIf="echeancier"
+                    [echeancier]="echeancier"
+                    [nbrEcheances]="nbrEcheances"
+                    [mouvements]="mouvements"
+                  ></app-echeancier>
                 </div>
-              </div>
-              <nav class="nav nav-tabs">
-                <a
-                  class="nav-item nav-link active"
-                  href="#infosDemande"
-                  data-toggle="tab"
-                  >Infos demande</a
-                >
-                <a
-                  class="nav-item nav-link"
-                  href="#decisionComite"
-                  data-toggle="tab"
-                  *ngIf="creditFormDisabled"
-                  >Décision du comité</a
-                >
-                <a
-                  class="nav-item nav-link"
-                  href="#echeancier"
-                  data-toggle="tab"
-                  *ngIf="creditFormDisabled"
-                  >Echéancier</a
-                >
-              </nav>
-              <div class="tab-content">
-                <div class="tab-pane active" id="infosDemande">
-                  <div class="p-3" [formGroup]="creditForm">
-                    <div class="row">
-                      <div class="form-group col-6">
-                        <label for="montantSollicite" class="form-label"
-                          >Montant sollicité</label
-                        >
-                        <input
-                          type="number"
-                          id="montantSollicite"
-                          class="form-control shadow-sm"
-                          name="montantSollicite"
-                          formControlName="montantSollicite"
-                          placeholder="Montant sollicité"
-                          [attr.disabled]="creditFormDisabled ? '' : null"
-                        />
-                      </div>
-                      <div class="form-group col-6">
-                        <label for="dureeSollicite" class="form-label"
-                          >Nombre d'échéances sollicité</label
-                        >
-                        <input
-                          type="number"
-                          id="dureeSollicite"
-                          class="form-control shadow-sm"
-                          name="dureeSollicite"
-                          formControlName="dureeSollicite"
-                          placeholder="Nombre d'échéances"
-                          [attr.disabled]="creditFormDisabled ? '' : null"
-                        />
-                      </div>
-                      <div class="form-group col-6">
-                        <label for="dateDemande" class="form-label"
-                          >Date de la demande</label
-                        >
-                        <input
-                          type="date"
-                          id="dateDemande"
-                          class="form-control shadow-sm"
-                          name="dateDemande"
-                          formControlName="dateDemande"
-                          placeholder="Date de la demande"
-                          [attr.disabled]="creditFormDisabled ? '' : null"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="tab-pane" id="decisionComite">
-                  <div class="p-3" [formGroup]="debourForm">
-                    <div class="row">
-                      <div class="form-group col-6">
-                        <label for="montantAccorde" class="form-label"
-                          >Montant Accordé</label
-                        >
-                        <input
-                          type="number"
-                          id="montantAccorde"
-                          class="form-control shadow-sm"
-                          name="montantAccorde"
-                          placeholder="Montant accordé"
-                          formControlName="montantAccorde"
-                          (change)="calculInteret()"
-                          [attr.disabled]="debourFormDisabled ? '' : null"
-                        />
-                      </div>
-                      <div class="form-group col-6">
-                        <label for="dureeAccordee" class="form-label"
-                          >Durée accordée</label
-                        >
-                        <input
-                          type="number"
-                          id="dureeAccordee"
-                          class="form-control shadow-sm"
-                          name="dureeAccordee"
-                          placeholder="Nombre d'échéances"
-                          formControlName="dureeAccordee"
-                          (change)="calculInteret()"
-                          [attr.disabled]="debourFormDisabled ? '' : null"
-                        />
-                      </div>
-                      <div class="form-group col-6">
-                        <label for="montantInteret" class="form-label"
-                          >Montant Intérets</label
-                        >
-                        <input
-                          type="number"
-                          id="montantInteret"
-                          class="form-control shadow-sm"
-                          name="montantInteret"
-                          [attr.disabled]="true"
-                          placeholder="Montant intérets"
-                          formControlName="montantInteret"
-                        />
-                      </div>
-                      <div class="form-group col-6">
-                        <label for="montantCommission" class="form-label"
-                          >Montant commission</label
-                        >
-                        <input
-                          type="number"
-                          id="montantCommission"
-                          class="form-control shadow-sm"
-                          name="montantCommission"
-                          [attr.disabled]="true"
-                          placeholder="Montant commission"
-                          formControlName="montantCommission"
-                        />
-                      </div>
-                      <div class="form-group col-6">
-                        <label for="dateDecaissement" class="form-label"
-                          >Date du décaissement</label
-                        >
-                        <input
-                          type="date"
-                          id="dateDecaissement"
-                          class="form-control shadow-sm"
-                          name="dateDecaissement"
-                          placeholder="Date du décaissement"
-                          formControlName="dateDecaissement"
-                          [attr.disabled]="debourFormDisabled ? '' : null"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="tab-pane" id="echeancier">
-                  <div class="p-3">
-                    <button
-                      class="btn btn-primary btn-sm"
-                      *ngIf="echeancier.length == 0"
-                      (click)="genererEcheancier()"
-                    >
-                      Générer l'échéancier
-                    </button>
-                    <app-echeancier-credit
-                      [echeancier]="echeancier"
-                      [nbrEcheances]="nbrEcheances"
-                    ></app-echeancier-credit>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col" *ngIf="!creditFormDisabled">
-            <div class="row">
-              <div class="col">
-                <input
-                  type="search"
-                  class="form-control"
-                  placeholder="Recherche..."
-                  [formControl]="searchCtrl"
-                />
-              </div>
-            </div>
-            <div class="row mt-2">
-              <div class="col">
-                <app-liste-choix-membre
-                  (membreChoisie)="membreChoisie($event)"
-                ></app-liste-choix-membre>
               </div>
             </div>
           </div>
@@ -236,3 +269,7 @@
     </div>
   </div>
 </div>
+
+<app-liste-choix-membre
+  (membreChoisie)="membreChoisie($event)"
+></app-liste-choix-membre>

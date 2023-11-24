@@ -36,13 +36,6 @@ import { PageEcheancesCreditsComponent } from './pages/credits/page-echeances-cr
 import { ImportMembresComponent } from './pages/membres/import-membres/import-membres.component';
 import { NouveauMouvementComponent } from './pages/compte/nouveau-mouvement/nouveau-mouvement.component';
 import { CotisationsMembreComponent } from './pages/cotisations/cotisations-membre/cotisations-membre.component';
-import { MembreResolver } from './resolvers/membre.resolver';
-import { AvanceResolver } from './resolvers/avance.resolver';
-import { DeboursementResolver } from './resolvers/deboursement.resolver';
-import { EcheancierResolver } from './resolvers/echeancier.resolver';
-import { MouvementsResolver } from './resolvers/mouvements.resolver';
-import { UtilisateurResolver } from './resolvers/utilisateur.resolver';
-import { LieuxResolver } from './resolvers/lieux.resolver';
 
 const routes: Routes = [
   {
@@ -135,12 +128,7 @@ const routes: Routes = [
         canActivate: [AuthService],
       },
       {
-        path: 'nouveaucredit',
-        component: NouveauCreditComponent,
-        canActivate: [AuthService],
-      },
-      {
-        path: 'nouveaucredit/:creditId',
+        path: 'nouveaucredit/:creditId/:membreId/:deboursementId',
         component: NouveauCreditComponent,
         canActivate: [AuthService],
       },

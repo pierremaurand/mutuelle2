@@ -51,7 +51,7 @@ export class DetailEcheanceCreditComponent implements OnInit {
   }
 
   private initObservable(): void {
-    this.credit$ = this.creditService.getCreditById(this.echeance.creditId);
+    // this.credit$ = this.creditService.getCreditById(this.echeance.creditId);
     this.credit$.subscribe((credit) => {
       this.credit = credit;
     });

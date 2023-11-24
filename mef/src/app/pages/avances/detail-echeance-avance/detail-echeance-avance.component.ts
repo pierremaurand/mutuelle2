@@ -50,6 +50,8 @@ export class DetailEcheanceAvanceComponent implements OnInit {
 
   private initObservable(): void {
     const idEcheance$ = of(this.echeance.id);
+    const idAvance$ = of(this.echeance.avanceId ?? 0);
+
     this.mouvements$ = combineLatest([
       idEcheance$,
       this.compteService.mouvements$,
@@ -59,13 +61,13 @@ export class DetailEcheanceAvanceComponent implements OnInit {
       )
     );
 
+    this.avance$ = combineLatest([idAvance$, this.avanceService.avances$]).pipe(
+      map(([id, avances]) => avances.filter((avance) => avance.id === id)[0])
+    );
+
     this.mouvements$.subscribe((mouvements) => {
       this.calculSolde(mouvements);
     });
-
-    this.avance$ = this.avanceService.getAvanceById(
-      this.echeance.avanceId ?? 0
-    );
   }
 
   private calculSolde(mouvements: Mouvement[]): void {

@@ -2,7 +2,6 @@ import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { EcheanceCredit } from 'src/app/models/echeanceCredit';
 import { InfosRbCredit } from 'src/app/models/infos-rb-credit.model';
-import { InfosRemboursements } from 'src/app/models/infosRemboursements';
 import { TypeOperation } from 'src/app/models/typeoperation';
 import { CreditService } from 'src/app/services/credit.service';
 
@@ -64,8 +63,8 @@ export class PayerEcheancesCreditsComponent implements OnInit {
         ? this.dateMouvement
         : this.datePipe.transform(Date.now(), 'yyyy-MM-dd')?.toString() ?? '';
     infos.echeancier = this.echeancier;
-    this.creditService.rembourserEcheances(infos).subscribe(() => {
-      this.echeancesPayer.emit();
-    });
+    // this.creditService.rembourserEcheances(infos).subscribe(() => {
+    //   this.echeancesPayer.emit();
+    // });
   }
 }

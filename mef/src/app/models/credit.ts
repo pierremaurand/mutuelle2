@@ -7,4 +7,5 @@ export class Credit {
   montantSollicite!: number;
   dureeSollicite!: number;
   dateDemande!: string;
+  deboursementId!: number;
 }

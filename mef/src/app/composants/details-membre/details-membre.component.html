@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row d-flex align-items-center">
   <div class="col-lg-2 col-md-12 col-sm-12 text-center">
     <img
       [src]="imagesUrl + '/assets/images/' + membre.photo"
@@ -20,15 +20,15 @@
     <small class="text-primary text-truncate">
       <span *ngIf="sexe$ | async as sexe">
         <i class="fa fa-venus-mars"></i>
-        {{ sexe.nom | uppercase }} |
+        {{ sexe.symbole | uppercase }} |
       </span>
       <span *ngIf="poste$ | async as poste">
         <i class="fa fa-sitemap"></i>
-        {{ poste.libelle | uppercase }} |
+        {{ poste.code | uppercase }} |
       </span>
       <span *ngIf="lieu$ | async as lieu">
         <i class="fa fa-building"></i>
-        {{ lieu.lieu | uppercase }}
+        {{ lieu.code | uppercase }}
       </span>
     </small>
   </div>

@@ -4,14 +4,10 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { Observable } from 'rxjs';
-import { StatusPret } from 'src/app/enums/statut-pret.enum';
+import { Observable, combineLatest, map, of } from 'rxjs';
 import { Membre } from 'src/app/models/membre.model';
 import { Avance } from 'src/app/models/avance';
-import { AvanceInfos } from 'src/app/models/avance-infos.model';
-import { MembreInfos } from 'src/app/models/membreInfos.model';
 import { MembreService } from 'src/app/services/membre.service';
-import { AvanceService } from 'src/app/services/avance.service';
 import { CompteService } from 'src/app/services/compte.service';
 import { Mouvement } from 'src/app/models/mouvement';
 import { TypeOperation } from 'src/app/models/typeoperation';
@@ -25,11 +21,16 @@ import { TypeOperation } from 'src/app/models/typeoperation';
 export class InfosAvanceComponent implements OnInit {
   @Input()
   avance!: Avance;
+
   membre$!: Observable<Membre>;
+  membres$!: Observable<Membre[]>;
+
   mouvements$!: Observable<Mouvement[]>;
-  mouvements: Mouvement[] = [];
+  mouvementsAvance$!: Observable<Mouvement[]>;
+
   solde!: number;
   status!: number;
+  statusString!: string;
 
   constructor(
     public membreService: MembreService,
@@ -41,37 +42,47 @@ export class InfosAvanceComponent implements OnInit {
   }
 
   private initObservable(): void {
-    this.membre$ = this.membreService.getMembreById(this.avance.membreId);
-    this.mouvements$ = this.compteService.getMouvementsAvance(this.avance.id);
-    this.mouvements$.subscribe((mouvements) => {
-      this.mouvements = mouvements;
-      this.calculSolde();
+    const idMembre$ = of(this.avance.membreId);
+    const idAvance$ = of(this.avance.id);
+    this.membres$ = this.membreService.membres$;
+    this.mouvements$ = this.compteService.mouvements$;
+
+    this.membre$ = combineLatest([idMembre$, this.membres$]).pipe(
+      map(([id, membres]) => membres.filter((membre) => membre.id === id)[0])
+    );
+
+    this.mouvementsAvance$ = combineLatest([idAvance$, this.mouvements$]).pipe(
+      map(([id, mouvements]) =>
+        mouvements.filter((mouvement) => mouvement.avanceId === id)
+      )
+    );
+
+    this.mouvementsAvance$.subscribe((mouvements) => {
+      this.solde = this.calculSolde(mouvements);
+      this.statusString = this.getStatusString(mouvements);
     });
   }
 
-  getStatusString(): string {
-    if (this.solde === 0 && this.mouvements.length === 0) {
-      this.status = 0;
+  getStatusString(mouvements: Mouvement[]): string {
+    if (this.solde === 0 && mouvements.length === 0) {
       return 'Enregistrée';
-    } else if (this.solde === 0 && this.mouvements.length !== 0) {
-      this.status = 3;
+    } else if (this.solde === 0 && mouvements.length !== 0) {
       return 'Soldée';
-    } else if (this.solde !== 0 && this.mouvements.length === 1) {
-      this.status = 1;
+    } else if (this.solde !== 0 && mouvements.length === 1) {
       return 'Décaissée';
     }
-    this.status = 2;
     return 'Encours';
   }
 
-  private calculSolde(): void {
-    this.solde = 0;
-    this.mouvements.forEach((m) => {
+  private calculSolde(mouvements: Mouvement[]): number {
+    let solde = 0;
+    mouvements.forEach((m) => {
       if (m.typeOperation == TypeOperation.Credit) {
-        this.solde -= m.montant ?? 0;
+        solde -= m.montant ?? 0;
       } else {
-        this.solde += m.montant ?? 0;
+        solde += m.montant ?? 0;
       }
     });
+    return solde;
   }
 }

@@ -20,9 +20,9 @@ export class VueEnsembleComponent implements OnInit {
   cotisations$!: Observable<Cotisation[]>;
 
   constructor(
-    private membreService: MembreService,
-    private compteService: CompteService,
-    private cotisationService: CotisationService
+    public membreService: MembreService,
+    public compteService: CompteService,
+    public cotisationService: CotisationService
   ) {}
 
   ngOnInit(): void {
@@ -67,5 +67,33 @@ export class VueEnsembleComponent implements OnInit {
 
   public nbrMembresTotal(membres: Membre[]): number {
     return membres.length;
+  }
+
+  public calculEncoursCredit(mouvements: Mouvement[]): number {
+    let encours = 0;
+    mouvements.forEach((mouvement) => {
+      if (mouvement.creditId && mouvement.deboursementId) {
+        encours = +mouvement.montant ?? 0;
+      }
+
+      if (mouvement.creditId && mouvement.echeanceId) {
+        encours = -mouvement.montant ?? 0;
+      }
+    });
+    return encours;
+  }
+
+  public calculEncoursAvance(mouvements: Mouvement[]): number {
+    let encours = 0;
+    mouvements.forEach((mouvement) => {
+      if (mouvement.avanceId && mouvement.deboursementId) {
+        encours = +mouvement.montant ?? 0;
+      }
+
+      if (mouvement.avanceId && mouvement.echeanceId) {
+        encours = -mouvement.montant ?? 0;
+      }
+    });
+    return encours;
   }
 }

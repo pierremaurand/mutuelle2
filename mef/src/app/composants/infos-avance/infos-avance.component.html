@@ -10,7 +10,7 @@
         'badge-danger': status == 1,
         'badge-primary': status == 0
       }"
-      >{{ getStatusString() }}</span
+      >{{ statusString }}</span
     >
   </div>
   <div class="col-md-6" *ngIf="membre$ | async as membre">

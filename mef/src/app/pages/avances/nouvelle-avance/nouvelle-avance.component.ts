@@ -70,13 +70,13 @@ export class NouvelleAvanceComponent implements OnInit {
   idDeboursementCtrl!: FormControl;
 
   constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private membreService: MembreService,
-    private avanceService: AvanceService,
-    private deboursementService: DeboursementService,
-    private echeanceService: EcheanceService,
-    private compteService: CompteService,
+    public router: Router,
+    public route: ActivatedRoute,
+    public membreService: MembreService,
+    public avanceService: AvanceService,
+    public deboursementService: DeboursementService,
+    public echeanceService: EcheanceService,
+    public compteService: CompteService,
     private datePipe: DatePipe,
     private fb: FormBuilder
   ) {}

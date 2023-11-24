@@ -1,9 +1,8 @@
-import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { EcheanceCredit } from 'src/app/models/echeanceCredit';
-import { InfosRbCredit } from 'src/app/models/infos-rb-credit.model';
+import { Echeance } from 'src/app/models/echeance.model';
+import { Mouvement } from 'src/app/models/mouvement';
 import { TypeOperation } from 'src/app/models/typeoperation';
-import { CreditService } from 'src/app/services/credit.service';
+import { EcheanceService } from 'src/app/services/echeance.service';
 
 @Component({
   selector: 'app-payer-echeances-credits',
@@ -12,59 +11,32 @@ import { CreditService } from 'src/app/services/credit.service';
 })
 export class PayerEcheancesCreditsComponent implements OnInit {
   @Input()
-  echeancier: EcheanceCredit[] = [];
+  echeancier: Echeance[] = [];
   dateMouvement: string = '';
   @Output()
   echeancesPayer = new EventEmitter();
+  mouvements: Mouvement[] = [];
 
-  constructor(
-    private creditService: CreditService,
-    private datePipe: DatePipe
-  ) {}
+  constructor(public echeanceService: EcheanceService) {}
 
   ngOnInit(): void {}
 
-  totalCapital(): number {
-    let total = 0;
-    this.echeancier.forEach((e) => {
-      if (e.capital) {
-        total += e.capital;
-      }
-    });
-
-    return total;
-  }
-
-  calculReste(echeance: EcheanceCredit): number {
-    let reste = +echeance.capital + echeance.interet;
-    echeance.mouvements.forEach((m) => {
-      if (m.typeOperation == TypeOperation.Credit) {
-        reste -= m.montant ?? 0;
-      }
-    });
-    return reste;
-  }
-
-  totalInteret(): number {
-    let total = 0;
-    this.echeancier.forEach((e) => {
-      if (e.interet) {
-        total += e.interet;
-      }
-    });
-
-    return total;
-  }
-
   enregistrer(): void {
-    const infos = new InfosRbCredit();
-    infos.dateMouvement =
-      this.dateMouvement != ''
-        ? this.dateMouvement
-        : this.datePipe.transform(Date.now(), 'yyyy-MM-dd')?.toString() ?? '';
-    infos.echeancier = this.echeancier;
-    // this.creditService.rembourserEcheances(infos).subscribe(() => {
-    //   this.echeancesPayer.emit();
-    // });
+    this.mouvements.length = 0;
+    this.echeancier.forEach((echeance) => {
+      let mouvement = new Mouvement();
+      mouvement.creditId = echeance.creditId ?? 0;
+      mouvement.membreId = echeance.membreId;
+      mouvement.echeanceId = echeance.id;
+      mouvement.dateMvt =
+        this.dateMouvement != '' ? this.dateMouvement : echeance.dateEcheance;
+      mouvement.montant = echeance.montantEcheance;
+      mouvement.libelle =
+        'Remboursement échéance credit n° ' + echeance.creditId;
+      mouvement.typeOperation = TypeOperation.Credit;
+      this.mouvements.push(mouvement);
+    });
+    this.echeanceService.enregistrerMouvements(this.mouvements);
+    this.echeancesPayer.emit();
   }
 }

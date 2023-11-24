@@ -1,4 +1,5 @@
 export class Poste {
-  id: number = 0;
-  libelle: string = '';
+  id!: number;
+  libelle!: string;
+  code!: string;
 }

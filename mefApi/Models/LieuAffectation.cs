@@ -6,5 +6,6 @@ namespace mefApi.Models
     {
         [Required]
         public string Lieu { get; set; } = string.Empty;
+        public string Code { get; set; } = string.Empty;
     }
 }

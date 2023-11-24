@@ -25,11 +25,12 @@ export class NouveauPosteComponent implements OnInit {
   posteForm!: FormGroup;
   idPosteCtrl!: FormControl;
   libellePosteCtrl!: FormControl;
+  codePosteCtrl!: FormControl;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private posteService: PosteService,
+    public posteService: PosteService,
     private fb: FormBuilder
   ) {}
 
@@ -43,12 +44,14 @@ export class NouveauPosteComponent implements OnInit {
   private initFormControls(): void {
     this.idPosteCtrl = this.fb.control(0, Validators.required);
     this.libellePosteCtrl = this.fb.control('', Validators.required);
+    this.codePosteCtrl = this.fb.control('', Validators.required);
   }
 
   private initForms(): void {
     this.posteForm = this.fb.group({
       id: this.idPosteCtrl,
       libelle: this.libellePosteCtrl,
+      code: this.codePosteCtrl,
     });
   }
 
@@ -66,6 +69,7 @@ export class NouveauPosteComponent implements OnInit {
       if (poste) {
         this.idPosteCtrl.setValue(poste.id);
         this.libellePosteCtrl.setValue(poste.libelle);
+        this.codePosteCtrl.setValue(poste.code);
         this.poste = poste;
       }
     });

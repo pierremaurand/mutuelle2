@@ -79,6 +79,11 @@ export class SignalrService {
     return this._gabaritAdd$.asObservable();
   }
 
+  private _operationAdd$ = new BehaviorSubject<boolean>(false);
+  get operationAdd$(): Observable<boolean> {
+    return this._operationAdd$.asObservable();
+  }
+
   public startConnection = () => {
     this.hubConnection = new signalR.HubConnectionBuilder()
       .withUrl(`${this.baseUrl}/signalrServer`)
@@ -165,6 +170,12 @@ export class SignalrService {
   public addGabaritAddListener = () => {
     this.hubConnection.on('GabaritAdded', () => {
       this._gabaritAdd$.next(true);
+    });
+  };
+
+  public addOperationAddListener = () => {
+    this.hubConnection.on('OperationAdded', () => {
+      this._operationAdd$.next(true);
     });
   };
 }

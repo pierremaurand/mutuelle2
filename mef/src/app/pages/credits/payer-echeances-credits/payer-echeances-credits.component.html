@@ -21,47 +21,34 @@
   </div>
   <div class="row">
     <div class="col">
-      <table class="table table-sm mb-0">
-        <tbody>
-          <tr>
-            <td>
-              <div class="row entete">
-                <div class="col-1 text-center">N°</div>
-                <div class="col-2 text-center">N° Credit</div>
-                <div class="col-3 text-center">Date échéance</div>
-                <div class="col-3 text-center">Reste à payer</div>
-                <div class="col-3 text-center">Montant Payement</div>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
-      <table class="table table-striped table-sm">
-        <tbody>
-          <tr *ngFor="let echeance of echeancier; let i = index">
-            <td>
+      <div class="row">
+        <div class="col liste">
+          <div
+            class="row card mb-1 shadow-sm p-2"
+            *ngFor="let echeance of echeancier; let i = index"
+          >
+            <div class="col">
               <div class="row d-flex flex-row align-items-center">
                 <div class="col-1 text-center">{{ i + 1 }}</div>
-                <div class="col-2 text-center">{{ echeance.creditId }}</div>
+                <div class="col-2 text-center">{{ echeance.avanceId }}</div>
                 <div class="col-3 text-center">
                   {{ echeance.dateEcheance | date : "dd/MM/yyyy" }}
                 </div>
                 <div class="col-3 text-right">
-                  {{ calculReste(echeance) | number }} FCFA
+                  {{ echeance.montantEcheance | number }} FCFA
                 </div>
                 <div class="col-3 text-right">
                   <input
                     type="number"
                     class="form-control shadow-sm"
-                    [(ngModel)]="echeance.montant"
+                    [(ngModel)]="echeance.montantEcheance"
                   />
                 </div>
               </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

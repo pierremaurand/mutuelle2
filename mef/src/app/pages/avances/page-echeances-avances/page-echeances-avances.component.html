@@ -3,7 +3,7 @@
   <!-- Page Heading -->
   <div class="row mb-4">
     <h1
-      class="h3 mb-0 text-gray-800 col-lg-6 col-md-12 col-sm-12 text-lg-left text-md-center text-sm-center"
+      class="h3 mb-0 text-gray-800 col-12 text-lg-left text-md-center text-sm-center"
     >
       <i class="fa fa-list"></i> Liste des échéances avances
     </h1>
@@ -13,27 +13,41 @@
   <div class="card shadow mb-4">
     <div class="card-header">
       <div class="row">
-        <div class="col-lg-4 col-md-12 col-sm-12">
-          <input
-            type="search"
-            class="form-control"
-            name="search"
-            id="search"
-            [formControl]="searchCtrl"
-            placeholder="Rechercher..."
-          />
+        <div class="col-lg-5 col-md-12 col-sm-12">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <label for="search" class="input-group-text"
+                ><i class="fa fa-search"></i
+              ></label>
+            </div>
+            <input
+              type="search"
+              class="form-control"
+              name="search"
+              id="search"
+              [formControl]="searchCtrl"
+              placeholder="Rechercher..."
+            />
+          </div>
         </div>
         <div class="col-lg-4 col-md-12 col-sm-12">
-          <input
-            type="date"
-            class="form-control"
-            id="dateEcheance"
-            name="dateEcheance"
-            [formControl]="dateEcheanceCtrl"
-            placeholder="Date Echéances"
-          />
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <label for="dateEcheance" class="input-group-text"
+                ><i class="fa fa-calendar"></i
+              ></label>
+            </div>
+            <input
+              type="date"
+              class="form-control"
+              id="dateEcheance"
+              name="dateEcheance"
+              [formControl]="dateEcheanceCtrl"
+              placeholder="Date Echéances"
+            />
+          </div>
         </div>
-        <div class="col-lg-4 col-md-12 col-sm-12">
+        <div class="col-lg-3 col-md-12 col-sm-12">
           <div class="d-flex justify-content-between">
             <button
               type="botton"

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, combineLatest, map, of } from 'rxjs';
 import { Membre } from 'src/app/models/membre.model';
 import { LieuAffectation } from 'src/app/models/lieuAffectation';
 import { Poste } from 'src/app/models/poste';
@@ -24,8 +24,13 @@ export class DetailsMembreComponent implements OnInit {
   imagesUrl = environment.imagesUrl;
 
   sexe$!: Observable<Sexe>;
+  sexes$!: Observable<Sexe[]>;
+
   poste$!: Observable<Poste>;
+  postes$!: Observable<Poste[]>;
+
   lieu$!: Observable<LieuAffectation>;
+  lieux$!: Observable<LieuAffectation[]>;
 
   constructor(
     public sexeService: SexeService,
@@ -38,10 +43,24 @@ export class DetailsMembreComponent implements OnInit {
   }
 
   private initObervables(): void {
-    this.sexe$ = this.sexeService.getSexeById(this.membre.sexeId);
-    this.poste$ = this.posteService.getPosteById(this.membre.posteId);
-    this.lieu$ = this.lieuService.getLieuAffectationById(
-      this.membre.lieuAffectationId
+    const idSexe$ = of(this.membre.sexeId);
+    const idLieu$ = of(this.membre.lieuAffectationId);
+    const idPoste$ = of(this.membre.posteId);
+
+    this.sexes$ = this.sexeService.sexes$;
+    this.lieux$ = this.lieuService.lieuxAffectations$;
+    this.postes$ = this.posteService.postes$;
+
+    this.sexe$ = combineLatest([idSexe$, this.sexes$]).pipe(
+      map(([id, sexes]) => sexes.filter((sexe) => sexe.id === id)[0])
+    );
+
+    this.poste$ = combineLatest([idSexe$, this.postes$]).pipe(
+      map(([id, postes]) => postes.filter((poste) => poste.id === id)[0])
+    );
+
+    this.lieu$ = combineLatest([idLieu$, this.lieux$]).pipe(
+      map(([id, lieux]) => lieux.filter((lieu) => lieu.id === id)[0])
     );
   }
 }

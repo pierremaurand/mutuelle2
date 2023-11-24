@@ -38,10 +38,10 @@ export class DetailAvanceComponent implements OnInit {
   solde!: number;
 
   constructor(
-    private avanceService: AvanceService,
-    private membreService: MembreService,
-    private deboursementService: DeboursementService,
-    private compteService: CompteService
+    public avanceService: AvanceService,
+    public membreService: MembreService,
+    public deboursementService: DeboursementService,
+    public compteService: CompteService
   ) {}
 
   ngOnInit(): void {

@@ -72,6 +72,8 @@ export class AccueilComponent implements OnInit {
 
     this.signalrService.addGabaritAddListener();
 
+    this.signalrService.addOperationAddListener();
+
     this.cotisationService.getMoisFromServer();
 
     this.initObservables();
@@ -128,7 +130,6 @@ export class AccueilComponent implements OnInit {
 
     this.signalrService.gabaritAdd$.subscribe(() => {
       this.gabaritService.getGabaritsFromServer();
-      this.operationService.getOperationsFromServer();
     });
   }
 }

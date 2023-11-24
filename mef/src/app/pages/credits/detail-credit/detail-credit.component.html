@@ -1,8 +1,11 @@
-<div class="row" *ngIf="membre$ | async as membre">
+<div class="row d-flex align-items-center" *ngIf="membre$ | async as membre">
   <div class="col-lg-8 col-md-12 col-sm-12">
     <app-details-membre [membre]="membre"></app-details-membre>
   </div>
   <div class="col-lg-4 col-md-12 col-sm-12" *ngIf="credit$ | async as credit">
+    <div class="text-primary text-lg-right text-md-center text-sm-center">
+      Crédit N° {{ credit.id }}
+    </div>
     <div class="text-lg-right text-md-center text-sm-center">
       <span
         class="badge"
@@ -17,8 +20,7 @@
       >
     </div>
     <h5 *ngIf="solde" class="text-lg-right text-md-center text-sm-center">
-      <span class="mis-en-avant">{{ solde | number }}</span>
-      <small> FCFA</small>
+      <small> {{ solde | number }} FCFA</small>
     </h5>
   </div>
 </div>

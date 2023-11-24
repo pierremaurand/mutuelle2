@@ -4,7 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { Observable, combineLatest, map } from 'rxjs';
+import { Observable, combineLatest, map, of } from 'rxjs';
 import { Membre } from 'src/app/models/membre.model';
 import { Mouvement } from 'src/app/models/mouvement';
 import { TypeMouvement } from 'src/app/models/typeMouvement';
@@ -22,6 +22,7 @@ export class DetailCompteComponent implements OnInit {
   @Input()
   membre!: Membre;
   mouvements$!: Observable<Mouvement[]>;
+  mouvementsMembre$!: Observable<Mouvement[]>;
   solde!: number;
 
   constructor(
@@ -34,9 +35,15 @@ export class DetailCompteComponent implements OnInit {
   }
 
   private initObservables(): void {
-    this.mouvements$ = this.compteService.getMembreMouvements(this.membre.id);
+    const idMembre$ = of(this.membre.id);
+    this.mouvements$ = this.compteService.mouvements$;
+    this.mouvementsMembre$ = combineLatest([idMembre$, this.mouvements$]).pipe(
+      map(([id, mouvements]) =>
+        mouvements.filter((mouvement) => mouvement.membreId === id)
+      )
+    );
 
-    this.mouvements$.subscribe((mouvements) => {
+    this.mouvementsMembre$.subscribe((mouvements) => {
       this.solde = this.calculSolde(mouvements);
     });
   }

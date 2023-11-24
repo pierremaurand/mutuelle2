@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Echeance } from 'src/app/models/echeance.model';
-import { EcheanceAvance } from 'src/app/models/echeanceAvance';
 
 @Component({
   selector: 'app-decaler-echeances-avances',

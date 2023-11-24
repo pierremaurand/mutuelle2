@@ -6,15 +6,15 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, combineLatest, map, of } from 'rxjs';
 import { Credit } from 'src/app/models/credit';
 import { Membre } from 'src/app/models/membre.model';
-import { CreditInfos } from 'src/app/models/credit-infos.model';
-import { EcheanceCredit } from 'src/app/models/echeanceCredit';
-import { MembreInfos } from 'src/app/models/membreInfos.model';
 import { CreditService } from 'src/app/services/credit.service';
-import { MembreService } from 'src/app/services/membre.service';
 import { environment } from 'src/environments/environment';
+import { Echeance } from 'src/app/models/echeance.model';
+import { Mouvement } from 'src/app/models/mouvement';
+import { TypeOperation } from 'src/app/models/typeoperation';
+import { CompteService } from 'src/app/services/compte.service';
 
 @Component({
   selector: 'app-detail-echeance-credit',
@@ -24,38 +24,22 @@ import { environment } from 'src/environments/environment';
 })
 export class DetailEcheanceCreditComponent implements OnInit {
   @Input()
-  echeance!: EcheanceCredit;
+  echeance!: Echeance;
+
   @Input()
   index!: number;
+
   @Output()
-  echeanceChoisie = new EventEmitter<EcheanceCredit>();
-  credit!: Credit;
+  echeanceChoisie = new EventEmitter<Echeance>();
+  mouvements: Mouvement[] = [];
   solde: number = 0;
   status: string = '';
-  membre!: MembreInfos;
   imagesUrl = environment.imagesUrl;
   selected: boolean = false;
 
-  credit$!: Observable<Credit>;
-  membre$!: Observable<Membre>;
+  constructor() {}
 
-  constructor(
-    private creditService: CreditService,
-    private membreService: MembreService
-  ) {}
-
-  ngOnInit(): void {
-    this.initObservable();
-    this.creditService.getCreditsFromServer();
-    this.membreService.getMembresFromServer();
-  }
-
-  private initObservable(): void {
-    // this.credit$ = this.creditService.getCreditById(this.echeance.creditId);
-    this.credit$.subscribe((credit) => {
-      this.credit = credit;
-    });
-  }
+  ngOnInit(): void {}
 
   sendEcheance(): void {
     this.selected = !this.selected;
@@ -63,8 +47,14 @@ export class DetailEcheanceCreditComponent implements OnInit {
   }
 
   montantEcheance(): number {
-    let total = (this.echeance.capital ?? 0) + (this.echeance.interet ?? 0);
-    total -= this.echeance.montantPaye;
+    let total = this.echeance.montantEcheance ?? 0;
+    this.mouvements
+      .filter((m) => m.id === this.echeance.id)
+      .forEach((m) => {
+        if (m.typeOperation === TypeOperation.Credit) {
+          total -= m.montant ?? 0;
+        }
+      });
     return total;
   }
 }

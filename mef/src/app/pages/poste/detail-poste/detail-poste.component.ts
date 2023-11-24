@@ -13,7 +13,7 @@ export class DetailPosteComponent implements OnInit {
   poste: Poste = new Poste();
   photo: string = '';
 
-  constructor(private router: Router, private posteService: PosteService) {}
+  constructor(private router: Router, public posteService: PosteService) {}
 
   ngOnInit(): void {
     this.photo = this.posteService.getImageUrl();

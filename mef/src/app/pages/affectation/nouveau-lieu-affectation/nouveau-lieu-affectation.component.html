@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <!-- Page Heading -->
-  <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">
+  <div class="row mb-4">
+    <h1 class="h3 mb-0 text-gray-800 col-12">
       <i class="fa fa-info-circle text-primary"></i>
       &nbsp;Informations sur le lieu d'affectation
     </h1>
@@ -11,12 +11,12 @@
   <div class="card shadow mb-4">
     <div class="card-body">
       <div class="row">
-        <div class="col-md-3 col-sm-12 border-end text-primary text-center">
+        <div class="col-lg-3 col-md-12 col-sm-12 text-primary text-center">
           <img [src]="photo" alt="photo lieu affectation" />
         </div>
-        <div class="col-md-9 col-sm-12">
+        <div class="col-lg-9 col-md-12 col-sm-12">
           <div class="row">
-            <div class="col-md-12 d-flex justify-content-between">
+            <div class="col-12 d-flex justify-content-between">
               <a
                 href="javascript:void(0);"
                 (click)="cancel()"
@@ -31,7 +31,7 @@
                   (click)="enregistrer()"
                   [disabled]="lieuAffectationForm.invalid"
                 >
-                  <i class="fa fa-save"></i>&nbsp; Enregistrer
+                  <i class="fa fa-save"></i>
                 </button>
               </div>
             </div>
@@ -40,7 +40,7 @@
           <div class="col-md-12">
             <div class="row" [formGroup]="lieuAffectationForm">
               <input type="hidden" name="id" formControlName="id" />
-              <div class="form-group col-md-6">
+              <div class="form-group col-lg-6 col-md-12 col-sm-12">
                 <label for="lieu">Nom du lieu</label>
                 <input
                   type="text"
@@ -49,6 +49,17 @@
                   name="lieu"
                   formControlName="lieu"
                   placeholder="Le nom du lieu d'affectation"
+                />
+              </div>
+              <div class="form-group col-lg-6 col-md-12 col-sm-12">
+                <label for="code">Code du lieu</label>
+                <input
+                  type="text"
+                  id="code"
+                  class="form-control"
+                  name="code"
+                  formControlName="code"
+                  placeholder="Le code du lieu d'affectation"
                 />
               </div>
             </div>

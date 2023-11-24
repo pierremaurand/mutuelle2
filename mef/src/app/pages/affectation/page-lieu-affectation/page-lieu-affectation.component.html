@@ -1,11 +1,15 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
   <!-- Page Heading -->
-  <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">
+  <div class="row mb-4">
+    <h1
+      class="h3 mb-0 text-gray-800 col-lg-8 col-md-12 col-sm-12 text-lg-left text-md-center text-sm-12"
+    >
       <i class="fa fa-list"></i> Liste des lieux d'affectation
     </h1>
-    <span>
+    <span
+      class="col-lg-4 col-md-12 col-sm-12 text-lg-right text-md-center text-sm-12"
+    >
       <app-bouton-action
         (newEvent)="newEvent()"
         [afficheNew]="true"
@@ -17,7 +21,7 @@
   <div class="card shadow mb-4">
     <div class="card-header py-3">
       <div class="row">
-        <div class="col-lg-4 col-md-6 col-sm-12">
+        <div class="col-12">
           <div class="input-group">
             <div class="input-group-prepend">
               <label for="search" class="btn btn-primary shadow-sm">

@@ -1,11 +1,16 @@
-import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormControl } from '@angular/forms';
 import { Observable, combineLatest, map, startWith } from 'rxjs';
+import { Credit } from 'src/app/models/credit';
+import { Echeance } from 'src/app/models/echeance.model';
 import { EcheanceCredit } from 'src/app/models/echeanceCredit';
+import { Membre } from 'src/app/models/membre.model';
+import { Mouvement } from 'src/app/models/mouvement';
 import { TypeOperation } from 'src/app/models/typeoperation';
 import { CreditService } from 'src/app/services/credit.service';
-import { SignalrService } from 'src/app/services/signalr.service';
+import { CompteService } from 'src/app/services/compte.service';
+import { EcheanceService } from 'src/app/services/echeance.service';
+import { MembreService } from 'src/app/services/membre.service';
 
 @Component({
   selector: 'app-page-echeances-credits',
@@ -15,80 +20,108 @@ import { SignalrService } from 'src/app/services/signalr.service';
 })
 export class PageEcheancesCreditsComponent implements OnInit {
   dateEcheance: string = '';
-  echeancier: EcheanceCredit[] = [];
+  mouvements: Mouvement[] = [];
+  echeancier: Echeance[] = [];
   formulaire: number = 1;
 
-  loading$!: Observable<boolean>;
-  echeances$!: Observable<EcheanceCredit[]>;
-  echeanceAdded$!: Observable<boolean>;
+  echeances$!: Observable<Echeance[]>;
+  mouvements$!: Observable<Mouvement[]>;
+  membres$!: Observable<Membre[]>;
+  credits$!: Observable<Credit[]>;
 
   dateEcheanceCtrl!: FormControl;
-  curDate!: string | undefined;
+  searchCtrl!: FormControl;
 
   constructor(
-    private creditService: CreditService,
-    public signalrService: SignalrService,
-    private fb: FormBuilder,
-    private datePipe: DatePipe
+    public echeanceService: EcheanceService,
+    public creditService: CreditService,
+    public membreService: MembreService,
+    public compteService: CompteService,
+    private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
-    this.curDate = this.datePipe
-      .transform(Date.now(), 'yyyy-MM-dd')
-      ?.toString();
     this.initControls();
     this.initObservables();
   }
 
   private initControls(): void {
     this.dateEcheanceCtrl = this.fb.control('');
+    this.searchCtrl = this.fb.control('');
   }
 
   private initObservables(): void {
+    this.echeances$ = this.echeanceService.echeances$;
+    this.mouvements$ = this.compteService.mouvements$;
+    this.membres$ = this.membreService.membres$;
+    this.credits$ = this.creditService.credits$;
+
+    this.mouvements$.subscribe();
+    this.echeances$.subscribe();
+    this.membres$.subscribe();
+    this.credits$.subscribe();
+
+    const search$ = this.searchCtrl.valueChanges.pipe(
+      startWith(this.searchCtrl.value),
+      map((value) => value.toLowerCase())
+    );
+
     const dateEcheance$ = this.dateEcheanceCtrl.valueChanges.pipe(
       startWith(this.dateEcheanceCtrl.value)
     );
 
-    // this.echeances$ = combineLatest([
-    //   dateEcheance$,
-    //   this.creditService.echeances$,
-    // ]).pipe(
-    //   map(([dateEcheance, echeances]) =>
-    //     echeances.filter(
-    //       (echeance) =>
-    //         echeance.dateEcheance?.includes(dateEcheance) &&
-    //         this.getEtatPayement(echeance)
-    //     )
-    //   )
-    // );
+    this.echeances$ = combineLatest([
+      search$,
+      dateEcheance$,
+      this.echeances$,
+      this.membres$,
+      this.credits$,
+      this.mouvements$,
+    ]).pipe(
+      map(([search, dateEcheance, echeances, membres, credits, mouvements]) =>
+        echeances.filter(
+          (echeance) =>
+            membres.find(
+              (membre) =>
+                membre.id === echeance.membreId &&
+                membre.nom.toLowerCase().includes(search as string) &&
+                echeance.dateEcheance?.includes(dateEcheance)
+            ) &&
+            credits.find(
+              (a) => a.id == echeance.creditId && a.deboursementId
+            ) &&
+            this.getEtatPayement(
+              echeance.montantEcheance,
+              mouvements.filter((m) => m.echeanceId == echeance.id)
+            )
+        )
+      )
+    );
+
+    this.mouvements$.subscribe((mouvements: Mouvement[]) => {
+      this.mouvements = mouvements;
+    });
   }
 
-  getEtatPayement(echeance: EcheanceCredit): boolean {
-    const montantEcheance = +echeance.capital + echeance.interet;
-    if (montantEcheance > echeance.montantPaye) {
+  getEtatPayement(montantEcheance: number, mouvements: Mouvement[]): boolean {
+    const solde = this.calculResteAPayer(montantEcheance, mouvements);
+    if (solde > 0) {
       return true;
     }
     return false;
   }
 
-  //-----------------------------------------
-
-  effacer(): void {
-    this.dateEcheanceCtrl.setValue('');
-  }
-
-  calculResteAPayer(echeance: EcheanceCredit): number {
-    let solde = +echeance.capital + echeance.interet;
-    echeance.mouvements.forEach((m) => {
-      if (m.typeOperation == TypeOperation.Credit) {
+  private calculResteAPayer(montant: number, mouvements: Mouvement[]): number {
+    let solde = montant;
+    mouvements.forEach((m) => {
+      if (m.typeOperation === TypeOperation.Credit) {
         solde -= m.montant ?? 0;
       }
     });
     return solde;
   }
 
-  addEcheance(echeance: EcheanceCredit): void {
-    echeance.montant = this.calculResteAPayer(echeance);
+  addEcheance(echeance: Echeance): void {
     if (this.echeancier.find((e) => e.id == echeance.id)) {
       this.echeancier = this.echeancier.filter((e) => e.id != echeance.id);
     } else {

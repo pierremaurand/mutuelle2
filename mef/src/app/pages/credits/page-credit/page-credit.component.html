@@ -71,15 +71,9 @@
       <div class="list-group" *ngIf="credits$ | async as credits">
         <a
           href="javascript:void(0);"
-          class="list-group-item list-group-item-action"
+          class="list-group-item list-group-item-action mb-2 shadow-sm rounded border"
           aria-current="true"
           *ngFor="let credit of credits | sort : ['nom', 'asc']"
-          [ngClass]="{
-            'border-left-primary text-primary': credit.status == 0,
-            'border-left-danger text-danger': credit.status == 1,
-            'border-left-warning text-warning': credit.status == 2,
-            'border-left-success text-success': credit.status == 3
-          }"
         >
           <div
             class="row"

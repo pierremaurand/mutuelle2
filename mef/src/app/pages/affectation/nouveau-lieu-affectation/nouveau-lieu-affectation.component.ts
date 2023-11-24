@@ -18,18 +18,22 @@ import { LieuAffectationService } from 'src/app/services/lieu-affectation.servic
 })
 export class NouveauLieuAffectationComponent implements OnInit {
   lieuAffectation!: LieuAffectation;
+  idLieu$!: Observable<number>;
+
   lieuAffectation$!: Observable<LieuAffectation>;
+  lieuxAffectations$!: Observable<LieuAffectation[]>;
+
   photo: string = '';
-  idLieuAffectation$!: Observable<number>;
 
   lieuAffectationForm!: FormGroup;
   idLieuAffectationCtrl!: FormControl;
   nomLieuAffectationCtrl!: FormControl;
+  codeLieuAffectationCtrl!: FormControl;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private lieuAffectationService: LieuAffectationService,
+    public lieuAffectationService: LieuAffectationService,
     private fb: FormBuilder
   ) {}
 
@@ -43,23 +47,27 @@ export class NouveauLieuAffectationComponent implements OnInit {
   private initFormControls(): void {
     this.idLieuAffectationCtrl = this.fb.control(0, Validators.required);
     this.nomLieuAffectationCtrl = this.fb.control('', Validators.required);
+    this.codeLieuAffectationCtrl = this.fb.control('', Validators.required);
   }
 
   private initForms(): void {
     this.lieuAffectationForm = this.fb.group({
       id: this.idLieuAffectationCtrl,
       lieu: this.nomLieuAffectationCtrl,
+      code: this.codeLieuAffectationCtrl,
     });
   }
 
   private initObservables(): void {
-    this.idLieuAffectation$ = this.route.params.pipe(
+    this.idLieu$ = this.route.params.pipe(
       map((params) => +params['lieuAffectationId'])
     );
 
+    this.lieuxAffectations$ = this.lieuAffectationService.lieuxAffectations$;
+
     this.lieuAffectation$ = combineLatest([
-      this.idLieuAffectation$,
-      this.lieuAffectationService.lieuxAffectations$,
+      this.idLieu$,
+      this.lieuxAffectations$,
     ]).pipe(
       map(
         ([id, lieuxAffectations]) =>
@@ -73,6 +81,7 @@ export class NouveauLieuAffectationComponent implements OnInit {
       if (lieuAffectation) {
         this.idLieuAffectationCtrl.setValue(lieuAffectation.id);
         this.nomLieuAffectationCtrl.setValue(lieuAffectation.lieu);
+        this.codeLieuAffectationCtrl.setValue(lieuAffectation.code);
         this.lieuAffectation = lieuAffectation;
       }
     });

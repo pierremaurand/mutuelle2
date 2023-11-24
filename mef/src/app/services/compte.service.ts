@@ -25,6 +25,7 @@ export class CompteService {
   }
 
   getMouvementsFromServer(): void {
+    console.log('Chargement de mouvements');
     this.http
       .get<Mouvement[]>(`${this.baseUrl}/compte/mouvements`)
       .pipe(
@@ -33,104 +34,6 @@ export class CompteService {
         })
       )
       .subscribe();
-  }
-
-  getMembreMouvements(id: number): Observable<Mouvement[]> {
-    return this.mouvements$.pipe(
-      map((mouvements) =>
-        mouvements.filter((mouvement) => mouvement.membreId === id)
-      )
-    );
-  }
-
-  getMouvementsAvance(id: number): Observable<Mouvement[]> {
-    return this.mouvements$.pipe(
-      map((mouvements) =>
-        mouvements.filter((mouvement) => mouvement.avanceId === id)
-      )
-    );
-  }
-
-  getMouvementsCredit(id: number): Observable<Mouvement[]> {
-    return this.mouvements$.pipe(
-      map((mouvements) =>
-        mouvements.filter((mouvement) => mouvement.creditId === id)
-      )
-    );
-  }
-
-  getMouvementsMembre(id: number): Observable<Mouvement[]> {
-    return this.mouvements$.pipe(
-      map((mouvements) =>
-        mouvements.filter((mouvement) => mouvement.membreId === id)
-      )
-    );
-  }
-
-  getMouvementsCotisation(id: number): Observable<Mouvement[]> {
-    return this.mouvements$.pipe(
-      map((mouvements) =>
-        mouvements.filter((mouvement) => mouvement.cotisationId === id)
-      )
-    );
-  }
-
-  getMouvementsDeboursement(id: number): Observable<Mouvement[]> {
-    return this.mouvements$.pipe(
-      map((mouvements) =>
-        mouvements.filter((mouvement) => mouvement.deboursementId === id)
-      )
-    );
-  }
-
-  getMouvementsEcheance(id: number): Observable<Mouvement[]> {
-    return this.mouvements$.pipe(
-      map((mouvements) =>
-        mouvements.filter((mouvement) => mouvement.echeanceId === id)
-      )
-    );
-  }
-
-  getMouvementsEcheancesAvances(): Observable<Mouvement[]> {
-    return this.mouvements$.pipe(
-      map((mouvements) =>
-        mouvements.filter((mouvement) => mouvement.echeanceId)
-      )
-    );
-  }
-
-  ajouterMouvement(mouvement: Mouvement): void {
-    this.mouvements$.pipe(
-      tap((mouvements) => {
-        const mouvementsUpdated = [mouvement, ...mouvements];
-        console.log(mouvementsUpdated);
-        this._mouvements$.next(mouvementsUpdated);
-      })
-    );
-  }
-
-  //---------------------------------------------------
-
-  getAllComptes(): Observable<CompteList[]> {
-    return this.http.get<CompteList[]>(this.baseUrl + '/compte/comptes');
-  }
-
-  getSoldeMembre(id: number): Observable<number> {
-    return this.http.get<number>(
-      this.baseUrl + '/compte/getSolde/' + id.toString()
-    );
-  }
-
-  getAllMvts(id: number): Observable<Mouvement[]> {
-    return this.http.get<Mouvement[]>(
-      this.baseUrl + '/compte/mvtsmembre/' + id.toString()
-    );
-  }
-
-  getById(id?: number): Observable<Membre> {
-    return this.http.get<Membre>(
-      this.baseUrl + '/compte/get/' + id?.toString()
-    );
   }
 
   enregistrerMouvement(mvts: Mouvement): void {

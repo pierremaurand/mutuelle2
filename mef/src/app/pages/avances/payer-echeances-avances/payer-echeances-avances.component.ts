@@ -1,12 +1,7 @@
-import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Echeance } from 'src/app/models/echeance.model';
-import { EcheanceAvance } from 'src/app/models/echeanceAvance';
-import { InfosRbAvance } from 'src/app/models/infos-rb-avance.model';
 import { Mouvement } from 'src/app/models/mouvement';
 import { TypeOperation } from 'src/app/models/typeoperation';
-import { AvanceService } from 'src/app/services/avance.service';
-import { CompteService } from 'src/app/services/compte.service';
 import { EcheanceService } from 'src/app/services/echeance.service';
 
 @Component({
@@ -22,10 +17,7 @@ export class PayerEcheancesAvancesComponent implements OnInit {
   echeancesPayer = new EventEmitter();
   mouvements: Mouvement[] = [];
 
-  constructor(
-    private echeanceService: EcheanceService,
-    private datePipe: DatePipe
-  ) {}
+  constructor(public echeanceService: EcheanceService) {}
 
   ngOnInit(): void {}
 

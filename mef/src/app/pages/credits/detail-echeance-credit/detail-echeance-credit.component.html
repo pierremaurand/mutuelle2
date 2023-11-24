@@ -1,26 +1,24 @@
-<div
-  class="row d-flex flex-row align-items-center"
-  (click)="sendEcheance()"
-  [ngClass]="{ 'text-primary': selected }"
->
-  <div class="col-md-3">
-    <div class="row d-flex flex-row align-items-center">
-      <div class="col-md-2 text-center">
-        {{ index + 1 }}
-      </div>
-      <div class="col-md-10">
-        <div class="row d-flex flex-row align-items-center">
-          <div class="col">
-            {{ echeance.dateEcheance | date : "dd/MM/yyyy" }}
-          </div>
-          <div class="col text-right">
-            {{ montantEcheance() | number }} FCFA
-          </div>
-        </div>
-      </div>
-    </div>
+<div class="row d-flex align-items-center">
+  <div class="col-lg-1 col-md-12 col-sm-12 text-center">
+    <input
+      type="checkbox"
+      [name]="'echeance_' + echeance.id"
+      [id]="'echeance_' + echeance.id"
+      (click)="sendEcheance()"
+    />
   </div>
-  <div class="col-md-9" *ngIf="credit$ | async as credit">
-    <app-infos-credit [credit]="credit"></app-infos-credit>
+  <div class="col-lg-1 col-md-12 col-sm-12 text-center">
+    {{ index + 1 }}
+  </div>
+  <div class="col-lg-2 col-md-12 col-sm-12 text-center">
+    {{ echeance.dateEcheance | date : "dd/MM/yyyy" }}
+  </div>
+  <div
+    class="col-lg-2 col-md-12 col-sm-12 text-lg-right text-md-center text-sm-center"
+  >
+    {{ montantEcheance() | number }} FCFA
+  </div>
+  <div class="col-lg-6 col-md-12 col-sm-12" *ngIf="echeance.creditId">
+    <app-detail-credit [idCredit]="echeance.creditId"></app-detail-credit>
   </div>
 </div>

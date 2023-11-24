@@ -18,13 +18,14 @@ import { MembreService } from 'src/app/services/membre.service';
 })
 export class FiltreMembreComponent implements OnInit {
   membres$!: Observable<Membre[]>;
+  results$!: Observable<Membre[]>;
 
   @Output()
   membresFound = new EventEmitter<Membre[]>();
 
   searchCtrl!: FormControl;
 
-  constructor(private membreService: MembreService, private fb: FormBuilder) {}
+  constructor(public membreService: MembreService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.initForm();
@@ -43,7 +44,7 @@ export class FiltreMembreComponent implements OnInit {
       map((value) => value.toLowerCase())
     );
 
-    this.membres$ = combineLatest([search$, this.membreService.membres$]).pipe(
+    this.results$ = combineLatest([search$, this.membres$]).pipe(
       map(([search, membres]) =>
         membres.filter((membre) =>
           membre.nom.toLowerCase().includes(search as string)
@@ -51,7 +52,7 @@ export class FiltreMembreComponent implements OnInit {
       )
     );
 
-    this.membres$.subscribe((membres: Membre[]) => {
+    this.results$.subscribe((membres: Membre[]) => {
       this.membresFound.emit(membres);
     });
   }

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { EcheanceCredit } from 'src/app/models/echeanceCredit';
+import { Echeance } from 'src/app/models/echeance.model';
 
 @Component({
   selector: 'app-decaler-echeances-credits',
@@ -8,7 +8,7 @@ import { EcheanceCredit } from 'src/app/models/echeanceCredit';
 })
 export class DecalerEcheancesCreditsComponent implements OnInit {
   @Input()
-  echeancier: EcheanceCredit[] = [];
+  echeancier: Echeance[] = [];
   constructor() {}
 
   ngOnInit(): void {}

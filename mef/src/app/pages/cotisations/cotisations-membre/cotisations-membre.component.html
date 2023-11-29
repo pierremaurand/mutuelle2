@@ -8,7 +8,7 @@
       &nbsp;Etat cotisations membre
     </h1>
     <h1
-      class="h3 mb-0 text-gray-800 col-lg-4 col-md-12 col-sm-12 text-lg-left text-md-center text-sm-center"
+      class="h3 mb-0 text-gray-800 col-lg-4 col-md-12 col-sm-12 text-lg-right text-md-center text-sm-center"
       *ngIf="solde"
     >
       {{ solde | number }} FCFA
@@ -25,7 +25,7 @@
             [membre]="membre"
           ></app-infos-membre>
         </div>
-        <th class="col-lg-9 col-md-12 col-sm-12">
+        <div class="col-lg-9 col-md-12 col-sm-12">
           <div class="row mb-2 d-flex justify-content-between">
             <div class="col">
               <a
@@ -49,45 +49,45 @@
               </button>
             </div>
           </div>
-        </th>
-
-        <th class="row"></th>
-        <th class="col-12 liste">
-          <table
-            class="table table-striped table-hover table-sm"
-            *ngIf="cotisations$ | async as cotisations"
-          >
-            <thead>
-              <tr class="text-center">
-                <th scope="col">N°</th>
-                <th scope="col">Mois</th>
-                <th scope="col">Année</th>
-                <th scope="col">Montant</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr
-                *ngFor="
-                  let cotisation of cotisations
-                    | sort : ['moisId', 'desc']
-                    | sort : ['annee', 'desc'];
-                  let i = index
-                "
+          <div class="row">
+            <div class="col-12 liste">
+              <table
+                class="table table-striped table-hover table-sm"
+                *ngIf="cotisations$ | async as cotisations"
               >
-                <th scope="row" class="text-center">{{ i + 1 }}</th>
-                <td class="text-center">
-                  {{ cotisation.moisId }}
-                </td>
-                <td class="text-center">
-                  {{ cotisation.annee }}
-                </td>
-                <td class="text-right">
-                  {{ cotisation.montant | number }}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </th>
+                <thead>
+                  <tr class="text-center">
+                    <th scope="col">N°</th>
+                    <th scope="col">Mois</th>
+                    <th scope="col">Année</th>
+                    <th scope="col">Montant</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    *ngFor="
+                      let cotisation of cotisations
+                        | sort : ['moisId', 'desc']
+                        | sort : ['annee', 'desc'];
+                      let i = index
+                    "
+                  >
+                    <th scope="row" class="text-center">{{ i + 1 }}</th>
+                    <td class="text-center">
+                      {{ cotisation.moisId }}
+                    </td>
+                    <td class="text-center">
+                      {{ cotisation.annee }}
+                    </td>
+                    <td class="text-right">
+                      {{ cotisation.montant | number }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

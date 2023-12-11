@@ -80,7 +80,6 @@ import { PageEcheancesCreditsComponent } from './pages/credits/page-echeances-cr
 import { PayerEcheancesCreditsComponent } from './pages/credits/payer-echeances-credits/payer-echeances-credits.component';
 import { DetailEcheanceCreditComponent } from './pages/credits/detail-echeance-credit/detail-echeance-credit.component';
 import { DecalerEcheancesCreditsComponent } from './pages/credits/decaler-echeances-credits/decaler-echeances-credits.component';
-import { ImportMembresComponent } from './pages/membres/import-membres/import-membres.component';
 import { SortCreditPipe } from './pipes/sort-credit.pipe';
 import { InfosCreditComponent } from './composants/infos-credit/infos-credit.component';
 import { InfosMembreEcheanceComponent } from './composants/infos-membre-echeance/infos-membre-echeance.component';
@@ -94,6 +93,13 @@ import { CotisationComponent } from './pages/cotisations/cotisation/cotisation.c
 import { EcheancierComponent } from './composants/echeancier/echeancier.component';
 import { FiltreMembreComponent } from './composants/filtre-membre/filtre-membre.component';
 import { NouvelleOperationComponent } from './pages/gabarit/nouvelle-operation/nouvelle-operation.component';
+import { MembreModule } from './modules/membre/membre.module';
+import { CotisationModule } from './modules/cotisation/cotisation.module';
+import { AvanceModule } from './modules/avance/avance.module';
+import { CreditModule } from './modules/credit/credit.module';
+import { CompteModule } from './modules/compte/compte.module';
+import { ComptabiliteModule } from './modules/comptabilite/comptabilite.module';
+import { AdminModule } from './modules/admin/admin.module';
 
 @NgModule({
   declarations: [
@@ -166,7 +172,6 @@ import { NouvelleOperationComponent } from './pages/gabarit/nouvelle-operation/n
     PayerEcheancesCreditsComponent,
     DetailEcheanceCreditComponent,
     DecalerEcheancesCreditsComponent,
-    ImportMembresComponent,
     InfosCreditComponent,
     InfosMembreEcheanceComponent,
     InfosAvanceComponent,
@@ -201,6 +206,13 @@ import { NouvelleOperationComponent } from './pages/gabarit/nouvelle-operation/n
     HttpClientModule,
     BrowserAnimationsModule,
     ImageCropperModule,
+    MembreModule,
+    CotisationModule,
+    AvanceModule,
+    CreditModule,
+    CompteModule,
+    ComptabiliteModule,
+    AdminModule,
   ],
 })
 export class AppModule {

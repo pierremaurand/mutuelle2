@@ -33,7 +33,6 @@ import { NouvelUtilisateurComponent } from './pages/utilisateur/nouvel-utilisate
 import { PageProfileComponent } from './pages/utilisateur/page-profile/page-profile.component';
 import { PageEcheancesAvancesComponent } from './pages/avances/page-echeances-avances/page-echeances-avances.component';
 import { PageEcheancesCreditsComponent } from './pages/credits/page-echeances-credits/page-echeances-credits.component';
-import { ImportMembresComponent } from './pages/membres/import-membres/import-membres.component';
 import { NouveauMouvementComponent } from './pages/compte/nouveau-mouvement/nouveau-mouvement.component';
 import { CotisationsMembreComponent } from './pages/cotisations/cotisations-membre/cotisations-membre.component';
 
@@ -65,11 +64,6 @@ const routes: Routes = [
       {
         path: 'nouveaumembre/:membreId',
         component: NouveauMembreComponent,
-        canActivate: [AuthService],
-      },
-      {
-        path: 'importmembres',
-        component: ImportMembresComponent,
         canActivate: [AuthService],
       },
       {

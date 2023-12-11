@@ -1,6 +1,61 @@
 <div id="wrapper">
   <!-- Menu latéral -->
-  <app-menu-lateral></app-menu-lateral>
+  <ul
+    class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
+    id="accordionSidebar"
+  >
+    <!-- Sidebar - Brand -->
+    <a
+      class="sidebar-brand d-flex align-items-center justify-content-center"
+      href="index.html"
+    >
+      <div class="sidebar-brand-icon rotate-n-15">
+        <i class="fas fa-laugh-wink"></i>
+      </div>
+      <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+    </a>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider" />
+
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li
+      class="nav-item"
+      *ngFor="let menu of menuProperties"
+      [ngClass]="{ active: menu.active }"
+      (click)="navigate(menu, 1)"
+    >
+      <a
+        class="nav-link collapsed"
+        href="#"
+        data-toggle="collapse"
+        [attr.data-target]="'#collapse' + menu.id"
+        aria-expanded="true"
+        [attr.aria-controls]="'collapse' + menu.id"
+      >
+        <i class="{{ menu.icon }}"></i>
+        <span>{{ menu.titre }}</span>
+      </a>
+      <div
+        id="collapse{{ menu.id }}"
+        class="collapse"
+        [attr.aria-labelledby]="'heading' + menu.id"
+        data-parent="#accordionSidebar"
+      >
+        <div class="bg-white py-2 collapse-inner rounded">
+          <a
+            class="collapse-item"
+            [ngClass]="{ active: sousMenu.active }"
+            *ngFor="let sousMenu of menu.sousMenu"
+            (click)="navigate(sousMenu, 2)"
+          >
+            {{ sousMenu.titre }}
+          </a>
+        </div>
+      </div>
+    </li>
+  </ul>
+
   <!-- Fin Menu latéral -->
 
   <!-- Content Wrapper -->

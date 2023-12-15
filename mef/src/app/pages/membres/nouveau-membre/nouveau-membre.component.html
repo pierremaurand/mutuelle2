@@ -217,19 +217,20 @@
           </div>
         </div>
       </div>
-      <div
-        id="addPicture"
-        class="modal fade"
-        tabindex="-1"
-        aria-labelledby="addPicture"
-        aria-hidden="true"
-        *ngIf="changeImage"
-      >
-        <app-image-add
-          [photo]="photo"
-          (photoChange)="photoChange($event)"
-        ></app-image-add>
-      </div>
     </div>
   </div>
+</div>
+
+<div
+  id="addPicture"
+  class="modal fade"
+  tabindex="-1"
+  aria-labelledby="addPicture"
+  aria-hidden="true"
+  *ngIf="changeImage"
+>
+  <app-image-add
+    [photo]="photo"
+    (photoChange)="photoChange($event)"
+  ></app-image-add>
 </div>

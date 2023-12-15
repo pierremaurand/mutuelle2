@@ -195,7 +195,7 @@ export class NouveauMembreComponent implements OnInit {
   }
 
   onGoBack(): void {
-    this.router.navigate(['/membres']);
+    this.router.navigate(['home', 'membres']);
   }
 
   photoChange(photo: string): void {

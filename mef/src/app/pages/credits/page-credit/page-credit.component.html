@@ -75,16 +75,7 @@
           aria-current="true"
           *ngFor="let credit of credits | sort : ['nom', 'asc']"
         >
-          <div
-            class="row"
-            (click)="
-              navigate(
-                credit.id,
-                credit.membreId ?? 0,
-                credit.deboursementId ?? 0
-              )
-            "
-          >
+          <div class="row" routerLink="/nouveaucredit/{{ credit.id }}">
             <div class="col-12">
               <app-detail-credit [idCredit]="credit.id"></app-detail-credit>
             </div>

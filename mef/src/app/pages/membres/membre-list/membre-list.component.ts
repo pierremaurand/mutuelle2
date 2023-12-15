@@ -17,7 +17,7 @@ export class MembreListComponent implements OnInit {
   ngOnInit(): void {}
 
   navigate(id: number): void {
-    this.router.navigate(['/nouveaumembre/' + id]);
+    this.router.navigate(['home', 'nouveaumembre', id]);
   }
 
   newEvent(): void {

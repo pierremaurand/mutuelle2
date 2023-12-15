@@ -20,7 +20,7 @@ export class PageCompteComponent implements OnInit {
   }
 
   navigate(id: number): void {
-    this.router.navigate(['/nouveaucompte/' + id]);
+    this.router.navigate(['home', 'nouveaucompte', id]);
   }
 
   membresFound(membres: Membre[]): void {

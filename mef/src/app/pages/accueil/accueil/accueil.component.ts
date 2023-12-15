@@ -293,7 +293,7 @@ export class AccueilComponent implements OnInit {
       this.lastSelectedMenu = menu;
     } else {
       this.lastSelectedSousMenu = menu;
-      this.router.navigate([menu.url]);
+      this.router.navigate(['home', menu.url]);
     }
   }
 }

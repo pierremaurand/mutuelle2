@@ -29,32 +29,29 @@ import { MembreService } from 'src/app/services/membre.service';
 })
 export class NouvelleAvanceComponent implements OnInit {
   status!: StatusPret;
+  avanceExiste: boolean = false;
+  deboursementExiste: boolean = false;
 
   solde!: number;
   montant!: number;
 
   deboursement!: Deboursement;
-  deboursement$!: Observable<Deboursement>;
-  deboursements$!: Observable<Deboursement[]>;
+  deboursement$!: Observable<Deboursement | undefined>;
 
   echeancier!: Echeance[];
   nbrEcheances: number = 0;
   echeancierGenerer: boolean = false;
-  echeancier$!: Observable<Echeance[]>;
   echeances$!: Observable<Echeance[]>;
 
   mouvement!: Mouvement;
   mouvements!: Mouvement[];
-  mouvementsAvance$!: Observable<Mouvement[]>;
   mouvements$!: Observable<Mouvement[]>;
 
   membre!: Membre;
-  membre$!: Observable<Membre>;
-  membres$!: Observable<Membre[]>;
+  membre$!: Observable<Membre | undefined>;
 
   avance!: Avance;
   avance$!: Observable<Avance>;
-  avances$!: Observable<Avance[]>;
 
   avanceForm!: FormGroup;
   montantSolliciteCtrl!: FormControl;
@@ -122,62 +119,67 @@ export class NouvelleAvanceComponent implements OnInit {
   }
 
   private initObservables() {
-    this.avances$ = this.avanceService.avances$;
-    this.membres$ = this.membreService.membres$;
-    this.deboursements$ = this.deboursementService.deboursements$;
-    this.echeances$ = this.echeanceService.echeances$;
-    this.mouvements$ = this.compteService.mouvements$;
-
     const idAvance$ = this.route.params.pipe(
       map((params) => +params['avanceId'])
     );
 
-    const idMembre$ = this.route.params.pipe(
-      map((params) => +params['membreId'])
-    );
-
-    const idDeboursement$ = this.route.params.pipe(
-      map((params) => +params['deboursementId'])
-    );
-
-    this.avance$ = combineLatest([idAvance$, this.avances$]).pipe(
+    this.avance$ = combineLatest([idAvance$, this.avanceService.avances$]).pipe(
       map(([id, avances]) => avances.filter((avance) => avance.id === id)[0])
     );
 
-    this.membre$ = combineLatest([idMembre$, this.membres$]).pipe(
-      map(([id, membres]) => membres.filter((membre) => membre.id === id)[0])
-    );
-
-    this.deboursement$ = combineLatest([
-      idDeboursement$,
-      this.deboursements$,
+    this.membre$ = combineLatest([
+      idAvance$,
+      this.avanceService.avances$,
+      this.membreService.membres$,
     ]).pipe(
-      map(
-        ([id, deboursements]) =>
-          deboursements.filter((deboursement) => deboursement.id === id)[0]
+      map(([id, avances, membres]) =>
+        membres.find((membre) =>
+          avances.find(
+            (avance) => avance.id === id && avance.membreId === membre.id
+          )
+        )
       )
     );
 
-    this.echeancier$ = combineLatest([idAvance$, this.echeances$]).pipe(
+    this.deboursement$ = combineLatest([
+      this.avance$,
+      this.deboursementService.deboursements$,
+    ]).pipe(
+      map(([avance, deboursements]) =>
+        deboursements.find(
+          (deboursement) => deboursement.id === avance.deboursementId
+        )
+      )
+    );
+
+    this.echeances$ = combineLatest([
+      idAvance$,
+      this.echeanceService.echeances$,
+    ]).pipe(
       map(([id, echeances]) =>
         echeances.filter((echeance) => echeance.avanceId === id)
       )
     );
 
-    this.mouvementsAvance$ = combineLatest([idAvance$, this.mouvements$]).pipe(
+    this.mouvements$ = combineLatest([
+      idAvance$,
+      this.compteService.mouvements$,
+    ]).pipe(
       map(([id, mouvements]) =>
         mouvements.filter((mouvement) => mouvement.avanceId === id)
       )
     );
 
-    this.membre$.subscribe((membre: Membre) => {
+    this.membre$.subscribe((membre: Membre | undefined) => {
+      console.log(membre);
       if (membre) {
         this.idMembreCtrl.setValue(membre.id);
         this.membre = membre;
       }
     });
 
-    this.avance$.subscribe((avance: Avance) => {
+    this.avance$.subscribe((avance: Avance | undefined) => {
+      console.log(avance);
       if (avance) {
         this.avance = avance;
         this.avanceForm.patchValue({
@@ -187,10 +189,12 @@ export class NouvelleAvanceComponent implements OnInit {
           nombreEcheancesSollicite: avance.nombreEcheancesSollicite,
           dateDemande: avance.dateDemande,
         });
+        this.avanceExiste = true;
       }
     });
 
-    this.deboursement$.subscribe((deboursement) => {
+    this.deboursement$.subscribe((deboursement: Deboursement | undefined) => {
+      console.log(deboursement);
       if (deboursement) {
         this.debourForm.patchValue({
           id: deboursement.id,
@@ -200,17 +204,20 @@ export class NouvelleAvanceComponent implements OnInit {
           membreId: deboursement.membreId,
         });
         this.deboursement = deboursement;
+        this.deboursementExiste = true;
       }
     });
 
-    this.echeancier$.subscribe((echeancier: Echeance[]) => {
+    this.echeances$.subscribe((echeancier: Echeance[]) => {
+      console.log(echeancier);
       if (echeancier.length != 0) {
         this.echeancier = echeancier;
         this.nbrEcheances = echeancier.length;
       }
     });
 
-    this.mouvementsAvance$.subscribe((mouvements: Mouvement[]) => {
+    this.mouvements$.subscribe((mouvements: Mouvement[]) => {
+      console.log(mouvements);
       if (mouvements.length != 0) {
         this.mouvements = mouvements;
         this.solde = this.calculSolde();
@@ -271,7 +278,6 @@ export class NouvelleAvanceComponent implements OnInit {
         this.idAvanceCtrl.value,
         this.debourForm.value
       );
-      this.onGoBack();
     }
   }
 
@@ -284,13 +290,11 @@ export class NouvelleAvanceComponent implements OnInit {
   }
 
   onGoBack(): void {
-    this.router.navigate(['/avances']);
+    this.router.navigate(['home', 'avances']);
   }
 
-  navigate(avanceId: number, membreId: number, deboursementId: number): void {
-    this.router.navigate([
-      '/nouvelleavance/' + avanceId + '/' + membreId + '/' + deboursementId,
-    ]);
+  navigate(avanceId: SVGAnimatedNumberList): void {
+    this.router.navigate(['home', 'nouvelleavance', avanceId]);
   }
 
   genererEcheancier(): void {
@@ -317,18 +321,12 @@ export class NouvelleAvanceComponent implements OnInit {
         curDate = dateDebut;
         if (nbrEcheances) {
           for (let i = 1; i <= nbrEcheances; i++) {
-            if (curDate.getMonth() == 11) {
-              curDate.setFullYear(curDate.getFullYear() + 1);
-              curDate.setMonth(0);
-            } else {
-              curDate.setMonth(curDate.getMonth() + 1);
-            }
             let echeance: Echeance = new Echeance();
             echeance.avanceId = this.idAvanceCtrl.value;
             echeance.membreId = this.idMembreCtrl.value;
             echeance.dateEcheance = this.datePipe.transform(
               curDate,
-              'yyyy-MM-dd'
+              'yyyy-MM-25'
             );
             echeance.montantEcheance = montantEcheance;
             if (reste !== 0) {
@@ -336,6 +334,12 @@ export class NouvelleAvanceComponent implements OnInit {
               reste -= 1;
             }
             this.echeancier.push(echeance);
+            if (curDate.getMonth() == 11) {
+              curDate.setFullYear(curDate.getFullYear() + 1);
+              curDate.setMonth(0);
+            } else {
+              curDate.setMonth(curDate.getMonth() + 1);
+            }
           }
         }
       }

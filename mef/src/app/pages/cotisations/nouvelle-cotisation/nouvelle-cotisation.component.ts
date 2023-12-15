@@ -89,7 +89,7 @@ export class NouvelleCotisationComponent implements OnInit {
   }
 
   onGoBack(): void {
-    this.router.navigate(['/cotisationsmembre/' + this.id]);
+    this.router.navigate(['home', 'cotisationsmembre', this.id]);
   }
 
   resetForm(): void {

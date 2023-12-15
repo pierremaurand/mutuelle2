@@ -147,14 +147,8 @@ export class PageAvanceComponent implements OnInit {
     this.navigate();
   }
 
-  navigate(
-    avanceId: number = 0,
-    membreId: number = 0,
-    deboursementId: number | null = 0
-  ): void {
-    this.router.navigate([
-      '/nouvelleavance/' + avanceId + '/' + membreId + '/' + deboursementId,
-    ]);
+  navigate(avanceId: number = 0): void {
+    this.router.navigate(['home', 'nouvelleavance', avanceId]);
   }
 
   exportAvance(): void {}

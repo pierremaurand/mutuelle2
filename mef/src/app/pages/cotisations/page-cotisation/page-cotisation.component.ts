@@ -25,7 +25,7 @@ export class PageCotisationComponent implements OnInit {
   ngOnInit(): void {}
 
   navigate(id: number): void {
-    this.router.navigate(['/cotisationsmembre/' + id]);
+    this.router.navigate(['home', 'cotisationsmembre', id]);
   }
 
   importEvent(): void {

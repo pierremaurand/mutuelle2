@@ -102,7 +102,7 @@ export class NouveauMouvementComponent implements OnInit {
   }
 
   onGoBack(): void {
-    this.router.navigate(['/nouveaucompte/' + this.id]);
+    this.router.navigate(['home', 'nouveaucompte', this.id]);
   }
 
   resetForm(): void {

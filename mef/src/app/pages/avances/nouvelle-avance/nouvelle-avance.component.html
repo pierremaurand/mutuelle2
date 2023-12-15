@@ -21,16 +21,13 @@
       <div>
         <div class="row m-3">
           <div class="col-lg-3 col-md-12">
-            <div
-              id="chooseMembreIcon"
-              class="btn btn-danger rounded-circle shadow-sm"
-              data-toggle="modal"
-              data-target="#chooseMember"
-              *ngIf="!avance"
-            >
-              <i class="fa fa-user"></i>
+            <div *ngIf="membre$ | async as membre; else elseBlock">
+              <app-infos-membre [membre]="membre"></app-infos-membre>
             </div>
-            <app-infos-membre [membre]="membre"></app-infos-membre>
+            <ng-template #elseBlock
+              ><a data-toggle="modal" data-target="#chooseMember">
+                <app-infos-membre [membre]="membre"></app-infos-membre> </a
+            ></ng-template>
           </div>
           <div class="col-lg-9 col-md-12">
             <div class="row mb-2">
@@ -46,7 +43,7 @@
                     type="button"
                     class="d-none d-sm-inline-block btn btn-success shadow-sm"
                     (click)="enregistrerAvance()"
-                    *ngIf="!avance && avanceForm.valid"
+                    *ngIf="!avanceExiste && avanceForm.valid"
                   >
                     <i class="fa fa-save"></i>
                   </button>
@@ -54,7 +51,7 @@
                     type="button"
                     class="d-none d-sm-inline-block btn btn-success shadow-sm"
                     (click)="enregistrerDecision()"
-                    *ngIf="!deboursement && debourForm.valid"
+                    *ngIf="!deboursementExiste && debourForm.valid"
                   >
                     <i class="fa fa-save"></i>
                   </button>
@@ -62,11 +59,11 @@
                     type="button"
                     class="d-none d-sm-inline-block btn btn-success shadow-sm"
                     (click)="enregistrerEcheancier()"
-                    *ngIf="deboursement && echeancierGenerer"
+                    *ngIf="deboursement$ && echeancierGenerer"
                   >
                     <i class="fa fa-save"></i>
                   </button>
-                  <button
+                  <!-- <button
                     type="button"
                     class="d-none d-sm-inline-block btn btn-success shadow-sm"
                     (click)="debourser()"
@@ -78,7 +75,7 @@
                     "
                   >
                     <i class="fa fa-coins"></i>
-                  </button>
+                  </button> -->
                 </div>
               </div>
             </div>
@@ -87,14 +84,14 @@
                 class="nav-item nav-link active"
                 href="#infosDemande"
                 data-toggle="tab"
-                >Infos demande</a
+                >Demande</a
               >
               <a
                 class="nav-item nav-link"
                 href="#decisionComite"
                 data-toggle="tab"
                 *ngIf="avance"
-                >Décision du comité</a
+                >Décision</a
               >
               <a
                 class="nav-item nav-link"
@@ -240,6 +237,14 @@
   </div>
 </div>
 
-<app-liste-choix-membre
-  (membreChoisie)="membreChoisie($event)"
-></app-liste-choix-membre>
+<div
+  id="chooseMember"
+  class="modal fade"
+  tabindex="-1"
+  aria-labelledby="chooseMember"
+  aria-hidden="true"
+>
+  <app-liste-choix-membre
+    (membreChoisie)="membreChoisie($event)"
+  ></app-liste-choix-membre>
+</div>

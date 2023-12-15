@@ -67,10 +67,10 @@ export class CotisationsMembreComponent implements OnInit {
   }
 
   onGoBack(): void {
-    this.router.navigate(['/cotisations']);
+    this.router.navigate(['home', 'cotisations']);
   }
 
   addCotisation(): void {
-    this.router.navigate([`/addcotisation/${this.id}`]);
+    this.router.navigate(['home', 'addcotisation', this.id]);
   }
 }

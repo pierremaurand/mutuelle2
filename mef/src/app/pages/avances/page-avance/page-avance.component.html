@@ -79,16 +79,7 @@
               | sort : ['id', 'desc']
           "
         >
-          <div
-            class="row"
-            (click)="
-              navigate(
-                avance.id,
-                avance.membreId ?? 0,
-                avance.deboursementId ?? 0
-              )
-            "
-          >
+          <div class="row" (click)="navigate(avance.id)">
             <div class="col-12">
               <app-detail-avance [idAvance]="avance.id"></app-detail-avance>
             </div>

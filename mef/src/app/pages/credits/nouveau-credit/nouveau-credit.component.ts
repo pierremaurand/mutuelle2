@@ -11,7 +11,6 @@ import { combineLatest, map, Observable } from 'rxjs';
 import { StatusPret } from 'src/app/enums/statut-pret.enum';
 import { Membre } from 'src/app/models/membre.model';
 import { Credit } from 'src/app/models/credit';
-import { EcheanceCredit } from 'src/app/models/echeanceCredit';
 import { Mouvement } from 'src/app/models/mouvement';
 import { CreditService } from 'src/app/services/credit.service';
 import { MembreService } from 'src/app/services/membre.service';
@@ -345,18 +344,12 @@ export class NouveauCreditComponent implements OnInit {
         curDate = dateDebut;
         if (nbrEcheances) {
           for (let i = 1; i <= nbrEcheances; i++) {
-            if (curDate.getMonth() == 11) {
-              curDate.setFullYear(curDate.getFullYear() + 1);
-              curDate.setMonth(0);
-            } else {
-              curDate.setMonth(curDate.getMonth() + 1);
-            }
             let echeance: Echeance = new Echeance();
             echeance.creditId = this.idCreditCtrl.value;
             echeance.membreId = this.idMembreCtrl.value;
             echeance.dateEcheance = this.datePipe.transform(
               curDate,
-              'yyyy-MM-dd'
+              'yyyy-MM-25'
             );
             echeance.montantEcheance = montantEcheance;
             if (reste !== 0) {
@@ -365,6 +358,12 @@ export class NouveauCreditComponent implements OnInit {
             }
 
             this.echeancier.push(echeance);
+            if (curDate.getMonth() == 11) {
+              curDate.setFullYear(curDate.getFullYear() + 1);
+              curDate.setMonth(0);
+            } else {
+              curDate.setMonth(curDate.getMonth() + 1);
+            }
           }
         }
       }

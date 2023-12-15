@@ -42,7 +42,7 @@ const routes: Routes = [
     component: PageLoginComponent,
   },
   {
-    path: '',
+    path: 'home',
     component: AccueilComponent,
     canActivate: [AuthService],
     children: [
@@ -107,7 +107,7 @@ const routes: Routes = [
         canActivate: [AuthService],
       },
       {
-        path: 'nouvelleavance/:avanceId/:membreId/:deboursementId',
+        path: 'nouvelleavance/:avanceId',
         component: NouvelleAvanceComponent,
         canActivate: [AuthService],
       },
@@ -122,7 +122,7 @@ const routes: Routes = [
         canActivate: [AuthService],
       },
       {
-        path: 'nouveaucredit/:creditId/:membreId/:deboursementId',
+        path: 'nouveaucredit/:creditId',
         component: NouveauCreditComponent,
         canActivate: [AuthService],
       },
@@ -208,10 +208,7 @@ const routes: Routes = [
       },
     ],
   },
-  {
-    path: '**',
-    component: PageLoginComponent,
-  },
+  { path: '**', redirectTo: 'home' },
 ];
 
 @NgModule({

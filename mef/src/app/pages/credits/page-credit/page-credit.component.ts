@@ -145,17 +145,11 @@ export class PageCreditComponent implements OnInit {
   //--------------------------------------
 
   newEvent(): void {
-    this.navigate(0, 0, 0);
+    this.navigate(0);
   }
 
-  navigate(
-    creditId: number = 0,
-    membreId: number = 0,
-    deboursementId: number | null = 0
-  ): void {
-    this.router.navigate([
-      '/nouveaucredit/' + creditId + '/' + membreId + '/' + deboursementId,
-    ]);
+  navigate(creditId: number = 0): void {
+    this.router.navigate(['/nouveaucredit/' + creditId]);
   }
 
   exportCredits(): void {}

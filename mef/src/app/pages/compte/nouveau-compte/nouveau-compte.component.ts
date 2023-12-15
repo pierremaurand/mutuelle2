@@ -73,7 +73,7 @@ export class NouveauCompteComponent implements OnInit {
   }
 
   addMouvement(): void {
-    this.router.navigate([`/addmouvement/${this.membre.id}`]);
+    this.router.navigate(['home', 'addmouvement', this.membre.id]);
   }
 
   estDebit(mouvement: Mouvement): boolean {
@@ -115,7 +115,7 @@ export class NouveauCompteComponent implements OnInit {
   }
 
   onGoBack(): void {
-    this.router.navigate(['/comptes']);
+    this.router.navigate(['home', 'comptes']);
   }
 
   getDocumentDefinition(): TDocumentDefinitions {

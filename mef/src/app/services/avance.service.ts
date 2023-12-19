@@ -1,14 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, map, tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Avance } from '../models/avance';
-import { EcheanceAvance } from '../models/echeanceAvance';
-import { MvtCompte } from '../models/mvtCompte';
-import { AvanceDebourse } from '../models/avanceDebourse';
 import { Mouvement } from '../models/mouvement';
-import { InfosAvance } from '../models/infosAvance';
-import { InfosRemboursements } from '../models/infosRemboursements';
 import { Deboursement } from '../models/deboursement.model';
 
 @Injectable({
@@ -36,17 +31,18 @@ export class AvanceService {
       .subscribe();
   }
 
-  debourser(mvts: Mouvement): void {
-    this.http.post(this.baseUrl + '/avance/debours', mvts).subscribe();
+  debourser(mvts: Mouvement): Observable<any> {
+    return this.http.post(this.baseUrl + '/avance/debours', mvts);
   }
 
-  add(avance: Avance): Observable<number> {
+  add(avance: Avance): Observable<any> {
     return this.http.post<number>(this.baseUrl + '/avance/add', avance);
   }
 
-  validate(id: number, deboursement: Deboursement): void {
-    this.http
-      .post(this.baseUrl + '/avance/validate/' + id.toString(), deboursement)
-      .subscribe();
+  validate(id: number, deboursement: Deboursement): Observable<any> {
+    return this.http.post(
+      this.baseUrl + '/avance/validate/' + id.toString(),
+      deboursement
+    );
   }
 }

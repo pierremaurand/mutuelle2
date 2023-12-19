@@ -43,7 +43,7 @@
                     type="button"
                     class="d-none d-sm-inline-block btn btn-success shadow-sm"
                     (click)="enregistrerAvance()"
-                    *ngIf="!avanceExiste && avanceForm.valid"
+                    *ngIf="!avance && avanceForm.valid"
                   >
                     <i class="fa fa-save"></i>
                   </button>
@@ -51,7 +51,7 @@
                     type="button"
                     class="d-none d-sm-inline-block btn btn-success shadow-sm"
                     (click)="enregistrerDecision()"
-                    *ngIf="!deboursementExiste && debourForm.valid"
+                    *ngIf="!deboursement && debourForm.valid"
                   >
                     <i class="fa fa-save"></i>
                   </button>
@@ -59,23 +59,18 @@
                     type="button"
                     class="d-none d-sm-inline-block btn btn-success shadow-sm"
                     (click)="enregistrerEcheancier()"
-                    *ngIf="deboursement$ && echeancierGenerer"
+                    *ngIf="!aEcheancier && echeancierGenerer"
                   >
                     <i class="fa fa-save"></i>
                   </button>
-                  <!-- <button
+                  <button
                     type="button"
                     class="d-none d-sm-inline-block btn btn-success shadow-sm"
                     (click)="debourser()"
-                    *ngIf="
-                      !mouvements &&
-                      echeancier &&
-                      echeancier.length != 0 &&
-                      !echeancierGenerer
-                    "
+                    *ngIf="aEcheancier && !avanceDebourse"
                   >
                     <i class="fa fa-coins"></i>
-                  </button> -->
+                  </button>
                 </div>
               </div>
             </div>
@@ -183,7 +178,7 @@
                     </div>
                     <div class="form-group col-lg-6 col-md-12">
                       <label for="dureeAccordee" class="form-label"
-                        >Nombre d'échéances sollicité</label
+                        >Durée accordée</label
                       >
                       <input
                         type="number"

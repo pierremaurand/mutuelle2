@@ -29,8 +29,7 @@ import { MembreService } from 'src/app/services/membre.service';
 })
 export class NouvelleAvanceComponent implements OnInit {
   status!: StatusPret;
-  avanceExiste: boolean = false;
-  deboursementExiste: boolean = false;
+  avanceDebourse: boolean = false;
 
   solde!: number;
   montant!: number;
@@ -40,6 +39,7 @@ export class NouvelleAvanceComponent implements OnInit {
 
   echeancier!: Echeance[];
   nbrEcheances: number = 0;
+  aEcheancier: boolean = false;
   echeancierGenerer: boolean = false;
   echeances$!: Observable<Echeance[]>;
 
@@ -142,12 +142,16 @@ export class NouvelleAvanceComponent implements OnInit {
     );
 
     this.deboursement$ = combineLatest([
-      this.avance$,
+      idAvance$,
+      this.avanceService.avances$,
       this.deboursementService.deboursements$,
     ]).pipe(
-      map(([avance, deboursements]) =>
-        deboursements.find(
-          (deboursement) => deboursement.id === avance.deboursementId
+      map(([id, avances, deboursements]) =>
+        deboursements.find((deboursement) =>
+          avances.find(
+            (avance) =>
+              avance.id === id && avance.deboursementId === deboursement.id
+          )
         )
       )
     );
@@ -171,7 +175,6 @@ export class NouvelleAvanceComponent implements OnInit {
     );
 
     this.membre$.subscribe((membre: Membre | undefined) => {
-      console.log(membre);
       if (membre) {
         this.idMembreCtrl.setValue(membre.id);
         this.membre = membre;
@@ -179,7 +182,6 @@ export class NouvelleAvanceComponent implements OnInit {
     });
 
     this.avance$.subscribe((avance: Avance | undefined) => {
-      console.log(avance);
       if (avance) {
         this.avance = avance;
         this.avanceForm.patchValue({
@@ -189,13 +191,12 @@ export class NouvelleAvanceComponent implements OnInit {
           nombreEcheancesSollicite: avance.nombreEcheancesSollicite,
           dateDemande: avance.dateDemande,
         });
-        this.avanceExiste = true;
       }
     });
 
     this.deboursement$.subscribe((deboursement: Deboursement | undefined) => {
-      console.log(deboursement);
       if (deboursement) {
+        this.deboursement = deboursement;
         this.debourForm.patchValue({
           id: deboursement.id,
           montantAccorde: deboursement.montantAccorde,
@@ -203,24 +204,22 @@ export class NouvelleAvanceComponent implements OnInit {
           dateDecaissement: deboursement.dateDecaissement,
           membreId: deboursement.membreId,
         });
-        this.deboursement = deboursement;
-        this.deboursementExiste = true;
       }
     });
 
     this.echeances$.subscribe((echeancier: Echeance[]) => {
-      console.log(echeancier);
       if (echeancier.length != 0) {
         this.echeancier = echeancier;
         this.nbrEcheances = echeancier.length;
+        this.aEcheancier = true;
       }
     });
 
     this.mouvements$.subscribe((mouvements: Mouvement[]) => {
-      console.log(mouvements);
       if (mouvements.length != 0) {
         this.mouvements = mouvements;
         this.solde = this.calculSolde();
+        this.avanceDebourse = true;
       }
     });
   }
@@ -258,42 +257,43 @@ export class NouvelleAvanceComponent implements OnInit {
       this.mouvement.montant = this.montantAccordeCtrl.value;
       this.mouvement.libelle =
         'Décaissement avance n° ' + this.idAvanceCtrl.value;
-      this.avanceService.debourser(this.mouvement);
+      this.avanceService.debourser(this.mouvement).subscribe(() => {
+        this.onGoBack();
+      });
     }
-
-    this.onGoBack();
   }
 
   enregistrerAvance(): void {
     if (this.avanceForm.valid && this.idAvanceCtrl.value == 0) {
-      this.avanceService.add(this.avanceForm.value).subscribe();
+      this.avanceService.add(this.avanceForm.value).subscribe(() => {
+        this.onGoBack();
+      });
     }
-
-    this.onGoBack();
   }
 
   enregistrerDecision(): void {
     if (this.debourForm.valid && this.idDeboursementCtrl.value == 0) {
-      this.avanceService.validate(
-        this.idAvanceCtrl.value,
-        this.debourForm.value
-      );
+      this.avanceService
+        .validate(this.idAvanceCtrl.value, this.debourForm.value)
+        .subscribe(() => {
+          this.reload(this.idAvanceCtrl.value);
+        });
     }
   }
 
   enregistrerEcheancier(): void {
     if (this.echeancier.length != 0) {
-      this.echeanceService.addEcheances(this.echeancier).subscribe();
+      this.echeanceService.addEcheances(this.echeancier).subscribe(() => {
+        this.onGoBack();
+      });
     }
-
-    this.onGoBack();
   }
 
   onGoBack(): void {
     this.router.navigate(['home', 'avances']);
   }
 
-  navigate(avanceId: SVGAnimatedNumberList): void {
+  reload(avanceId: number): void {
     this.router.navigate(['home', 'nouvelleavance', avanceId]);
   }
 

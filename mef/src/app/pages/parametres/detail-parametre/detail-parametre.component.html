@@ -1,0 +1,14 @@
+<div class="row">
+  <div class="col-lg-1 col-md-12 col-sm-12 text-center">
+    <img [src]="photo" class="rounded-circle img-fluid" />
+  </div>
+  <div
+    class="col-lg-11 col-md-12 col-sm-12 text-lg-left text-md-12 text-sm-center align-item-center"
+  >
+    <h5>{{ parametre.valeur | uppercase }}</h5>
+    <small>
+      <i class="fa fa-info-circle text-primary"></i>
+      {{ parametre.libelle | uppercase }}
+    </small>
+  </div>
+</div>

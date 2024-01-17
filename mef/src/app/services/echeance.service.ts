@@ -19,6 +19,7 @@ export class EcheanceService {
   }
 
   getEcheancesFromServer() {
+    console.log('chargement echeances');
     this.http
       .get<Echeance[]>(`${this.baseUrl}/echeance/list`)
       .pipe(
@@ -35,8 +36,8 @@ export class EcheanceService {
     );
   }
 
-  addEcheances(echeances: Echeance[]): Observable<number> {
-    return this.http.post<number>(this.baseUrl + '/echeance/add', echeances);
+  addEcheances(echeances: Echeance[]): Observable<any> {
+    return this.http.post(this.baseUrl + '/echeance/add', echeances);
   }
 
   enregistrerMouvements(mvts: Mouvement[]): void {

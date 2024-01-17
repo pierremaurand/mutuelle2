@@ -54,7 +54,7 @@ export class PageCompteComptableComponent implements OnInit {
   }
 
   navigate(id: number): void {
-    this.router.navigate(['/nouveaucomptecomptable/' + id.toString()]);
+    this.router.navigate(['home', 'nouveaucomptecomptable', id.toString()]);
   }
 
   exportComptes(): void {}

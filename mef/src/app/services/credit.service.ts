@@ -1,15 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, map, tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Credit } from '../models/credit';
-import { EcheanceCredit } from '../models/echeanceCredit';
-import { MvtCompte } from '../models/mvtCompte';
-import { CreditDebourse } from '../models/creditDebourse';
 import { Mouvement } from '../models/mouvement';
-import { InfosCredit } from '../models/infosCredit';
-import { CreditInfos } from '../models/credit-infos.model';
-import { InfosRbCredit } from '../models/infos-rb-credit.model';
 import { Deboursement } from '../models/deboursement.model';
 
 @Injectable({
@@ -37,16 +31,15 @@ export class CreditService {
       .subscribe();
   }
 
-  debourser(mvts: Mouvement[]): void {
-    console.log(mvts);
-    this.http.post(this.baseUrl + '/credit/debours', mvts).subscribe();
+  debourser(mvts: Mouvement[]): Observable<any> {
+    return this.http.post(this.baseUrl + '/credit/debours', mvts);
   }
 
-  validate(id: number, deboursement: Deboursement): void {
-    console.log(deboursement);
-    this.http
-      .post(this.baseUrl + '/credit/validate/' + id.toString(), deboursement)
-      .subscribe();
+  validate(id: number, deboursement: Deboursement): Observable<any> {
+    return this.http.post(
+      this.baseUrl + '/credit/validate/' + id.toString(),
+      deboursement
+    );
   }
 
   add(credit: Credit): Observable<Credit> {

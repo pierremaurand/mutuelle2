@@ -100,6 +100,9 @@ import { CreditModule } from './modules/credit/credit.module';
 import { CompteModule } from './modules/compte/compte.module';
 import { ComptabiliteModule } from './modules/comptabilite/comptabilite.module';
 import { AdminModule } from './modules/admin/admin.module';
+import { PageParametresComponent } from './pages/parametres/page-parametres/page-parametres.component';
+import { NouveauParametreComponent } from './pages/parametres/nouveau-parametre/nouveau-parametre.component';
+import { DetailParametreComponent } from './pages/parametres/detail-parametre/detail-parametre.component';
 
 @NgModule({
   declarations: [
@@ -184,6 +187,9 @@ import { AdminModule } from './modules/admin/admin.module';
     EcheancierComponent,
     FiltreMembreComponent,
     NouvelleOperationComponent,
+    PageParametresComponent,
+    NouveauParametreComponent,
+    DetailParametreComponent,
   ],
   providers: [
     {

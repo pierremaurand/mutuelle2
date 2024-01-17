@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable, combineLatest, map, startWith } from 'rxjs';
+import { ok } from 'assert';
+import { Observable, combineLatest, map, startWith, tap } from 'rxjs';
 import { StatusPret } from 'src/app/enums/statut-pret.enum';
 import { Avance } from 'src/app/models/avance';
 import { Membre } from 'src/app/models/membre.model';
@@ -22,6 +23,9 @@ export class PageAvanceComponent implements OnInit {
   avances$!: Observable<Avance[]>;
   membres$!: Observable<Membre[]>;
   mouvements$!: Observable<Mouvement[]>;
+  mouvements!: Mouvement[];
+  solde: number = 0;
+  total: number = 0;
 
   searchCtrl!: FormControl;
   statusPretCtrl!: FormControl;
@@ -57,10 +61,6 @@ export class PageAvanceComponent implements OnInit {
   }
 
   private initObservables(): void {
-    this.avances$ = this.avanceService.avances$;
-    this.membres$ = this.membreService.membres$;
-    this.mouvements$ = this.compteService.mouvements$;
-
     const search$ = this.searchCtrl.valueChanges.pipe(
       startWith(this.searchCtrl.value),
       map((value) => value.toLowerCase())
@@ -74,9 +74,9 @@ export class PageAvanceComponent implements OnInit {
     this.avances$ = combineLatest([
       search$,
       statusPret$,
-      this.membres$,
-      this.avances$,
-      this.mouvements$,
+      this.membreService.membres$,
+      this.avanceService.avances$,
+      this.compteService.mouvements$,
     ]).pipe(
       map(([search, statusPret, membres, avances, mouvements]) =>
         avances.filter(
@@ -94,6 +94,26 @@ export class PageAvanceComponent implements OnInit {
         )
       )
     );
+
+    this.mouvements$ = combineLatest([
+      this.avances$,
+      this.compteService.mouvements$,
+    ]).pipe(
+      map(([avances, mouvements]) =>
+        mouvements.filter((mouvement) =>
+          avances.find((avance) => mouvement.avanceId === avance.id)
+        )
+      )
+    );
+
+    this.avances$.subscribe((avances: Avance[]) => {
+      this.total = avances.length;
+    });
+
+    this.mouvements$.subscribe((mouvements: Mouvement[]) => {
+      this.mouvements = mouvements;
+      this.solde = this.calculSoldeTotal(mouvements);
+    });
   }
 
   private checkStatut(
@@ -101,8 +121,8 @@ export class PageAvanceComponent implements OnInit {
     statutPret: StatusPret,
     mouvements: Mouvement[]
   ): boolean {
-    const statut = this.getStatutPret(avance.deboursementId, mouvements);
-    if (statut == statutPret || statutPret == StatusPret.AUCUN) {
+    const status = this.getStatutPret(avance.deboursementId, mouvements);
+    if (status == statutPret || statutPret == StatusPret.AUCUN) {
       return true;
     }
     return false;
@@ -139,6 +159,18 @@ export class PageAvanceComponent implements OnInit {
 
   effacer(): void {
     this.statusPretCtrl.setValue(StatusPret.AUCUN);
+  }
+
+  calculSoldeTotal(mouvements: Mouvement[]): number {
+    let solde = 0;
+    mouvements.forEach((mouvement) => {
+      if (mouvement.typeOperation === TypeOperation.Debit) {
+        solde += mouvement.montant ?? 0;
+      } else {
+        solde -= mouvement.montant ?? 0;
+      }
+    });
+    return solde;
   }
 
   //------------------------------------------

@@ -102,6 +102,6 @@ export class NouveauLieuAffectationComponent implements OnInit {
   }
 
   cancel(): void {
-    this.router.navigate(['/lieuaffectations']);
+    this.router.navigate(['home', 'lieuaffectations']);
   }
 }

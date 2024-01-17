@@ -67,6 +67,9 @@ namespace mefApi.Data
         public IMouvementRepository MouvementRepository =>
             new MouvementRepository(dc);
 
+         public IParametreRepository ParametreRepository =>
+            new ParametreRepository(dc);
+
         public async Task<bool> SaveAsync()
         {
             return await dc.SaveChangesAsync() > 0;

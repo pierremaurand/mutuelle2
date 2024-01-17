@@ -7,7 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { combineLatest, map, Observable } from 'rxjs';
+import { combineLatest, map, Observable, startWith } from 'rxjs';
 import { StatusPret } from 'src/app/enums/statut-pret.enum';
 import { Membre } from 'src/app/models/membre.model';
 import { Credit } from 'src/app/models/credit';
@@ -20,6 +20,7 @@ import { CompteService } from 'src/app/services/compte.service';
 import { DeboursementService } from 'src/app/services/deboursement.service';
 import { EcheanceService } from 'src/app/services/echeance.service';
 import { TypeOperation } from 'src/app/models/typeoperation';
+import { AlertifyService } from 'src/app/services/alertify.service';
 
 @Component({
   selector: 'app-nouveau-credit',
@@ -29,32 +30,31 @@ import { TypeOperation } from 'src/app/models/typeoperation';
 })
 export class NouveauCreditComponent implements OnInit {
   status!: StatusPret;
+  creditDebourse: boolean = false;
 
   solde!: number;
   montant!: number;
+  soldeCompte: number = 0;
 
   deboursement!: Deboursement;
-  deboursement$!: Observable<Deboursement>;
-  deboursements$!: Observable<Deboursement[]>;
+  deboursement$!: Observable<Deboursement | undefined>;
 
   echeancier!: Echeance[];
   nbrEcheances: number = 0;
   echeancierGenerer: boolean = false;
-  echeancier$!: Observable<Echeance[]>;
-  echeances$!: Observable<Echeance[]>;
+  aEcheancier: boolean = false;
+  echeancier$!: Observable<Echeance[] | undefined>;
 
   debug: any;
   mouvements!: Mouvement[];
-  mouvementsCredit$!: Observable<Mouvement[]>;
-  mouvements$!: Observable<Mouvement[]>;
+  mouvements$!: Observable<Mouvement[] | undefined>;
+  mouvementsMembre$!: Observable<Mouvement[] | undefined>;
 
   membre!: Membre;
-  membre$!: Observable<Membre>;
-  membres$!: Observable<Membre[]>;
+  membre$!: Observable<Membre | undefined>;
 
   credit!: Credit;
-  credit$!: Observable<Credit>;
-  credits$!: Observable<Credit[]>;
+  credit$!: Observable<Credit | undefined>;
 
   creditForm!: FormGroup;
   montantSolliciteCtrl!: FormControl;
@@ -84,6 +84,7 @@ export class NouveauCreditComponent implements OnInit {
     private deboursementService: DeboursementService,
     private echeanceService: EcheanceService,
     private datePipe: DatePipe,
+    private alertify: AlertifyService,
     private fb: FormBuilder
   ) {}
 
@@ -132,62 +133,85 @@ export class NouveauCreditComponent implements OnInit {
   }
 
   private initObservables() {
-    this.credits$ = this.creditService.credits$;
-    this.membres$ = this.membreService.membres$;
-    this.deboursements$ = this.deboursementService.deboursements$;
-    this.echeances$ = this.echeanceService.echeances$;
-    this.mouvements$ = this.compteService.mouvements$;
-
     const idCredit$ = this.route.params.pipe(
       map((params) => +params['creditId'])
     );
 
-    const idMembre$ = this.route.params.pipe(
-      map((params) => +params['membreId'])
+    const idMembre$ = this.idMembreCtrl.valueChanges.pipe(
+      startWith(this.idMembreCtrl.value),
+      map((value) => value)
     );
 
-    const idDeboursement$ = this.route.params.pipe(
-      map((params) => +params['deboursementId'])
+    this.credit$ = combineLatest([idCredit$, this.creditService.credits$]).pipe(
+      map(([id, credits]) => credits.find((credit) => credit.id === id))
     );
 
-    this.credit$ = combineLatest([idCredit$, this.credits$]).pipe(
-      map(([id, credits]) => credits.filter((credit) => credit.id === id)[0])
-    );
-
-    this.membre$ = combineLatest([idMembre$, this.membres$]).pipe(
-      map(([id, membres]) => membres.filter((membre) => membre.id === id)[0])
-    );
-
-    this.deboursement$ = combineLatest([
-      idDeboursement$,
-      this.deboursements$,
+    this.membre$ = combineLatest([
+      idCredit$,
+      this.creditService.credits$,
+      this.membreService.membres$,
     ]).pipe(
-      map(
-        ([id, deboursements]) =>
-          deboursements.filter((deboursement) => deboursement.id === id)[0]
+      map(([id, credits, membres]) =>
+        membres.find((membre) =>
+          credits.find(
+            (credit) => credit.id === id && credit.membreId === membre.id
+          )
+        )
       )
     );
 
-    this.echeancier$ = combineLatest([idCredit$, this.echeances$]).pipe(
+    this.deboursement$ = combineLatest([
+      idCredit$,
+      this.creditService.credits$,
+      this.deboursementService.deboursements$,
+    ]).pipe(
+      map(([id, credits, deboursements]) =>
+        deboursements.find((deboursement) =>
+          credits.find(
+            (credit) =>
+              credit.id === id &&
+              credit.deboursementId &&
+              deboursement.id === credit.deboursementId
+          )
+        )
+      )
+    );
+
+    this.echeancier$ = combineLatest([
+      idCredit$,
+      this.echeanceService.echeances$,
+    ]).pipe(
       map(([id, echeances]) =>
         echeances.filter((echeance) => echeance.creditId === id)
       )
     );
 
-    this.mouvementsCredit$ = combineLatest([idCredit$, this.mouvements$]).pipe(
+    this.mouvements$ = combineLatest([
+      idCredit$,
+      this.compteService.mouvements$,
+    ]).pipe(
       map(([id, mouvements]) =>
         mouvements.filter((mouvement) => mouvement.creditId === id)
       )
     );
 
-    this.membre$.subscribe((membre: Membre) => {
+    this.mouvementsMembre$ = combineLatest([
+      idMembre$,
+      this.compteService.mouvements$,
+    ]).pipe(
+      map(([id, mouvements]) =>
+        mouvements.filter((mouvement) => mouvement.membreId === id)
+      )
+    );
+
+    this.membre$.subscribe((membre) => {
       if (membre) {
         this.idMembreCtrl.setValue(membre.id);
         this.membre = membre;
       }
     });
 
-    this.credit$.subscribe((credit: Credit) => {
+    this.credit$.subscribe((credit) => {
       if (credit) {
         this.credit = credit;
         this.creditForm.patchValue({
@@ -200,7 +224,6 @@ export class NouveauCreditComponent implements OnInit {
     });
 
     this.deboursement$.subscribe((deboursement) => {
-      console.log(deboursement);
       if (deboursement) {
         this.deboursementForm.patchValue({
           id: deboursement.id,
@@ -215,19 +238,40 @@ export class NouveauCreditComponent implements OnInit {
       }
     });
 
-    this.echeancier$.subscribe((echeancier: Echeance[]) => {
-      if (echeancier.length != 0) {
+    this.echeancier$.subscribe((echeancier) => {
+      if (echeancier && echeancier.length != 0) {
         this.echeancier = echeancier;
         this.nbrEcheances = echeancier.length;
+        this.aEcheancier = true;
       }
     });
 
-    this.mouvementsCredit$.subscribe((mouvements: Mouvement[]) => {
-      if (mouvements.length != 0) {
+    this.mouvements$.subscribe((mouvements) => {
+      if (mouvements && mouvements.length != 0) {
         this.mouvements = mouvements;
         this.solde = this.calculSolde();
+        this.creditDebourse = true;
       }
     });
+
+    this.mouvementsMembre$.subscribe((mouvements: Mouvement[] | undefined) => {
+      if (mouvements) {
+        this.soldeCompte = this.calculSoldeCompte(mouvements);
+      }
+    });
+  }
+
+  private calculSoldeCompte(mouvements: Mouvement[]): number {
+    let solde = 0;
+    mouvements.forEach((mouvement) => {
+      if (mouvement.typeOperation === TypeOperation.Credit) {
+        solde += mouvement.montant ?? 0;
+      } else {
+        solde -= mouvement.montant ?? 0;
+      }
+    });
+
+    return solde;
   }
 
   membreChoisie(membre: Membre) {
@@ -251,71 +295,109 @@ export class NouveauCreditComponent implements OnInit {
   }
 
   enregistrerDemande(): void {
-    if (this.creditForm.valid) {
-      this.creditService.add(this.creditForm.value).subscribe();
-      this.onGoBack();
+    if (
+      this.creditForm.valid &&
+      this.idCreditCtrl.value == 0 &&
+      this.soldeCompte > this.montantSolliciteCtrl.value
+    ) {
+      if (this.dureeSolliciteCtrl.value <= 24) {
+        this.creditService.add(this.creditForm.value).subscribe(() => {
+          this.onGoBack();
+        });
+      } else {
+        this.alertify.error(
+          'La durée sollicitée doit être inférieur ou égale à 24 mois!'
+        );
+      }
+    } else {
+      this.alertify.error(
+        'Le montant sollicité doit être inférieur à ' + this.soldeCompte
+      );
     }
   }
 
   enregistrerAccord(): void {
-    if (this.deboursementForm.valid) {
-      this.creditService.validate(
-        this.idCreditCtrl.value,
-        this.deboursementForm.value
+    if (
+      this.deboursementForm.valid &&
+      this.idDeboursementCtrl.value === 0 &&
+      this.soldeCompte >
+        this.montantAccordeCtrl.value +
+          this.montantCommissionCtrl.value +
+          this.montantInteretCtrl.value
+    ) {
+      if (this.dureeAccordeeCtrl.value <= 24) {
+        this.creditService
+          .validate(this.idCreditCtrl.value, this.deboursementForm.value)
+          .subscribe(() => {
+            this.reload(this.idCreditCtrl.value);
+          });
+      } else {
+        this.alertify.error(
+          'La durée accordée doit être inférieure ou égale à 24 mois!'
+        );
+      }
+    } else {
+      this.alertify.error(
+        'Le montant accordé doit être inférieur à ' + this.soldeCompte
       );
-      this.onGoBack();
     }
   }
 
   enregistrerEcheancier(): void {
     if (this.echeancier.length != 0) {
-      this.echeanceService.addEcheances(this.echeancier).subscribe();
+      this.echeanceService.addEcheances(this.echeancier).subscribe(() => {
+        this.onGoBack();
+      });
     }
-
-    this.onGoBack();
   }
 
   debourser(): void {
     if (this.deboursementForm.valid) {
       let mouvements = [];
-      let mouvement = new Mouvement();
-      mouvement.membreId = this.idMembreCtrl.value;
-      mouvement.creditId = this.idCreditCtrl.value;
-      mouvement.deboursementId = this.idDeboursementCtrl.value;
-      mouvement.dateMvt = this.dateDecaissementCtrl.value;
-      mouvement.typeOperation = TypeOperation.Debit;
-      mouvement.montant = this.montantAccordeCtrl.value;
-      mouvement.libelle = 'Décaissement crédit n° ' + this.idCreditCtrl.value;
-      mouvements.push(mouvement);
+      let deboursement = new Mouvement();
+      let prelevementInt = new Mouvement();
+      let prelevementCom = new Mouvement();
 
-      mouvement = new Mouvement();
-      mouvement.membreId = this.idMembreCtrl.value;
-      mouvement.creditId = this.idCreditCtrl.value;
-      mouvement.dateMvt = this.dateDecaissementCtrl.value;
-      mouvement.typeOperation = TypeOperation.Debit;
-      mouvement.montant = this.montantInteretCtrl.value;
-      mouvement.libelle =
+      deboursement.membreId = this.idMembreCtrl.value;
+      deboursement.creditId = this.idCreditCtrl.value;
+      deboursement.deboursementId = this.idDeboursementCtrl.value;
+      deboursement.dateMvt = this.dateDecaissementCtrl.value;
+      deboursement.typeOperation = TypeOperation.Debit;
+      deboursement.montant = this.montantAccordeCtrl.value;
+      deboursement.libelle =
+        'Décaissement crédit n° ' + this.idCreditCtrl.value;
+      mouvements.push(deboursement);
+
+      prelevementInt.membreId = this.idMembreCtrl.value;
+      prelevementInt.creditId = this.idCreditCtrl.value;
+      prelevementInt.dateMvt = this.dateDecaissementCtrl.value;
+      prelevementInt.typeOperation = TypeOperation.Debit;
+      prelevementInt.montant = this.montantInteretCtrl.value;
+      prelevementInt.libelle =
         'Prélèvement des intérêts du crédit n° ' + this.idCreditCtrl.value;
-      mouvements.push(mouvement);
+      mouvements.push(prelevementInt);
 
-      mouvement = new Mouvement();
-      mouvement.membreId = this.idMembreCtrl.value;
-      mouvement.creditId = this.idCreditCtrl.value;
-      mouvement.dateMvt = this.dateDecaissementCtrl.value;
-      mouvement.typeOperation = TypeOperation.Debit;
-      mouvement.montant = this.montantCommissionCtrl.value;
-      mouvement.libelle =
+      prelevementCom.membreId = this.idMembreCtrl.value;
+      prelevementCom.creditId = this.idCreditCtrl.value;
+      prelevementCom.dateMvt = this.dateDecaissementCtrl.value;
+      prelevementCom.typeOperation = TypeOperation.Debit;
+      prelevementCom.montant = this.montantCommissionCtrl.value;
+      prelevementCom.libelle =
         'Prélèvement des commission du crédit n° ' + this.idCreditCtrl.value;
-      mouvements.push(mouvement);
+      mouvements.push(prelevementCom);
 
-      this.creditService.debourser(mouvements);
+      this.creditService.debourser(mouvements).subscribe(() => {
+        this.onGoBack();
+      });
     }
-
-    this.onGoBack();
   }
 
   onGoBack(): void {
-    this.router.navigate(['/credits']);
+    this.router.navigate(['home', 'credits']);
+  }
+
+  reload(creditId: number): void {
+    this.router.navigate(['home', 'nouveaucredit', creditId]);
   }
 
   genererEcheancier(): void {
@@ -342,6 +424,9 @@ export class NouveauCreditComponent implements OnInit {
       if (nbrEcheances && nbrEcheances <= 24 && nbrEcheances > 0) {
         this.echeancier = [];
         curDate = dateDebut;
+        if (curDate.getDay() > 15) {
+          curDate.setMonth(curDate.getMonth() + 1);
+        }
         if (nbrEcheances) {
           for (let i = 1; i <= nbrEcheances; i++) {
             let echeance: Echeance = new Echeance();
@@ -349,7 +434,7 @@ export class NouveauCreditComponent implements OnInit {
             echeance.membreId = this.idMembreCtrl.value;
             echeance.dateEcheance = this.datePipe.transform(
               curDate,
-              'yyyy-MM-25'
+              'yyyy-MM-dd'
             );
             echeance.montantEcheance = montantEcheance;
             if (reste !== 0) {

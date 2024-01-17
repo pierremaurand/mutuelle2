@@ -9,7 +9,6 @@ import { LieuAffectation } from 'src/app/models/lieuAffectation';
 import { Poste } from 'src/app/models/poste';
 import { Sexe } from 'src/app/models/sexe';
 import { environment } from 'src/environments/environment';
-import { of } from 'rxjs';
 
 @Component({
   selector: 'app-infos-membre',
@@ -19,7 +18,7 @@ import { of } from 'rxjs';
 })
 export class InfosMembreComponent implements OnInit {
   @Input()
-  membre: Membre = new Membre();
+  membre: Membre | undefined = new Membre();
   @Input()
   sexe!: Sexe;
   @Input()

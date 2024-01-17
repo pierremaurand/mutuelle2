@@ -35,6 +35,8 @@ import { PageEcheancesAvancesComponent } from './pages/avances/page-echeances-av
 import { PageEcheancesCreditsComponent } from './pages/credits/page-echeances-credits/page-echeances-credits.component';
 import { NouveauMouvementComponent } from './pages/compte/nouveau-mouvement/nouveau-mouvement.component';
 import { CotisationsMembreComponent } from './pages/cotisations/cotisations-membre/cotisations-membre.component';
+import { PageParametresComponent } from './pages/parametres/page-parametres/page-parametres.component';
+import { NouveauParametreComponent } from './pages/parametres/nouveau-parametre/nouveau-parametre.component';
 
 const routes: Routes = [
   {
@@ -44,166 +46,211 @@ const routes: Routes = [
   {
     path: 'home',
     component: AccueilComponent,
+    data: { animation: 'enterLeavePage' },
     canActivate: [AuthService],
     children: [
       {
         path: '',
         component: VueEnsembleComponent,
+        data: { animation: 'enterLeavePage' },
         canActivate: [AuthService],
       },
       {
         path: 'statistiques',
         component: StatistiquesComponent,
+        data: { animation: 'enterLeavePage' },
         canActivate: [AuthService],
       },
       {
         path: 'membres',
         component: MembreListComponent,
+        data: { animation: 'enterLeavePage' },
         canActivate: [AuthService],
       },
       {
         path: 'nouveaumembre/:membreId',
         component: NouveauMembreComponent,
+        data: { animation: 'enterLeavePage' },
         canActivate: [AuthService],
       },
       {
         path: 'comptes',
         component: PageCompteComponent,
+        data: { animation: 'enterLeavePage' },
         canActivate: [AuthService],
       },
       {
         path: 'nouveaucompte',
         component: NouveauCompteComponent,
+        data: { animation: 'enterLeavePage' },
         canActivate: [AuthService],
       },
       {
         path: 'addmouvement/:id',
         component: NouveauMouvementComponent,
+        data: { animation: 'enterLeavePage' },
         canActivate: [AuthService],
       },
       {
         path: 'nouveaucompte/:id',
         component: NouveauCompteComponent,
+        data: { animation: 'enterLeavePage' },
         canActivate: [AuthService],
       },
       {
         path: 'cotisations',
         component: PageCotisationComponent,
+        data: { animation: 'enterLeavePage' },
         canActivate: [AuthService],
       },
       {
         path: 'cotisationsmembre/:id',
         component: CotisationsMembreComponent,
+        data: { animation: 'enterLeavePage' },
         canActivate: [AuthService],
       },
       {
         path: 'addcotisation/:id',
         component: NouvelleCotisationComponent,
+        data: { animation: 'enterLeavePage' },
         canActivate: [AuthService],
       },
       {
         path: 'avances',
         component: PageAvanceComponent,
+        data: { animation: 'enterLeavePage' },
         canActivate: [AuthService],
       },
       {
         path: 'nouvelleavance/:avanceId',
         component: NouvelleAvanceComponent,
+        data: { animation: 'enterLeavePage' },
         canActivate: [AuthService],
       },
       {
         path: 'echeancesAvances',
         component: PageEcheancesAvancesComponent,
+        data: { animation: 'enterLeavePage' },
         canActivate: [AuthService],
       },
       {
         path: 'credits',
         component: PageCreditComponent,
+        data: { animation: 'enterLeavePage' },
         canActivate: [AuthService],
       },
       {
         path: 'nouveaucredit/:creditId',
         component: NouveauCreditComponent,
+        data: { animation: 'enterLeavePage' },
         canActivate: [AuthService],
       },
       {
         path: 'echeancesCredits',
         component: PageEcheancesCreditsComponent,
+        data: { animation: 'enterLeavePage' },
         canActivate: [AuthService],
       },
       {
         path: 'profil',
         component: PageProfilComponent,
+        data: { animation: 'enterLeavePage' },
         canActivate: [AuthService],
       },
       {
         path: 'changermotdepasse',
         component: ChangerMotDePasseComponent,
+        data: { animation: 'enterLeavePage' },
         canActivate: [AuthService],
       },
       {
         path: 'utilisateurs',
         component: PageUtilisateurComponent,
+        data: { animation: 'enterLeavePage' },
         canActivate: [AuthService],
       },
       {
-        path: 'nouvelutilisateur/:utilisateurId/:membreId',
+        path: 'nouvelutilisateur/:utilisateurId',
         component: NouvelUtilisateurComponent,
+        data: { animation: 'enterLeavePage' },
+        canActivate: [AuthService],
+      },
+      {
+        path: 'parametres',
+        component: PageParametresComponent,
+        data: { animation: 'enterLeavePage' },
+        canActivate: [AuthService],
+      },
+      {
+        path: 'nouveauparametre/:parametreId',
+        component: NouveauParametreComponent,
+        data: { animation: 'enterLeavePage' },
         canActivate: [AuthService],
       },
       {
         path: 'profile',
         component: PageProfileComponent,
+        data: { animation: 'enterLeavePage' },
         canActivate: [AuthService],
       },
       {
         path: 'comptecomptables',
         component: PageCompteComptableComponent,
+        data: { animation: 'enterLeavePage' },
         canActivate: [AuthService],
       },
       {
         path: 'nouveaucomptecomptable/:compteComptableId',
         component: NouveauCompteComptableComponent,
+        data: { animation: 'enterLeavePage' },
         canActivate: [AuthService],
       },
       {
         path: 'gabarits',
         component: PageGabaritComponent,
+        data: { animation: 'enterLeavePage' },
         canActivate: [AuthService],
       },
       {
         path: 'nouveaugabarit/:gabaritId',
         component: NouveauGabaritComponent,
+        data: { animation: 'enterLeavePage' },
         canActivate: [AuthService],
       },
       {
         path: 'sexes',
         component: PageSexeComponent,
+        data: { animation: 'enterLeavePage' },
         canActivate: [AuthService],
       },
       {
         path: 'nouveausexe/:sexeId',
         component: NouveauSexeComponent,
+        data: { animation: 'enterLeavePage' },
         canActivate: [AuthService],
       },
       {
         path: 'postes',
         component: PagePosteComponent,
+        data: { animation: 'enterLeavePage' },
         canActivate: [AuthService],
       },
       {
         path: 'nouveauposte/:posteId',
         component: NouveauPosteComponent,
+        data: { animation: 'enterLeavePage' },
         canActivate: [AuthService],
       },
       {
         path: 'lieuaffectations',
         component: PageLieuAffectationComponent,
+        data: { animation: 'enterLeavePage' },
         canActivate: [AuthService],
       },
       {
         path: 'nouveaulieuaffectation/:lieuAffectationId',
         component: NouveauLieuAffectationComponent,
+        data: { animation: 'enterLeavePage' },
         canActivate: [AuthService],
       },
     ],

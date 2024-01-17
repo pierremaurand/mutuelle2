@@ -85,6 +85,6 @@ export class NouveauSexeComponent implements OnInit {
   }
 
   cancel(): void {
-    this.router.navigate(['/sexes']);
+    this.router.navigate(['home', 'sexes']);
   }
 }

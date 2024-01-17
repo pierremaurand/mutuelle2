@@ -54,6 +54,6 @@ export class PageGabaritComponent implements OnInit {
   }
 
   navigate(id: number): void {
-    this.router.navigate(['/nouveaugabarit/' + id.toString()]);
+    this.router.navigate(['home', 'nouveaugabarit', id.toString()]);
   }
 }

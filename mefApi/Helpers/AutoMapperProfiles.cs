@@ -40,6 +40,8 @@ namespace mefApi.Helpers
             CreateMap<Echeance, EcheanceDto>().ReverseMap();
 
             CreateMap<Credit, CreditDto>().ReverseMap();
+            
+            CreateMap<Parametre, ParametreDto>().ReverseMap();
         }
     }
 }

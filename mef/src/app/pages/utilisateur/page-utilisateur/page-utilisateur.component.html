@@ -46,10 +46,7 @@
             let utilisateur of utilisateurs | sort : ['nomUtilisateur', 'asc']
           "
         >
-          <div
-            class="row"
-            (click)="navigate(utilisateur.id, utilisateur.membreId ?? 0)"
-          >
+          <div class="row" (click)="navigate(utilisateur.id)">
             <div class="col-12">
               <app-details-utilisateur
                 [utilisateur]="utilisateur"

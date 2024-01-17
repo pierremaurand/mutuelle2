@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import * as signalR from '@microsoft/signalr';
 import { environment } from 'src/environments/environment';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { InfosMembre } from '../models/infos-membre.model';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +12,11 @@ export class SignalrService {
   constructor() {}
 
   private hubConnection!: signalR.HubConnection;
+
+  private _parametreAdd$ = new BehaviorSubject<boolean>(false);
+  get parametreAdd$(): Observable<boolean> {
+    return this._parametreAdd$.asObservable();
+  }
 
   private _membreAdd$ = new BehaviorSubject<boolean>(false);
   get membreAdd$(): Observable<boolean> {
@@ -176,6 +180,12 @@ export class SignalrService {
   public addOperationAddListener = () => {
     this.hubConnection.on('OperationAdded', () => {
       this._operationAdd$.next(true);
+    });
+  };
+
+  public addParametreAddListener = () => {
+    this.hubConnection.on('ParametreAdded', () => {
+      this._parametreAdd$.next(true);
     });
   };
 }

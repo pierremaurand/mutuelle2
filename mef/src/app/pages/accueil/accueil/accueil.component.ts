@@ -15,6 +15,7 @@ import { GabaritService } from 'src/app/services/gabarit.service';
 import { LieuAffectationService } from 'src/app/services/lieu-affectation.service';
 import { MembreService } from 'src/app/services/membre.service';
 import { OperationService } from 'src/app/services/operation.service';
+import { ParametreService } from 'src/app/services/parametre.service';
 import { PosteService } from 'src/app/services/poste.service';
 import { SexeService } from 'src/app/services/sexe.service';
 import { SignalrService } from 'src/app/services/signalr.service';
@@ -114,13 +115,32 @@ export class AccueilComponent implements OnInit {
         },
       ],
     },
-    // {
-    //   id: '5',
-    //   titre: 'Comptabilité',
-    //   icon: 'fa fa-fw fa-money-check',
-    //   url: '',
-    //   sousMenu: [],
-    // },
+    {
+      id: '5',
+      titre: 'Comptabilité',
+      icon: 'fa fa-fw fa-money-check',
+      url: '',
+      sousMenu: [
+        {
+          id: '51',
+          titre: 'Grand livre',
+          icon: 'fas fa-fw fa-users-cog',
+          url: 'mouvements',
+        },
+        {
+          id: '52',
+          titre: 'Grand livre',
+          icon: 'fas fa-fw fa-users-cog',
+          url: 'mouvements',
+        },
+        {
+          id: '53',
+          titre: 'Grand livre',
+          icon: 'fas fa-fw fa-users-cog',
+          url: 'mouvements',
+        },
+      ],
+    },
     {
       id: '6',
       titre: 'Paramétrages',
@@ -145,23 +165,30 @@ export class AccueilComponent implements OnInit {
           icon: 'fa fa-fw fa-list',
           url: 'postes',
         },
-        {
-          id: '64',
-          titre: 'Comptes comptables',
-          icon: 'fa fa-fw fa-map',
-          url: 'comptecomptables',
-        },
-        {
-          id: '65',
-          titre: 'Gabarits',
-          icon: 'fa fa-fw fa-list',
-          url: 'gabarits',
-        },
+        // {
+        //   id: '64',
+        //   titre: 'Comptes comptables',
+        //   icon: 'fa fa-fw fa-map',
+        //   url: 'comptecomptables',
+        // },
+        // {
+        //   id: '65',
+        //   titre: 'Gabarits',
+        //   icon: 'fa fa-fw fa-list',
+        //   url: 'gabarits',
+        // },
         {
           id: '66',
           titre: 'Lieu Affectation',
           icon: 'far fa-fw fa-building',
           url: 'lieuaffectations',
+        },
+
+        {
+          id: '67',
+          titre: 'Parametres',
+          icon: 'far fa-fw fa-building',
+          url: 'parametres',
         },
       ],
     },
@@ -186,11 +213,14 @@ export class AccueilComponent implements OnInit {
     public gabaritService: GabaritService,
     public operationService: OperationService,
     public compteComptableService: CompteComptableService,
-    public utilisateurService: UtilisateurService
+    public utilisateurService: UtilisateurService,
+    public parametreService: ParametreService
   ) {}
 
   ngOnInit(): void {
     this.signalrService.startConnection();
+
+    this.signalrService.addParametreAddListener();
 
     this.signalrService.addUtilisateurAddListener();
 
@@ -226,6 +256,10 @@ export class AccueilComponent implements OnInit {
   }
 
   private initObservables(): void {
+    this.signalrService.parametreAdd$.subscribe(() => {
+      this.parametreService.getParametresFromServer();
+    });
+
     this.signalrService.utilisateurAdd$.subscribe(() => {
       this.utilisateurService.getUtilisateursFromServer();
     });

@@ -51,6 +51,6 @@ export class PagePosteComponent implements OnInit {
   }
 
   navigate(id: number): void {
-    this.router.navigate(['/nouveauposte/' + id.toString()]);
+    this.router.navigate(['home', 'nouveauposte', id.toString()]);
   }
 }

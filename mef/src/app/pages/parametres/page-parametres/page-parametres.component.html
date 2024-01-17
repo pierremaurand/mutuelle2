@@ -1,0 +1,63 @@
+<!-- Begin Page Content -->
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <div class="row mb-4">
+    <h1
+      class="h3 mb-0 text-gray-800 col-lg-8 col-md-12 col-sm-12 text-lg-left text-md-center text-sm-center"
+    >
+      <i class="fa fa-list"></i> Liste des parametres
+    </h1>
+    <span
+      class="col-lg-4 col-md-12 col-sm-12 text-lg-right text-md-center text-sm-center"
+    >
+      <app-bouton-action
+        (newEvent)="newEvent()"
+        [afficheNew]="true"
+      ></app-bouton-action>
+    </span>
+  </div>
+
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <div class="row">
+        <div class="col-12">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <label for="search" class="btn btn-primary shadow-sm">
+                <i class="fa fa-search"></i>
+              </label>
+            </div>
+            <input
+              type="search"
+              class="form-control shadow-sm"
+              name="search"
+              id="search"
+              [formControl]="searchCtrl"
+              placeholder="Rechercher..."
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body liste">
+      <div class="list-group" *ngIf="parametres$ | async as parametres">
+        <a
+          href="javascript:void(0);"
+          class="list-group-item list-group-item-action mb-2 shadow-sm rounded border"
+          aria-current="true"
+          *ngFor="let parametre of parametres | sort : ['libelle', 'asc']"
+        >
+          <div class="row" (click)="navigate(parametre.id)">
+            <div class="col-12">
+              <app-detail-parametre
+                [parametre]="parametre"
+              ></app-detail-parametre>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /.container-fluid -->

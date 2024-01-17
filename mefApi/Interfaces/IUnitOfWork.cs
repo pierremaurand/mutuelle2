@@ -20,6 +20,7 @@ namespace mefApi.Interfaces
         IEcheanceRepository EcheanceRepository { get; }
         IUtilisateurRepository UtilisateurRepository { get; }
         IMouvementRepository MouvementRepository { get; }
+        IParametreRepository ParametreRepository { get; }
         
         
         Task<bool> SaveAsync();

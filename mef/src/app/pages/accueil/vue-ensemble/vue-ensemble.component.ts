@@ -35,49 +35,68 @@ export class VueEnsembleComponent implements OnInit {
     this.cotisations$ = this.cotisationService.cotisations$;
   }
 
-  public montantMobilise(mouvements: Mouvement[]): number {
+  public caisseMutuelle(mouvements: Mouvement[]): number {
     let solde = 0;
     mouvements.forEach((mouvement) => {
-      if (mouvement.typeOperation === TypeOperation.Credit) {
+      if (
+        mouvement.cotisationId &&
+        mouvement.typeOperation === TypeOperation.Debit
+      ) {
         solde += mouvement.montant ?? 0;
-      } else {
-        solde -= mouvement.montant ?? 0;
+      }
+
+      if (
+        mouvement.creditId &&
+        !mouvement.deboursementId &&
+        mouvement.typeOperation === TypeOperation.Debit
+      ) {
+        solde += mouvement.montant ?? 0;
+      }
+
+      if (
+        mouvement.membreId &&
+        !mouvement.cotisationId &&
+        !mouvement.avanceId &&
+        !mouvement.creditId &&
+        !mouvement.echeanceId &&
+        !mouvement.deboursementId
+      ) {
+        if (mouvement.typeOperation === TypeOperation.Debit) {
+          solde += mouvement.montant ?? 0;
+        } else {
+          solde -= mouvement.montant ?? 0;
+        }
+      }
+
+      if (!mouvement.membreId) {
+        if (mouvement.typeOperation === TypeOperation.Credit) {
+          solde += mouvement.montant ?? 0;
+        } else {
+          solde -= mouvement.montant ?? 0;
+        }
       }
     });
     return solde;
   }
 
-  public montantCotise(cotisations: Cotisation[]): number {
-    let solde: number = 0;
-    cotisations.forEach((cotisation) => {
-      solde += cotisation.montant;
-    });
-    return solde;
-  }
-
-  public nbrMembresInactifs(membres: Membre[]): number {
+  public nbrMembresTotal(membres: Membre[]): number {
     let total = 0;
     membres.forEach((membre) => {
-      if (!membre.estActif) {
-        total++;
+      if (membre.estActif) {
+        total += 1;
       }
     });
     return total;
   }
 
-  public nbrMembresTotal(membres: Membre[]): number {
-    return membres.length;
-  }
-
   public calculEncoursCredit(mouvements: Mouvement[]): number {
     let encours = 0;
     mouvements.forEach((mouvement) => {
-      if (mouvement.creditId && mouvement.deboursementId) {
-        encours = +mouvement.montant ?? 0;
-      }
-
-      if (mouvement.creditId && mouvement.echeanceId) {
-        encours = -mouvement.montant ?? 0;
+      if (mouvement.creditId) {
+        if (mouvement.typeOperation === TypeOperation.Debit)
+          encours += mouvement.montant ?? 0;
+      } else {
+        encours -= mouvement.montant ?? 0;
       }
     });
     return encours;
@@ -86,12 +105,11 @@ export class VueEnsembleComponent implements OnInit {
   public calculEncoursAvance(mouvements: Mouvement[]): number {
     let encours = 0;
     mouvements.forEach((mouvement) => {
-      if (mouvement.avanceId && mouvement.deboursementId) {
-        encours = +mouvement.montant ?? 0;
-      }
-
-      if (mouvement.avanceId && mouvement.echeanceId) {
-        encours = -mouvement.montant ?? 0;
+      if (mouvement.avanceId) {
+        if (mouvement.typeOperation === TypeOperation.Debit)
+          encours += mouvement.montant ?? 0;
+      } else {
+        encours -= mouvement.montant ?? 0;
       }
     });
     return encours;

@@ -1,0 +1,73 @@
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">
+      <i class="fa fa-info-circle text-primary"></i>
+      &nbsp;Informations sur le parametre
+    </h1>
+  </div>
+
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <div class="row m-3">
+        <div class="col-lg-3 col-md-12 col-sm-12 border-end text-primary">
+          <img [src]="photo" alt="photo parametre" />
+        </div>
+        <div class="col-lg-9 col-md-12 col-sm-12">
+          <div class="row">
+            <div class="col-12 d-flex justify-content-between">
+              <a
+                href="javascript:void(0);"
+                (click)="cancel()"
+                class="btn btn-primary rounded-circle shadow-sm"
+              >
+                <i class="fa fa-arrow-left"></i>
+              </a>
+              <div class="group">
+                <button
+                  type="button"
+                  class="btn btn-success"
+                  (click)="enregistrer()"
+                  [disabled]="parametreForm.invalid"
+                >
+                  <i class="fa fa-save"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <hr />
+          <div class="row">
+            <div class="col-12">
+              <div class="row" [formGroup]="parametreForm">
+                <input type="hidden" name="id" formControlName="id" />
+                <div class="form-group col-lg-6 col-md-12 col-sm-12">
+                  <label for="libelle">Libellé du parametre</label>
+                  <input
+                    type="text"
+                    id="libelle"
+                    class="form-control"
+                    name="libelle"
+                    formControlName="libelle"
+                    placeholder="Le libellé du parametre"
+                  />
+                </div>
+                <div class="form-group col-lg-6 col-md-12 col-sm-12">
+                  <label for="valeur">Valeur du parametre</label>
+                  <input
+                    type="text"
+                    id="code"
+                    class="form-control"
+                    name="valeur"
+                    formControlName="valeur"
+                    placeholder="La valeur du parametre"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

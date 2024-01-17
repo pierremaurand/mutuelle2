@@ -25,10 +25,10 @@ export class PageSexeComponent implements OnInit {
   }
 
   newEvent(): void {
-    this.router.navigate(['/nouveausexe/0']);
+    this.navigate(0);
   }
 
   navigate(id: number): void {
-    this.router.navigate(['/nouveausexe/' + id.toString()]);
+    this.router.navigate(['home', 'nouveausexe', id.toString()]);
   }
 }

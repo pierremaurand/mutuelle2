@@ -87,6 +87,6 @@ export class NouveauPosteComponent implements OnInit {
   }
 
   cancel(): void {
-    this.router.navigate(['/postes']);
+    this.router.navigate(['home', 'postes']);
   }
 }

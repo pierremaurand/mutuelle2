@@ -42,8 +42,6 @@ namespace mefApi.Controllers
             uow.DeboursementRepository.Add(deboursement);
             await uow.SaveAsync();
             await signalrHub.Clients.All.SendAsync("DeboursementAdded");
-            await signalrHub.Clients.All.SendAsync("AvanceAdded");
-            await signalrHub.Clients.All.SendAsync("CreditAdded");
             return StatusCode(201);
         }
 

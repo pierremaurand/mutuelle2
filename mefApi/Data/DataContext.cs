@@ -26,6 +26,7 @@ namespace mefApi.Data
         public DbSet<Operation>? Operations { get; set; }  
         public DbSet<Poste>? Postes { get; set; } 
         public DbSet<Sexe>? Sexes { get; set; }      
-        public DbSet<Mois>? Mois { get; set; }          
+        public DbSet<Mois>? Mois { get; set; }  
+        public DbSet<Parametre>? Parametres { get; set; }          
     }
 }

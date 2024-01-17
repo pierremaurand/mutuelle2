@@ -567,6 +567,33 @@ namespace mefapi.Migrations
                     b.ToTable("Operations");
                 });
 
+            modelBuilder.Entity("mefApi.Models.Parametre", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Libelle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ModifieLe")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("ModifiePar")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Valeur")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Parametres");
+                });
+
             modelBuilder.Entity("mefApi.Models.Poste", b =>
                 {
                     b.Property<int>("Id")

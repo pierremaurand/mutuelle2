@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Kb6zggZlPb+SDTq/04jEgmRTEglc4/6UIT012NPXxSg=",
+  "Hash": "gCj23SSsRJXeHoXd08LOr4cTPn5OAyX0O2nsupJLCqk=",
   "Source": "mefapi",
   "BasePath": "_content/mefapi",
   "Mode": "Default",
@@ -272,6 +272,23 @@
       "OriginalItemSpec": "wwwroot\\assets\\images\\membre_1_0.png"
     },
     {
+      "Identity": "C:\\Users\\Maurand\\Documents\\projects\\mutuelle2\\mefapi\\wwwroot\\assets\\images\\membre_1_1.png",
+      "SourceId": "mefapi",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Maurand\\Documents\\projects\\mutuelle2\\mefapi\\wwwroot\\",
+      "BasePath": "_content/mefapi",
+      "RelativePath": "assets/images/membre_1_1.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\images\\membre_1_1.png"
+    },
+    {
       "Identity": "C:\\Users\\Maurand\\Documents\\projects\\mutuelle2\\mefapi\\wwwroot\\assets\\images\\membre_1.png",
       "SourceId": "mefapi",
       "SourceType": "Discovered",
@@ -389,6 +406,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\assets\\images\\membre_12_0.png"
+    },
+    {
+      "Identity": "C:\\Users\\Maurand\\Documents\\projects\\mutuelle2\\mefapi\\wwwroot\\assets\\images\\membre_12_1.png",
+      "SourceId": "mefapi",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Maurand\\Documents\\projects\\mutuelle2\\mefapi\\wwwroot\\",
+      "BasePath": "_content/mefapi",
+      "RelativePath": "assets/images/membre_12_1.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\images\\membre_12_1.png"
     },
     {
       "Identity": "C:\\Users\\Maurand\\Documents\\projects\\mutuelle2\\mefapi\\wwwroot\\assets\\images\\membre_1339.png",
@@ -729,6 +763,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\assets\\images\\membre_268.png"
+    },
+    {
+      "Identity": "C:\\Users\\Maurand\\Documents\\projects\\mutuelle2\\mefapi\\wwwroot\\assets\\images\\membre_27_0.png",
+      "SourceId": "mefapi",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Maurand\\Documents\\projects\\mutuelle2\\mefapi\\wwwroot\\",
+      "BasePath": "_content/mefapi",
+      "RelativePath": "assets/images/membre_27_0.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\images\\membre_27_0.png"
     },
     {
       "Identity": "C:\\Users\\Maurand\\Documents\\projects\\mutuelle2\\mefapi\\wwwroot\\assets\\images\\membre_6_0.png",

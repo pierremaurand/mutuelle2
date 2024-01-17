@@ -19,13 +19,11 @@ import { UtilisateurService } from 'src/app/services/utilisateur.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NouvelUtilisateurComponent implements OnInit {
-  utilisateur: Utilisateur = new Utilisateur();
-  membre: Membre = new Membre();
-  membre$!: Observable<Membre>;
-  utilisateur$!: Observable<Utilisateur>;
+  utilisateur: Utilisateur | undefined = undefined;
+  utilisateur$!: Observable<Utilisateur | undefined>;
 
-  idUtilisateur$!: Observable<number>;
-  idMembre$!: Observable<number>;
+  membre: Membre | undefined = undefined;
+  membre$!: Observable<Membre | undefined>;
 
   userForm!: FormGroup;
   idUtilisateurCtrl!: FormControl;
@@ -64,32 +62,35 @@ export class NouvelUtilisateurComponent implements OnInit {
   }
 
   private initObservable(): void {
-    this.idUtilisateur$ = this.route.params.pipe(
+    const idUtilisateur$ = this.route.params.pipe(
       map((params) => +params['utilisateurId'])
     );
 
-    this.idMembre$ = this.route.params.pipe(
-      map((params) => +params['membreId'])
-    );
-
     this.utilisateur$ = combineLatest([
-      this.idUtilisateur$,
+      idUtilisateur$,
       this.utilisateurService.utilisateurs$,
     ]).pipe(
-      map(
-        ([id, utilisateurs]) =>
-          utilisateurs.filter((utilisateur) => utilisateur.id === id)[0]
+      map(([id, utilisateurs]) =>
+        utilisateurs.find((utilisateur) => utilisateur.id === id)
       )
     );
 
     this.membre$ = combineLatest([
-      this.idMembre$,
+      idUtilisateur$,
+      this.utilisateurService.utilisateurs$,
       this.membreService.membres$,
     ]).pipe(
-      map(([id, membres]) => membres.filter((membre) => membre.id === id)[0])
+      map(([id, utilisateurs, membres]) =>
+        membres.find((membre) =>
+          utilisateurs.find(
+            (utilisateur) =>
+              utilisateur.id === id && membre.id === utilisateur.membreId
+          )
+        )
+      )
     );
 
-    this.utilisateur$.subscribe((utilisateur: Utilisateur) => {
+    this.utilisateur$.subscribe((utilisateur) => {
       if (utilisateur) {
         this.idUtilisateurCtrl.setValue(utilisateur.id);
         this.nomUtilisateurCtrl.setValue(utilisateur.nomUtilisateur);
@@ -98,7 +99,7 @@ export class NouvelUtilisateurComponent implements OnInit {
       }
     });
 
-    this.membre$.subscribe((membre: Membre) => {
+    this.membre$.subscribe((membre) => {
       if (membre) {
         this.membreIdCtrl.setValue(membre.id);
         this.membre = membre;
@@ -108,42 +109,45 @@ export class NouvelUtilisateurComponent implements OnInit {
 
   enregistrerInfos(): void {
     if (this.userForm.valid) {
-      if (this.utilisateur.id) {
-        this.utilisateurService.update(
-          this.utilisateur.id,
-          this.userForm.value
-        );
+      if (this.utilisateur && this.utilisateur.id) {
+        this.utilisateurService
+          .update(this.utilisateur.id, this.userForm.value)
+          .subscribe(() => {
+            this.cancel();
+          });
       } else {
-        this.utilisateurService.add(this.userForm.value);
+        this.utilisateurService.add(this.userForm.value).subscribe(() => {
+          this.cancel();
+        });
       }
-      this.cancel();
     }
   }
 
   initPassword(): void {
-    if (this.utilisateur.id) {
-      this.utilisateurService.initPassword(
-        this.utilisateur.id,
-        this.utilisateur
-      );
+    if (this.utilisateur && this.utilisateur.id) {
+      this.utilisateurService
+        .initPassword(this.utilisateur.id, this.utilisateur)
+        .subscribe();
     }
   }
 
   validationFormulaire(): boolean {
-    if (this.utilisateur.membreId == 0) {
-      return false;
-    }
-    if (this.utilisateur.nomUtilisateur == '') {
-      return false;
-    }
-    if (this.utilisateur.type == 0) {
-      return false;
+    if (this.utilisateur) {
+      if (this.utilisateur.membreId == 0) {
+        return false;
+      }
+      if (this.utilisateur.nomUtilisateur == '') {
+        return false;
+      }
+      if (this.utilisateur.type == 0) {
+        return false;
+      }
     }
     return true;
   }
 
   cancel(): void {
-    this.router.navigate(['/utilisateurs']);
+    this.router.navigate(['home', 'utilisateurs']);
   }
 
   membreChoisie(membre: Membre) {

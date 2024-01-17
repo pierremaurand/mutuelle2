@@ -60,12 +60,10 @@ export class PageUtilisateurComponent implements OnInit {
   }
 
   newEvent(): void {
-    this.navigate(0, 0);
+    this.navigate(0);
   }
 
-  navigate(utilisateurId: number, membreId: number): void {
-    this.router.navigate([
-      '/nouvelutilisateur/' + utilisateurId + '/' + membreId,
-    ]);
+  navigate(utilisateurId: number): void {
+    this.router.navigate(['home', 'nouvelutilisateur', utilisateurId]);
   }
 }

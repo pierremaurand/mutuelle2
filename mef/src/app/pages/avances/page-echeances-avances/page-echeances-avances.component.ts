@@ -23,6 +23,9 @@ export class PageEcheancesAvancesComponent implements OnInit {
   echeancier: Echeance[] = [];
   formulaire: number = 1;
 
+  total: number = 0;
+  montant: number = 0;
+
   echeances$!: Observable<Echeance[]>;
   mouvements$!: Observable<Mouvement[]>;
   membres$!: Observable<Membre[]>;
@@ -100,6 +103,19 @@ export class PageEcheancesAvancesComponent implements OnInit {
     this.mouvements$.subscribe((mouvements: Mouvement[]) => {
       this.mouvements = mouvements;
     });
+
+    this.echeances$.subscribe((echeances: Echeance[]) => {
+      this.total = echeances.length;
+      this.montant = this.calculMnt(echeances);
+    });
+  }
+
+  private calculMnt(echeances: Echeance[]): number {
+    let montant = 0;
+    echeances.forEach((echeance) => {
+      montant += echeance.montantEcheance ?? 0;
+    });
+    return montant;
   }
 
   getEtatPayement(montantEcheance: number, mouvements: Mouvement[]): boolean {

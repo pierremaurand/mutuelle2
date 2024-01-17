@@ -3,9 +3,8 @@ import { FormBuilder, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable, combineLatest, map, startWith } from 'rxjs';
 import { StatusPret } from 'src/app/enums/statut-pret.enum';
-import { Avance } from 'src/app/models/avance';
 import { Credit } from 'src/app/models/credit';
-import { CreditInfos } from 'src/app/models/credit-infos.model';
+import { Deboursement } from 'src/app/models/deboursement.model';
 import { Membre } from 'src/app/models/membre.model';
 import { Mouvement } from 'src/app/models/mouvement';
 import { TypeOperation } from 'src/app/models/typeoperation';
@@ -13,7 +12,6 @@ import { CompteService } from 'src/app/services/compte.service';
 import { CreditService } from 'src/app/services/credit.service';
 import { DeboursementService } from 'src/app/services/deboursement.service';
 import { MembreService } from 'src/app/services/membre.service';
-import { SignalrService } from 'src/app/services/signalr.service';
 
 @Component({
   selector: 'app-page-credit',
@@ -22,11 +20,16 @@ import { SignalrService } from 'src/app/services/signalr.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PageCreditComponent implements OnInit {
+  total: number = 0;
+  encoursCredit: number = 0;
+  soldeCommissions: number = 0;
+  soldeInterets: number = 0;
+
   loading$!: Observable<boolean>;
   credits$!: Observable<Credit[]>;
-  membres$!: Observable<Membre[]>;
   mouvements$!: Observable<Mouvement[]>;
-  creditAdded$!: Observable<boolean>;
+  deboursements$!: Observable<Deboursement[]>;
+  mouvements!: Mouvement[];
 
   searchCtrl!: FormControl;
   statusPretCtrl!: FormControl;
@@ -62,10 +65,6 @@ export class PageCreditComponent implements OnInit {
   }
 
   private initObservables(): void {
-    this.credits$ = this.creditService.credits$;
-    this.membres$ = this.membreService.membres$;
-    this.mouvements$ = this.compteService.mouvements$;
-
     const search$ = this.searchCtrl.valueChanges.pipe(
       startWith(this.searchCtrl.value),
       map((value) => value.toLowerCase())
@@ -79,9 +78,9 @@ export class PageCreditComponent implements OnInit {
     this.credits$ = combineLatest([
       search$,
       statusPret$,
-      this.membres$,
-      this.credits$,
-      this.mouvements$,
+      this.membreService.membres$,
+      this.creditService.credits$,
+      this.compteService.mouvements$,
     ]).pipe(
       map(([search, statusPret, membres, credits, mouvements]) =>
         credits.filter(
@@ -99,6 +98,70 @@ export class PageCreditComponent implements OnInit {
         )
       )
     );
+
+    this.mouvements$ = combineLatest([
+      this.credits$,
+      this.compteService.mouvements$,
+    ]).pipe(
+      map(([credits, mouvements]) =>
+        mouvements.filter((mouvement) =>
+          credits.find((credit) => mouvement.creditId === credit.id)
+        )
+      )
+    );
+
+    this.deboursements$ = combineLatest([
+      this.credits$,
+      this.deboursementService.deboursements$,
+    ]).pipe(
+      map(([credits, deboursements]) =>
+        deboursements.filter((deboursement) =>
+          credits.find((credit) => deboursement.id === credit.deboursementId)
+        )
+      )
+    );
+
+    this.credits$.subscribe((credits: Credit[]) => {
+      this.total = credits.length;
+    });
+
+    this.mouvements$.subscribe((mouvements: Mouvement[]) => {
+      this.mouvements = mouvements;
+      this.encoursCredit = this.calculSoldeTotal(mouvements);
+    });
+
+    this.deboursements$.subscribe((deboursements: Deboursement[]) => {
+      this.soldeCommissions = this.calculSoldeCommissions(deboursements);
+      this.soldeInterets = this.calculSoldeInterets(deboursements);
+    });
+  }
+
+  calculSoldeTotal(mouvements: Mouvement[]): number {
+    let solde = 0;
+    mouvements.forEach((mouvement) => {
+      if (mouvement.typeOperation === TypeOperation.Debit) {
+        solde += mouvement.montant ?? 0;
+      } else {
+        solde -= mouvement.montant ?? 0;
+      }
+    });
+    return solde;
+  }
+
+  calculSoldeCommissions(deboursements: Deboursement[]): number {
+    let solde = 0;
+    deboursements.forEach((deboursement) => {
+      solde += deboursement.montantCommission ?? 0;
+    });
+    return solde;
+  }
+
+  calculSoldeInterets(deboursements: Deboursement[]): number {
+    let solde = 0;
+    deboursements.forEach((deboursement) => {
+      solde += deboursement.montantInteret ?? 0;
+    });
+    return solde;
   }
 
   private checkStatut(
@@ -149,7 +212,7 @@ export class PageCreditComponent implements OnInit {
   }
 
   navigate(creditId: number = 0): void {
-    this.router.navigate(['/nouveaucredit/' + creditId]);
+    this.router.navigate(['home', 'nouveaucredit', creditId]);
   }
 
   exportCredits(): void {}
@@ -157,6 +220,6 @@ export class PageCreditComponent implements OnInit {
   importCredits(): void {}
 
   effacer(): void {
-    this.statusPretCtrl.setValue('');
+    this.statusPretCtrl.setValue(StatusPret.AUCUN);
   }
 }

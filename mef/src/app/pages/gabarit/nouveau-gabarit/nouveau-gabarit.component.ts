@@ -163,7 +163,7 @@ export class NouveauGabaritComponent implements OnInit {
   }
 
   cancel(): void {
-    this.router.navigate(['/gabarits']);
+    this.router.navigate(['home', 'gabarits']);
   }
 
   getNumCompte(id: number): string {

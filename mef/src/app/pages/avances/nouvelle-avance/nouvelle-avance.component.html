@@ -211,7 +211,7 @@
                 <div class="p-3">
                   <button
                     class="btn btn-primary btn-sm"
-                    *ngIf="!echeancier"
+                    *ngIf="echeances$"
                     (click)="genererEcheancier()"
                   >
                     Générer l'échéancier

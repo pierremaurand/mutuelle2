@@ -38,28 +38,28 @@ export class UtilisateurService {
     );
   }
 
-  add(utilisateur: Utilisateur): void {
-    this.http.post(this.baseUrl + '/utilisateur/add', utilisateur).subscribe();
+  add(utilisateur: Utilisateur): Observable<any> {
+    return this.http.post(this.baseUrl + '/utilisateur/add', utilisateur);
   }
 
-  initPassword(id: number, utilisateur: Utilisateur): void {
-    this.http
-      .put(
-        this.baseUrl + '/utilisateur/initPassword/' + id.toString(),
-        utilisateur
-      )
-      .subscribe();
+  initPassword(id: number, utilisateur: Utilisateur): Observable<any> {
+    return this.http.put(
+      this.baseUrl + '/utilisateur/initPassword/' + id.toString(),
+      utilisateur
+    );
   }
 
-  changePassword(infosPassword: InfosPassword): void {
-    this.http
-      .put(this.baseUrl + '/utilisateur/changePassword', infosPassword)
-      .subscribe();
+  changePassword(infosPassword: InfosPassword): Observable<any> {
+    return this.http.put(
+      this.baseUrl + '/utilisateur/changePassword',
+      infosPassword
+    );
   }
 
-  update(id: number, utilisateur: Utilisateur): void {
-    this.http
-      .put(this.baseUrl + '/utilisateur/update/' + id.toString(), utilisateur)
-      .subscribe();
+  update(id: number, utilisateur: Utilisateur): Observable<any> {
+    return this.http.put(
+      this.baseUrl + '/utilisateur/update/' + id.toString(),
+      utilisateur
+    );
   }
 }

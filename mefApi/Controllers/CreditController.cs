@@ -77,8 +77,7 @@ namespace mefApi.Controllers
             var mouvements = mapper.Map<List<Mouvement>>(mouvementsDto);
             
             foreach(var mouvement in mouvements) {
-                // mouvement.ModifiePar = GetUserId();
-                mouvement.ModifiePar = 1;
+                mouvement.ModifiePar = GetUserId();
                 mouvement.ModifieLe = DateTime.Now;
                 if(mouvement.Id == 0)
                     uow.MouvementRepository.Add(mouvement);
@@ -86,7 +85,6 @@ namespace mefApi.Controllers
             await uow.SaveAsync();
             await signalrHub.Clients.All.SendAsync("MouvementAdded");
             await signalrHub.Clients.All.SendAsync("CreditAdded");
-            await signalrHub.Clients.All.SendAsync("DeboursementAdded");
             return StatusCode(201);
         }
     }

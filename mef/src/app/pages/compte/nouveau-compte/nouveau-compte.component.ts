@@ -111,7 +111,7 @@ export class NouveauCompteComponent implements OnInit {
   }
 
   private getMouvements(index: number, liste: Mouvement[]): Mouvement[] {
-    return liste.slice(index);
+    return liste.slice(0, index + 1);
   }
 
   onGoBack(): void {

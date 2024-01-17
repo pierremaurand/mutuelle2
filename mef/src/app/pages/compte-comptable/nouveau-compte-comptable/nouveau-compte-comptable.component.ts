@@ -9,7 +9,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, combineLatest, map } from 'rxjs';
 import { CompteComptable } from 'src/app/models/comptecomptable';
 import { CompteComptableService } from 'src/app/services/compte-comptable.service';
-import { LoaderService } from 'src/app/services/loader.service';
 
 @Component({
   selector: 'app-nouveau-compte-comptable',
@@ -90,6 +89,6 @@ export class NouveauCompteComptableComponent implements OnInit {
   }
 
   cancel(): void {
-    this.router.navigate(['/comptecomptables']);
+    this.router.navigate(['home', 'comptecomptables']);
   }
 }

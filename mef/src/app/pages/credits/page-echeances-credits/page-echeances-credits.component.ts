@@ -3,7 +3,6 @@ import { FormBuilder, FormControl } from '@angular/forms';
 import { Observable, combineLatest, map, startWith } from 'rxjs';
 import { Credit } from 'src/app/models/credit';
 import { Echeance } from 'src/app/models/echeance.model';
-import { EcheanceCredit } from 'src/app/models/echeanceCredit';
 import { Membre } from 'src/app/models/membre.model';
 import { Mouvement } from 'src/app/models/mouvement';
 import { TypeOperation } from 'src/app/models/typeoperation';
@@ -23,6 +22,8 @@ export class PageEcheancesCreditsComponent implements OnInit {
   mouvements: Mouvement[] = [];
   echeancier: Echeance[] = [];
   formulaire: number = 1;
+  total: number = 0;
+  montant: number = 0;
 
   echeances$!: Observable<Echeance[]>;
   mouvements$!: Observable<Mouvement[]>;
@@ -101,6 +102,19 @@ export class PageEcheancesCreditsComponent implements OnInit {
     this.mouvements$.subscribe((mouvements: Mouvement[]) => {
       this.mouvements = mouvements;
     });
+
+    this.echeances$.subscribe((echeances: Echeance[]) => {
+      this.total = echeances.length;
+      this.montant = this.calculMnt(echeances);
+    });
+  }
+
+  private calculMnt(echeances: Echeance[]): number {
+    let montant = 0;
+    echeances.forEach((echeance) => {
+      montant += echeance.montantEcheance ?? 0;
+    });
+    return montant;
   }
 
   getEtatPayement(montantEcheance: number, mouvements: Mouvement[]): boolean {

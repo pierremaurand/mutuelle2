@@ -69,8 +69,8 @@
                   <tr
                     *ngFor="
                       let mouvement of mouvements
-                        | sort : ['id', 'desc']
-                        | sort : ['dateMvt', 'desc'];
+                        | sort : ['id', 'incr']
+                        | sort : ['dateMvt', 'incr'];
                       let i = index
                     "
                   >

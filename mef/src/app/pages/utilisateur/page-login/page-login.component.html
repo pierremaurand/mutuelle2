@@ -1,59 +1,36 @@
-<div class="row contenu">
-  <div class="col border-right"></div>
-  <div class="col">
-    <div class="row form d-flex justify-content-center align-items-center">
-      <div class="col-lg-10 col-md-12 col-sm-12">
-        <form [formGroup]="loginForm" (submit)="login()">
-          <div class="row mb-3">
-            <div class="col">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <label for="login" class="btn btn-primary shadow-sm">
-                    <i class="fa fa-user"></i>
-                  </label>
-                </div>
-                <input
-                  type="text"
-                  class="form-control shadow-sm"
-                  id="login"
-                  name="login"
-                  placeholder="Identifiant"
-                  formControlName="login"
-                />
-              </div>
-            </div>
-          </div>
-          <div class="row mb-3">
-            <div class="col">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <label for="password" class="btn btn-primary shadow-sm">
-                    <i class="fa fa-lock"></i>
-                  </label>
-                </div>
-                <input
-                  type="password"
-                  class="form-control shadow-sm"
-                  id="password"
-                  name="password"
-                  placeholder="Mot de passe"
-                  formControlName="password"
-                />
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <button
-                class="form-control btn btn-primary shadow-sm"
-                type="submit"
-                [disabled]="loginForm.invalid"
-              >
-                <i class="fas fa-sign-in-alt"></i> Se connecter
-              </button>
-            </div>
-          </div>
-        </form>
+<div class="container-fluid login-container">
+  <div class="card shadow-lg col-md-5 col-sm-10 login-content">
+    <div class="card-body">
+      <h3 class="card-title text-center">Connexion</h3>
+      <hr />
+      <div class="mb-3">
+        <label for="login" class="form-label">Identifiant</label>
+        <input
+          [(ngModel)]="loginRequest.login"
+          type="text"
+          class="form-control"
+          id="login"
+          placeholder="Identifiant de l'utilisateur"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Mot de passe</label>
+        <input
+          [(ngModel)]="loginRequest.password"
+          type="password"
+          class="form-control"
+          id="password"
+          placeholder="Mot de passe de l'utilisateur"
+        />
+      </div>
+      <div class="mb-3">
+        <button
+          class="form-control btn btn-primary"
+          type="button"
+          (click)="login()"
+        >
+          <i class="fas fa-sign-in-alt"></i>&nbsp;Se connecter
+        </button>
       </div>
     </div>
   </div>

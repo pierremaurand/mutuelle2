@@ -25,7 +25,16 @@ export class MembreService {
     return this._membres$.asObservable();
   }
 
+  private _idMembre$ = new BehaviorSubject<number>(0);
+  get idMembre(): Observable<number> {
+    return this._idMembre$.asObservable();
+  }
+
   constructor(private http: HttpClient) {}
+
+  setIdMembre(id: number): void {
+    this._idMembre$.next(id);
+  }
 
   getMembresFromServer() {
     console.log('Chargement des membres');

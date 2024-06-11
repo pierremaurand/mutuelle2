@@ -37,6 +37,8 @@ import { NouveauMouvementComponent } from './pages/compte/nouveau-mouvement/nouv
 import { CotisationsMembreComponent } from './pages/cotisations/cotisations-membre/cotisations-membre.component';
 import { PageParametresComponent } from './pages/parametres/page-parametres/page-parametres.component';
 import { NouveauParametreComponent } from './pages/parametres/nouveau-parametre/nouveau-parametre.component';
+import { ListeMembresComponent } from './pages/membres/liste-membres/liste-membres.component';
+import { FicheDetailsMembreComponent } from './composants/fiche-details-membre/fiche-details-membre.component';
 
 const routes: Routes = [
   {
@@ -63,7 +65,8 @@ const routes: Routes = [
       },
       {
         path: 'membres',
-        component: MembreListComponent,
+        //component: MembreListComponent,
+        component: ListeMembresComponent,
         data: { animation: 'enterLeavePage' },
         canActivate: [AuthService],
       },
@@ -76,6 +79,12 @@ const routes: Routes = [
       {
         path: 'comptes',
         component: PageCompteComponent,
+        data: { animation: 'enterLeavePage' },
+        canActivate: [AuthService],
+      },
+      {
+        path: 'details-membre/:id',
+        component: FicheDetailsMembreComponent,
         data: { animation: 'enterLeavePage' },
         canActivate: [AuthService],
       },

@@ -1,7 +1,7 @@
 {
   "version": 3,
   "targets": {
-    "net6.0": {
+    "net8.0": {
       "AutoMapper/11.0.0": {
         "type": "package",
         "dependencies": {
@@ -614,7 +614,7 @@
           }
         }
       },
-      "Microsoft.NETCore.Platforms/5.0.0": {
+      "Microsoft.NETCore.Platforms/3.1.0": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -714,21 +714,20 @@
           }
         }
       },
-      "SixLabors.ImageSharp/2.1.0": {
+      "SixLabors.ImageSharp/3.1.4": {
         "type": "package",
-        "dependencies": {
-          "System.Runtime.CompilerServices.Unsafe": "5.0.0",
-          "System.Text.Encoding.CodePages": "5.0.0"
-        },
         "compile": {
-          "lib/netcoreapp3.1/SixLabors.ImageSharp.dll": {
+          "lib/net6.0/SixLabors.ImageSharp.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/netcoreapp3.1/SixLabors.ImageSharp.dll": {
+          "lib/net6.0/SixLabors.ImageSharp.dll": {
             "related": ".xml"
           }
+        },
+        "build": {
+          "build/SixLabors.ImageSharp.props": {}
         }
       },
       "Swashbuckle.AspNetCore/6.2.3": {
@@ -1032,13 +1031,13 @@
           }
         }
       },
-      "System.Text.Encoding.CodePages/5.0.0": {
+      "System.Text.Encoding.CodePages/4.7.0": {
         "type": "package",
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "5.0.0"
+          "Microsoft.NETCore.Platforms": "3.1.0"
         },
         "compile": {
-          "lib/netstandard2.0/System.Text.Encoding.CodePages.dll": {
+          "lib/netstandard2.0/_._": {
             "related": ".xml"
           }
         },
@@ -1899,18 +1898,17 @@
         "microsoft.identitymodel.tokens.nuspec"
       ]
     },
-    "Microsoft.NETCore.Platforms/5.0.0": {
-      "sha512": "VyPlqzH2wavqquTcYpkIIAQ6WdenuKoFN0BdYBbCWsclXacSOHNQn66Gt4z5NBqEYW0FAPm5rlvki9ZiCij5xQ==",
+    "Microsoft.NETCore.Platforms/3.1.0": {
+      "sha512": "z7aeg8oHln2CuNulfhiLYxCVMPEwBl3rzicjvIX+4sUuCwvXw5oXQEtbiU2c0z4qYL5L3Kmx0mMA/+t/SbY67w==",
       "type": "package",
-      "path": "microsoft.netcore.platforms/5.0.0",
+      "path": "microsoft.netcore.platforms/3.1.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "Icon.png",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
         "lib/netstandard1.0/_._",
-        "microsoft.netcore.platforms.5.0.0.nupkg.sha512",
+        "microsoft.netcore.platforms.3.1.0.nupkg.sha512",
         "microsoft.netcore.platforms.nuspec",
         "runtime.json",
         "useSharedDesignerContext.txt",
@@ -2058,25 +2056,19 @@
         "newtonsoft.json.bson.nuspec"
       ]
     },
-    "SixLabors.ImageSharp/2.1.0": {
-      "sha512": "H8npUDq3VRagzRsJVxaNoUSMmD+kjAs7sR1Ip85eWbN5c0O1medMw/FiQ32dSNfWz/gVrc+xHs3es9SFlAiNBw==",
+    "SixLabors.ImageSharp/3.1.4": {
+      "sha512": "lFIdxgGDA5iYkUMRFOze7BGLcdpoLFbR+a20kc1W7NepvzU7ejtxtWOg9RvgG7kb9tBoJ3ONYOK6kLil/dgF1w==",
       "type": "package",
-      "path": "sixlabors.imagesharp/2.1.0",
+      "path": "sixlabors.imagesharp/3.1.4",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "lib/net472/SixLabors.ImageSharp.dll",
-        "lib/net472/SixLabors.ImageSharp.xml",
-        "lib/netcoreapp2.1/SixLabors.ImageSharp.dll",
-        "lib/netcoreapp2.1/SixLabors.ImageSharp.xml",
-        "lib/netcoreapp3.1/SixLabors.ImageSharp.dll",
-        "lib/netcoreapp3.1/SixLabors.ImageSharp.xml",
-        "lib/netstandard2.0/SixLabors.ImageSharp.dll",
-        "lib/netstandard2.0/SixLabors.ImageSharp.xml",
-        "lib/netstandard2.1/SixLabors.ImageSharp.dll",
-        "lib/netstandard2.1/SixLabors.ImageSharp.xml",
+        "LICENSE",
+        "build/SixLabors.ImageSharp.props",
+        "lib/net6.0/SixLabors.ImageSharp.dll",
+        "lib/net6.0/SixLabors.ImageSharp.xml",
         "sixlabors.imagesharp.128.png",
-        "sixlabors.imagesharp.2.1.0.nupkg.sha512",
+        "sixlabors.imagesharp.3.1.4.nupkg.sha512",
         "sixlabors.imagesharp.nuspec"
       ]
     },
@@ -2586,14 +2578,13 @@
         "version.txt"
       ]
     },
-    "System.Text.Encoding.CodePages/5.0.0": {
-      "sha512": "NyscU59xX6Uo91qvhOs2Ccho3AR2TnZPomo1Z0K6YpyztBPM/A5VbkzOO19sy3A3i1TtEnTxA7bCe3Us+r5MWg==",
+    "System.Text.Encoding.CodePages/4.7.0": {
+      "sha512": "aeu4FlaUTemuT1qOd1MyU4T516QR4Fy+9yDbwWMPHOHy7U8FD6SgTzdZFO7gHcfAPHtECqInbwklVvUK4RHcNg==",
       "type": "package",
-      "path": "system.text.encoding.codepages/5.0.0",
+      "path": "system.text.encoding.codepages/4.7.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "Icon.png",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
         "lib/MonoAndroid10/_._",
@@ -2621,7 +2612,7 @@
         "runtimes/win/lib/netstandard1.3/System.Text.Encoding.CodePages.dll",
         "runtimes/win/lib/netstandard2.0/System.Text.Encoding.CodePages.dll",
         "runtimes/win/lib/netstandard2.0/System.Text.Encoding.CodePages.xml",
-        "system.text.encoding.codepages.5.0.0.nupkg.sha512",
+        "system.text.encoding.codepages.4.7.0.nupkg.sha512",
         "system.text.encoding.codepages.nuspec",
         "useSharedDesignerContext.txt",
         "version.txt"
@@ -2669,7 +2660,7 @@
     }
   },
   "projectFileDependencyGroups": {
-    "net6.0": [
+    "net8.0": [
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 11.0.0",
       "CloudinaryDotNet >= 1.17.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 6.0.2",
@@ -2677,7 +2668,7 @@
       "Microsoft.EntityFrameworkCore >= 6.0.2",
       "Microsoft.EntityFrameworkCore.Design >= 6.0.2",
       "Microsoft.EntityFrameworkCore.SqlServer >= 6.0.2",
-      "SixLabors.ImageSharp >= 2.1.0",
+      "SixLabors.ImageSharp >= 3.1.4",
       "Swashbuckle.AspNetCore >= 6.2.3",
       "System.Drawing.Common >= 6.0.0"
     ]
@@ -2688,26 +2679,24 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\Maurand\\Documents\\projects\\mutuelle2\\mefApi\\mefapi.csproj",
+      "projectUniqueName": "C:\\Users\\Maurand\\Documents\\projects\\mutuelle2\\mefapi\\mefapi.csproj",
       "projectName": "mefapi",
-      "projectPath": "c:\\Users\\Maurand\\Documents\\projects\\mutuelle2\\mefApi\\mefapi.csproj",
+      "projectPath": "C:\\Users\\Maurand\\Documents\\projects\\mutuelle2\\mefapi\\mefapi.csproj",
       "packagesPath": "C:\\Users\\Maurand\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\Maurand\\Documents\\projects\\mutuelle2\\mefApi\\obj\\",
+      "outputPath": "C:\\Users\\Maurand\\Documents\\projects\\mutuelle2\\mefapi\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Maurand\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\Maurand\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
-        "net6.0"
+        "net8.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net6.0": {
-          "targetAlias": "net6.0",
+        "net8.0": {
+          "targetAlias": "net8.0",
           "projectReferences": {}
         }
       },
@@ -2715,11 +2704,16 @@
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
       }
     },
     "frameworks": {
-      "net6.0": {
-        "targetAlias": "net6.0",
+      "net8.0": {
+        "targetAlias": "net8.0",
         "dependencies": {
           "AutoMapper.Extensions.Microsoft.DependencyInjection": {
             "target": "Package",
@@ -2751,7 +2745,7 @@
           },
           "SixLabors.ImageSharp": {
             "target": "Package",
-            "version": "[2.1.0, )"
+            "version": "[3.1.4, )"
           },
           "Swashbuckle.AspNetCore": {
             "target": "Package",
@@ -2781,7 +2775,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.301/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

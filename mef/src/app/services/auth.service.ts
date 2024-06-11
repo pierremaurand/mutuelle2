@@ -9,7 +9,7 @@ import {
 } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { LoginReq } from '../models/loginReq';
+import { LoginRequest } from '../models/loginRequest';
 import { LoginRes } from '../models/loginRes';
 import { UserForRegister } from '../models/user';
 
@@ -38,10 +38,10 @@ export class AuthService implements CanActivate {
     return this.isAuthenticateUser();
   }
 
-  authUser(loginReq: LoginReq): Observable<LoginRes> {
+  authUser(loginRequest: LoginRequest): Observable<LoginRes> {
     return this.http.post<LoginRes>(
       this.baseUrl + '/utilisateur/login',
-      loginReq
+      loginRequest
     );
   }
 

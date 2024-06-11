@@ -103,6 +103,11 @@ import { AdminModule } from './modules/admin/admin.module';
 import { PageParametresComponent } from './pages/parametres/page-parametres/page-parametres.component';
 import { NouveauParametreComponent } from './pages/parametres/nouveau-parametre/nouveau-parametre.component';
 import { DetailParametreComponent } from './pages/parametres/detail-parametre/detail-parametre.component';
+import { ChartComponent } from './composants/chart/chart.component';
+import { ListeMembresComponent } from './pages/membres/liste-membres/liste-membres.component';
+import { FicheMembreComponent } from './composants/fiche-membre/fiche-membre.component';
+import { FicheDetailsMembreComponent } from './composants/fiche-details-membre/fiche-details-membre.component';
+import { InfosStatsComponent } from './composants/infos-stats/infos-stats.component';
 
 @NgModule({
   declarations: [
@@ -190,6 +195,11 @@ import { DetailParametreComponent } from './pages/parametres/detail-parametre/de
     PageParametresComponent,
     NouveauParametreComponent,
     DetailParametreComponent,
+    ChartComponent,
+    ListeMembresComponent,
+    FicheMembreComponent,
+    FicheDetailsMembreComponent,
+    InfosStatsComponent,
   ],
   providers: [
     {

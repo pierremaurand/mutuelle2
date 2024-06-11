@@ -1,10 +1,12 @@
-.contenu {
-  margin: 0;
-  padding: 0;
-  width: 100%;
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 100vh;
+  background-image: url(../../../../assets/img/background_2.jpg);
+  background-size: cover;
 }
 
-.form {
-  height: 100vh;
+.login-content {
+  opacity: 0.9;
 }

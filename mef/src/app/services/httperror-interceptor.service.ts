@@ -47,6 +47,7 @@ export class HttpErrorInterceptorService implements HttpInterceptor {
     return next.handle(modifiedReq).pipe(
       retryWhen((error) => this.retryRequest(error, 10)),
       catchError((error: HttpErrorResponse) => {
+        console.log(error);
         const errorMessage = this.setError(error);
         this.alertify.error(errorMessage);
         return throwError(() => errorMessage);
@@ -79,19 +80,24 @@ export class HttpErrorInterceptorService implements HttpInterceptor {
 
   setError(error: HttpErrorResponse): string {
     let errorMessage = 'Une erreur est survenue';
+    let errors: string[] = [];
     if (error.error instanceof ErrorEvent) {
       // Client side error
       errorMessage = error.error.message;
-      console.log(error);
     } else {
-      // Server side error
-      if (error.status === 401) {
-        return error.statusText;
+      errors = error.error.errors;
+      if (error.status !== 0) {
+        // if (error.error.errors.length !== 0) {
+        //   for (const [key, value] of Object.entries(error.error.errors)) {
+        //     console.log(`${key}: ${value}`);
+        //     errors.push(Object.prototype.toString(value));
+        //   }
+        //   errorMessage = errors.join('\n');
+        // }
       }
-
-      if (error.error.erreorMessage && error.status !== 0) {
-        errorMessage = error.error.errorMessage;
-      }
+      // if (error.error.errorMessage && error.status !== 0) {
+      //   errorMessage = error.error.errorMessage;
+      // }
     }
     return errorMessage;
   }

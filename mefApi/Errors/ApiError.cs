@@ -16,6 +16,7 @@ namespace mefApi.Errors
         public int ErrorCode { get; set; }
         public string ErrorMessage { get; set; } = string.Empty;
         public string ErrorDetails { get; set; } = string.Empty;
+        public ICollection<string>? Errors { get; set; }
 
         public override string ToString()
         {

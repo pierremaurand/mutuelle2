@@ -1,0 +1,38 @@
+<!-- Begin Page Content -->
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">
+      <i class="fa fa-list"></i> Les membres
+    </h1>
+    <span>
+      <app-bouton-action
+        (newEvent)="newEvent()"
+        [afficheNew]="true"
+      ></app-bouton-action>
+    </span>
+  </div>
+
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <app-filtre-membre
+        (membresFound)="membresFound($event)"
+      ></app-filtre-membre>
+    </div>
+    <div class="card-body liste">
+      <div class="row">
+        <div
+          class="col-3"
+          *ngFor="let membre of membres | sort : ['nom', 'asc']"
+        >
+          <app-fiche-membre
+            [membre]="membre"
+            (click)="details(membre.id)"
+          ></app-fiche-membre>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /.container-fluid -->

@@ -186,7 +186,7 @@ export class AccueilComponent implements OnInit {
 
         {
           id: '67',
-          titre: 'Parametres',
+          titre: 'Plan Comptable',
           icon: 'far fa-fw fa-building',
           url: 'parametres',
         },

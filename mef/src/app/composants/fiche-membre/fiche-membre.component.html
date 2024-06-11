@@ -1,0 +1,37 @@
+<div class="card shadow border-primary mb-3 py-2">
+  <div class="card-header">
+    <img
+      [src]="imagesUrl + '/assets/images/' + membre.photo"
+      class="rounded-circle img-fluid"
+    />
+  </div>
+  <div class="card-body">
+    <h5
+      class="text-truncate text-center card-title"
+      [ngClass]="{
+        'text-success': membre.estActif,
+        'text-danger': !membre.estActif
+      }"
+    >
+      {{ membre.nom | uppercase }}
+    </h5>
+    <div class="row">
+      <div class="col text-center">
+        <small class="text-primary text-truncate">
+          <span *ngIf="sexe$ | async as sexe">
+            <i class="fa fa-venus-mars"></i>
+            {{ sexe.symbole | uppercase }} |
+          </span>
+          <span *ngIf="poste$ | async as poste">
+            <i class="fa fa-sitemap"></i>
+            {{ poste.code | uppercase }} |
+          </span>
+          <span *ngIf="lieu$ | async as lieu">
+            <i class="fa fa-building"></i>
+            {{ lieu.code | uppercase }}
+          </span>
+        </small>
+      </div>
+    </div>
+  </div>
+</div>

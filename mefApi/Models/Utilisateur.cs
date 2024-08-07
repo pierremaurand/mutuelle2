@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace mefApi.Models
 {
     public class Utilisateur : BaseEntity

@@ -1,8 +1,5 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using mefApi.Interfaces;
 using mefApi.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace mefApi.Data.Repo
 {

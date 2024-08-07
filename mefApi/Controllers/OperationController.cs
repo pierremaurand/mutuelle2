@@ -1,7 +1,5 @@
-using AutoMapper;
 using mefApi.Dtos;
 using mefApi.Interfaces;
-using mefApi.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace mefApi.Controllers

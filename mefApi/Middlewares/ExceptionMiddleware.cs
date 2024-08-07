@@ -1,10 +1,5 @@
-using System;
 using System.Net;
-using System.Threading.Tasks;
 using mefApi.Errors;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace mefApi.Middlewares
 {

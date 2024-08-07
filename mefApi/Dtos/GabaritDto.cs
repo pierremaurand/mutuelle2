@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using mefApi.Models;
 
 namespace mefApi.Dtos
 {

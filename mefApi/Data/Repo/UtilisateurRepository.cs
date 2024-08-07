@@ -1,9 +1,6 @@
-using System.Security.Cryptography;
-using System.Threading.Tasks;
 using mefApi.Dtos;
 using mefApi.Interfaces;
 using mefApi.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace mefApi.Data.Repo
 {

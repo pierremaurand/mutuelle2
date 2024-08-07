@@ -1,5 +1,3 @@
-using System;
-
 namespace mefApi.Models
 {
     public class BaseEntity

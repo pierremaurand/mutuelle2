@@ -1,8 +1,6 @@
-using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using AutoMapper;
 using mefApi.Dtos;
 using mefApi.HubConfig;
 using mefApi.Interfaces;
@@ -10,7 +8,6 @@ using mefApi.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
-using Microsoft.IdentityModel.Tokens;
 
 namespace mefApi.Controllers
 {

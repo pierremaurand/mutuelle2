@@ -131,12 +131,7 @@
     {
       "code": "Undefined",
       "level": "Error",
-      "message": "Échec du téléchargement du package 'SixLabors.ImageSharp.3.1.4' à partir de 'https://api.nuget.org/v3-flatcontainer/sixlabors.imagesharp/3.1.4/sixlabors.imagesharp.3.1.4.nupkg'.\r\nLe téléchargement de 'https://api.nuget.org/v3-flatcontainer/sixlabors.imagesharp/3.1.4/sixlabors.imagesharp.3.1.4.nupkg' a expiré, car aucune donnée n'a été reçue pendant 60000 ms.\r\n  Exception of type 'System.TimeoutException' was thrown."
-    },
-    {
-      "code": "Undefined",
-      "level": "Error",
-      "message": "Échec du téléchargement du package 'CloudinaryDotNet.1.17.0' à partir de 'https://api.nuget.org/v3-flatcontainer/cloudinarydotnet/1.17.0/cloudinarydotnet.1.17.0.nupkg'.\r\nLe téléchargement de 'https://api.nuget.org/v3-flatcontainer/cloudinarydotnet/1.17.0/cloudinarydotnet.1.17.0.nupkg' a expiré, car aucune donnée n'a été reçue pendant 60000 ms.\r\n  Exception of type 'System.TimeoutException' was thrown."
+      "message": "Échec du téléchargement du package 'Newtonsoft.Json.12.0.3' à partir de 'https://api.nuget.org/v3-flatcontainer/newtonsoft.json/12.0.3/newtonsoft.json.12.0.3.nupkg'.\r\nLe téléchargement de 'https://api.nuget.org/v3-flatcontainer/newtonsoft.json/12.0.3/newtonsoft.json.12.0.3.nupkg' a expiré, car aucune donnée n'a été reçue pendant 60000 ms.\r\n  Exception of type 'System.TimeoutException' was thrown."
     }
   ]
 }

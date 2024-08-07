@@ -1,10 +1,7 @@
-using AutoMapper;
 using mefApi.Dtos;
-using mefApi.Enums;
 using mefApi.HubConfig;
 using mefApi.Interfaces;
 using mefApi.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 

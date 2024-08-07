@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="row login-container">
+    <div class="col-md-6 col-sm-12">
+      <div class="card shadow">
+        <div class="card-body">
+          <h1 class="card-title text-center mb-3">Page de connexion</h1>
+          <div class="mb-3">
+            <label for="login" class="form-label">Identifiant</label>
+            <input
+              [(ngModel)]="loginRequest.login"
+              type="text"
+              class="form-control"
+              id="login"
+              placeholder="Identifiant de l'utilisateur"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Mot de passe</label>
+            <input
+              [(ngModel)]="loginRequest.password"
+              type="password"
+              class="form-control"
+              id="password"
+              placeholder="Mot de passe de l'utilisateur"
+            />
+          </div>
+          <div class="mb-3">
+            <button
+              class="form-control btn btn-primary"
+              type="button"
+              (click)="login()"
+            >
+              <i class="fas fa-sign-in-alt"></i>&nbsp;Se connecter
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

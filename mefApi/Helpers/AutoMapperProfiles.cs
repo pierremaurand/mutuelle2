@@ -1,5 +1,6 @@
 using mefApi.Dtos;
 using mefApi.Models;
+using AutoMapper;
 
 namespace mefApi.Helpers
 {

@@ -1,3 +1,4 @@
+using AutoMapper;
 using mefApi.Dtos;
 using mefApi.Interfaces;
 using Microsoft.AspNetCore.Mvc;

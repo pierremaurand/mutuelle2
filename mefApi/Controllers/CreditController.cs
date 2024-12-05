@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using mefApi.HubConfig;
+using AutoMapper;
 
 namespace mefApi.Controllers
 {

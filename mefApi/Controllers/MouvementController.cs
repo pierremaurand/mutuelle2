@@ -1,3 +1,4 @@
+using AutoMapper;
 using mefApi.Dtos;
 using mefApi.HubConfig;
 using mefApi.Interfaces;

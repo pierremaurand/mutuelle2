@@ -11,7 +11,7 @@ namespace mefApi.Controllers
     {
         protected int GetUserId()
         {
-            return int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            return int.Parse(User!.FindFirst(ClaimTypes.NameIdentifier)!.Value);
         }
     }
 }

@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.SignalR;
 using mefApi.HubConfig;
 using Microsoft.AspNetCore.Authorization;
 using System.Runtime.Versioning;
+using AutoMapper;
+using System.Drawing.Imaging;
+using System.Drawing;
 
 namespace mefApi.Controllers
 {

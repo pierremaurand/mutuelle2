@@ -4,12 +4,14 @@ using mefApi.Helpers;
 using mefApi.Interfaces;
 using mefApi.Middlewares;
 using mefApi.HubConfig;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Data.SqlClient;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Host.ConfigureHostConfiguration(configHost => {
-    configHost.AddEnvironmentVariables(prefix:"MEF_");
-});
+builder.Configuration.AddEnvironmentVariables(prefix: "MEF_");
 // Add services to the container.
 
 builder.Services.AddControllers().AddNewtonsoftJson();
@@ -39,7 +41,7 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var secretKey = builder.Configuration.GetSection("AppSettings:Key").Value;
 var key = new SymmetricSecurityKey(Encoding.UTF8
-                .GetBytes(secretKey));
+                .GetBytes(secretKey!));
                 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(opt => {
